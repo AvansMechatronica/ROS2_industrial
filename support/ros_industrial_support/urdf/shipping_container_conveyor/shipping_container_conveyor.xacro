@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<robot name="shipping_container_conveyor" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="shipping_container_conveyor_prefix" default="shipping_container_conveyor_"/>
+  <xacro:arg name="shipping_container_conveyor_parent" default="world_interface"/>
+
+  <xacro:arg name="x" default="0"/>
+  <xacro:arg name="y" default="0"/>
+  <xacro:arg name="z" default="0"/>
+  <xacro:arg name="R" default="0"/>
+  <xacro:arg name="P" default="0"/>
+  <xacro:arg name="Y" default="0"/>
+
+  <link name="world_interface" />
+
+
+  <!-- URDF -->
+  <xacro:include filename="$(find casus_support)/urdf/shipping_container_conveyor/shipping_container_conveyor.urdf.xacro"/>
+  <xacro:shipping_container_conveyor_urdf shipping_container_conveyor_prefix="$(arg shipping_container_conveyor_prefix)" shipping_container_conveyor_parent="$(arg shipping_container_conveyor_parent)">
+     <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg R) $(arg P) $(arg Y)"/>
+  </xacro:shipping_container_conveyor_urdf>
+
+  <!-- Gazebo -->
+  <xacro:include filename="$(find casus_support)/urdf/shipping_container_conveyor/shipping_container_conveyor.gazebo.xacro"/>
+</robot>

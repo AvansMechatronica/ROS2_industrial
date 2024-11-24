@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<robot name="yellow_bin" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="yellow_bin_prefix" default="yellow_bin_"/>
+  <xacro:arg name="yellow_bin_parent" default="world_interface"/>
+
+  <xacro:arg name="x" default="0"/>
+  <xacro:arg name="y" default="0"/>
+  <xacro:arg name="z" default="0"/>
+  <xacro:arg name="R" default="0"/>
+  <xacro:arg name="P" default="0"/>
+  <xacro:arg name="Y" default="0"/>
+
+  <link name="world_interface" />
+
+
+  <!-- URDF -->
+  <xacro:include filename="$(find casus_support)/urdf/yellow_bin/yellow_bin.urdf.xacro"/>
+  <xacro:yellow_bin_urdf yellow_bin_prefix="$(arg yellow_bin_prefix)" yellow_bin_parent="$(arg yellow_bin_parent)">
+     <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg R) $(arg P) $(arg Y)"/>
+  </xacro:yellow_bin_urdf>
+
+  <!-- Gazebo -->
+  <xacro:include filename="$(find casus_support)/urdf/yellow_bin/yellow_bin.gazebo.xacro"/>
+</robot>

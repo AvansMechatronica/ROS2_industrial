@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<robot name="turtlebot3_waffle_with_carrier" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+  <xacro:include filename="$(find turtlebot3_description)/urdf/turtlebot3_waffle_pi.urdf.xacro"/>
+  <xacro:include filename="$(find ros_industrial_support)/urdf/turtlebot3_with_carrier/turtlebot3_carrier.urdf.xacro"/>
+
+  <joint name="carrierplate_joint" type="fixed">
+    <origin xyz="-0.06 0 0.4" rpy="0.0 0.0 0.0"/>
+    <parent link="base_link" />
+    <child link="carrierplate_link" />
+  </joint>
+
+</robot>
