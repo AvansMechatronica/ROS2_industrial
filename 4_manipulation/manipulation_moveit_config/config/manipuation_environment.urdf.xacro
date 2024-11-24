@@ -3,7 +3,7 @@
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
 
     <!-- Import manipuation_environment urdf file -->
-    <xacro:include filename="$(find manipulation_environment)/urdf/environment.urdf.xacro" />
+    <xacro:include filename="$(find manipulation)/urdf/environment.urdf.xacro" />
 
     <!-- Import control_xacro -->
     <xacro:include filename="manipuation_environment.ros2_control.xacro" />

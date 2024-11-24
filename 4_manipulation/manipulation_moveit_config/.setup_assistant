@@ -1,6 +1,6 @@
 moveit_setup_assistant_config:
   urdf:
-    package: manipulation_environment
+    package: manipulation
     relative_path: urdf/environment.urdf.xacro
   srdf:
     relative_path: config/manipuation_environment.srdf

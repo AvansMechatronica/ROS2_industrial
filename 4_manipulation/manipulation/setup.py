@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 from glob import glob
 
-package_name = 'manipulation_environment'
+package_name = 'manipulation'
 
 setup(
     name=package_name,
@@ -25,6 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "assignment1 = manipulation.assignment1:main",
         ],
     },
 )

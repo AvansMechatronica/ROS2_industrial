@@ -102,7 +102,7 @@ def launch_setup(context, *args, **kwargs):
             'attach_rpy': attach_rpy,
             'use_sim_time': 'false',
             'moveit_config_dump': yaml.dump(moveit_config.to_dict()),
-            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation_environment'), 'fake_robot', 'fake_robot.rviz'])
+            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'), 'fake_robot', 'fake_robot.rviz'])
         }.items(),
     )
 
