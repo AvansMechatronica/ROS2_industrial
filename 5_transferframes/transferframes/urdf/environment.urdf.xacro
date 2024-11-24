@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<robot name="manipuation_environment" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- world -->
+  <link name="world" />
+
+  <!-- hall -->
+  <!--
+  <xacro:include filename="$(find ros_industrial_support)/urdf/hall/hall.urdf.xacro"/>
+  <xacro:hall_urdf hall_prefix="hall_" hall_parent="world">
+    <origin xyz="-2.5 0 0.0" rpy="0 0 0"/>
+  </xacro:hall_urdf>
+  -->
+
+  <xacro:include filename="$(find ros_industrial_support)/urdf/assembly_station/assembly_station.urdf.xacro"/>
+  <xacro:assembly_station_urdf assembly_station_prefix="shelf_" assembly_station_parent="world">
+    <origin xyz="0.5 -0.5 0.0" rpy="0 0 ${radians(90)}"/>
+  </xacro:assembly_station_urdf>
+
+  <!-- Mobile Computer -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
+  <xacro:computer_urdf computer_parent="world" computer_prefix="comp_mobile_" >
+  <origin xyz="1.5 -0.5 0" rpy="0 0 ${radians(45)}"/>
+  </xacro:computer_urdf>
+
+  <!-- Robot1 Pedestal -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/robot_pedestal/robot_pedestal.urdf.xacro"/>
+  <xacro:robot_pedestal_urdf pedestal_prefix="robot1_" pedestal_parent="world" pedestal_height="1.15">
+    <origin xyz="-0.0 0 0.0" rpy="0 0 0"/>
+  </xacro:robot_pedestal_urdf>
+
+
+ <!-- Robot1 -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>
+  <xacro:ufactory_xarm6 prefix="robot1_" joint_limited="true"/>
+
+  <!-- Vacuum Gripper1 -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/vacuum_gripper/vacuum_gripper.urdf.xacro"/>
+  <xacro:vacuum_gripper_urdf prefix="vacuum_gripper1_" joint_prefix="vacuum_gripper1_joint"/>
+
+  <!-- bins -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
+  <xacro:bin_urdf prefix="bin_1_"/>
+
+  <!-- bin to world. -->
+  <joint name="bin_1_joint" type="fixed">
+    <parent link="world" />
+    <child link="bin_1_base_link" />
+    <origin xyz="-0.5 0.5 0.0" rpy="0 0 0" />
+  </joint>
+  <!-- robot1 to pedestal. -->
+  <joint name="robot1_to_pedestal" type="fixed">
+    <origin xyz="0 0 1.15" rpy="0 0 ${radians(0)}" />
+    <parent link="robot1_pedestal_link" />
+    <child link="robot1_base_link" />
+  </joint>
+
+  <!-- gripper1 to robot1. -->
+  <joint name="gripper1_to_robot1" type="fixed">
+    <parent link="robot1_tool_link" />
+    <child link="vacuum_gripper1_base_link" />
+  </joint>
+
+
+</robot>
