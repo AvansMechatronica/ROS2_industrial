@@ -159,8 +159,8 @@ def generate_launch_description():
             #spawn_robots,
             #unpause_gazebo,
             #spawn_parts,
-            joint_state_publisher,
+            #joint_state_publisher,
             #rviz,
-            robot_state_publisher
+            #robot_state_publisher
         ]
     )

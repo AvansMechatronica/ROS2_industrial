@@ -3,8 +3,10 @@
 
 <!-- robot pedestal -->
 <xacro:macro name = "robot_pedestal_urdf" params = "pedestal_prefix pedestal_parent pedestal_height *origin">
-  <joint name="${pedestal_prefix}pedestal_joint" type="fixed">
+  <joint name="${pedestal_prefix}_pedestal_joint" type="fixed">
+    <!--
     <xacro:insert_block name="origin" />
+    -->
     <parent link="${pedestal_parent}"/>
     <child link="${pedestal_prefix}pedestal_link"/>
   </joint>

@@ -5,7 +5,6 @@
   <xacro:arg name="pedestal_height" default="0.95"/>
 
   <link name="world_interface"/>
-  <!-- URDF -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/robot_pedestal/robot_pedestal.urdf.xacro"/>
   <xacro:robot_pedestal_urdf pedestal_prefix="$(arg pedestal_prefix)" pedestal_parent="$(arg pedestal_parent)" pedestal_height="$(arg pedestal_height)">
     <origin xyz="0.5 1.8 0.0" rpy="0 0 0"/>
