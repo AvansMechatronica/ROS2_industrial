@@ -7,7 +7,7 @@ Choose: ros-humble-desktop
 
 ## Cloning this repositry:
 ```bash
-mkir -p /ros2_industrial_ws/src
+mkdir -p /ros2_industrial_ws/src
 cd /ros2_industrial_ws/src
 git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 ```
