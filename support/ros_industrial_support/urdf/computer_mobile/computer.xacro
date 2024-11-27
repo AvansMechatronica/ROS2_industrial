@@ -3,6 +3,7 @@
 
   <xacro:arg name="computer_prefix" default="computer_"/>
   <xacro:arg name="computer_parent" default="world_interface"/>
+  <xacro:arg name="mesh_path" default="$(find ros_industrial_support)"/>
 
   <xacro:arg name="x" default="0"/>
   <xacro:arg name="y" default="0"/>
@@ -16,7 +17,7 @@
 
   <!-- URDF -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
-  <xacro:computer_urdf computer_prefix="$(arg computer_prefix)" computer_parent="$(arg computer_parent)">
+  <xacro:computer_urdf computer_prefix="$(arg computer_prefix)" computer_parent="$(arg computer_parent)" mesh_path ="$(arg mesh_path)">
      <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg R) $(arg P) $(arg Y)"/>
   </xacro:computer_urdf>
 

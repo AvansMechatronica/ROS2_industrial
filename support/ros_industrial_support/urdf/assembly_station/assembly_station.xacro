@@ -3,6 +3,7 @@
 
   <xacro:arg name="assembly_station_prefix" default="assembly_station_"/>
   <xacro:arg name="assembly_station_parent" default="world_interface"/>
+  <xacro:arg name="mesh_path" default="$(find ros_industrial_support)"/>
 
   <xacro:arg name="x" default="0"/>
   <xacro:arg name="y" default="0"/>
@@ -15,7 +16,7 @@
 
   <!-- URDF -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/assembly_station/assembly_station.urdf.xacro"/>
-  <xacro:assembly_station_urdf assembly_station_prefix="$(arg assembly_station_prefix)" assembly_station_parent="$(arg assembly_station_parent)">
+  <xacro:assembly_station_urdf assembly_station_prefix="$(arg assembly_station_prefix)" assembly_station_parent="$(arg assembly_station_parent)" mesh_path="$(arg mesh_path)">
      <origin xyz="$(arg x) $(arg y) $(arg z)" rpy="$(arg R) $(arg P) $(arg Y)"/>
   </xacro:assembly_station_urdf>
 

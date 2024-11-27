@@ -1,10 +1,14 @@
 <?xml version="1.0"?>
 <robot name="bin" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:arg name="prefix" default="bin_1_"/>
+  <!--
+  <xacro:arg name="mesh_path" default="package://ros_industrial_support"/>
+  -->
+  <xacro:arg name="mesh_path" default="$(find ros_industrial_support)"/>
 
   <!-- URDF -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
-  <xacro:bin_urdf prefix="$(arg prefix)"/>
+  <xacro:bin_urdf prefix="$(arg prefix)" mesh_path="$(arg mesh_path)"/>
 
   <!-- Gazebo -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.gazebo.xacro"/>

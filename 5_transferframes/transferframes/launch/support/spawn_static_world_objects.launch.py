@@ -8,17 +8,19 @@ import xacro
 import os
 import random
 import subprocess
+import math
 
-def spawn_gazebo_object(path, entity, x = 0, y = 0, z = 0):
+def spawn_gazebo_object(path, entity, x = 0, y = 0, z = 0, R = 0, P = 0, Y = 0):
 
     command = ["xacro", path]
     result = subprocess.run(command, capture_output=True, text=True, check=True)
     description = result.stdout  # Capture the output of the command
 
-    tmp_file = "tmp.urdf"+ str(random.randint(0,1000))
+    tmp_file = path + ".kanweg"
+
+    #os.remove(tmp_file)
     with open(tmp_file, "w") as file:
         file.write(description)
-
 
     node = Node(
             package='gazebo_ros',
@@ -32,9 +34,12 @@ def spawn_gazebo_object(path, entity, x = 0, y = 0, z = 0):
                 '-x', str(x),
                 '-y', str(y),
                 '-z', str(z),
+                '-R', str(R),
+                '-P', str(P),
+                '-Y', str(Y),
             ],
         )
-    #os.remove(tmp_file)
+
     return node
 
 def generate_launch_description():
@@ -55,39 +60,21 @@ def generate_launch_description():
 
     robot1_pedestal = os.path.join(gazebo_models_package_dir, 'robot_pedestal', 'robot1_pedestal.xacro')
     #robot1_pedestal_spawner = spawn_gazebo_object(robot1_pedestal, "robot1_pedestal", 0 ,0 ,0)
-    bin1 = os.path.join(gazebo_models_package_dir, 'bin', 'bin.xacro')
-    bin_spawner = spawn_gazebo_object(bin1, "bin1", 0 ,0 ,0)
 
+    robot1_pedestal_path = os.path.join(gazebo_models_package_dir, 'robot_pedestal', 'robot1_pedestal.xacro')
+    robot1_pedestal_spawner = spawn_gazebo_object(robot1_pedestal_path, "robot1_pedestal", 0 ,0 ,0)
+
+    bin1_path = os.path.join(gazebo_models_package_dir, 'bin', 'bin.xacro')
+    bin_spawner = spawn_gazebo_object(bin1_path, "bin1", -0.5 ,0.5 ,0)
+
+    computer_mobile_path = os.path.join(gazebo_models_package_dir, 'computer_mobile', 'computer.xacro')
+    computer_mobile_spawner = spawn_gazebo_object(computer_mobile_path, "computer_mobile", 1.5 ,-0.5 ,0, Y=math.radians(45))
+
+    assembly_station_path = os.path.join(gazebo_models_package_dir, 'assembly_station', 'assembly_station.xacro')
+    assembly_station_spawner = spawn_gazebo_object(assembly_station_path, "assembly_station", 0.5 ,-0.5 ,Y=math.radians(90))
 
 
     if 0:
-      bin_1_spawner = Node(
-          package='gazebo_ros',
-          executable='spawn_entity.py',
-          name=[LaunchConfiguration('bin_1'), 'spawner'],
-          output='screen',
-          arguments=[
-              '-x', '-4',
-              '-y', '-2',
-              '-urdf',
-              '-model', LaunchConfiguration('bin_1'),
-              '-param', [LaunchConfiguration('bin_1'), 'description']
-          ],
-      )
-
-      robot1_pedestal_spawner = Node(
-          package='gazebo_ros',
-          executable='spawn_entity.py',
-          name=[LaunchConfiguration('robot1_pedestal'), 'spawner'],
-          output='screen',
-          arguments=[
-              '-x', '-4',
-              '-y', '-1',
-              '-urdf',
-              '-model', LaunchConfiguration('robot1_pedestal'),
-              '-param', [LaunchConfiguration('robot1_pedestal'), 'description']
-          ],
-      )
 
       hall_spawner = Node(
           package='gazebo_ros',
@@ -103,18 +90,8 @@ def generate_launch_description():
 
     # Return launch description
     return LaunchDescription(launch_args + [
-        #workshop_arg,
-        #workshop_parent_name_arg,
-        #hall_prefix_arg,
-        #hall_parent_arg,
-        #robot1_prefix_arg,
-        #robot1_pedestal_arg,
-        #vacuum_gripper1_prefix_arg,
-        #bin_1_arg,
-        #robot1_pedestal_spawner,
+        robot1_pedestal_spawner,
         bin_spawner,
-        #bin_1_spawner,
-        #robot1_pedestal_spawner,
-        #hall_spawner
-
+        computer_mobile_spawner,
+        assembly_station_spawner,
     ])

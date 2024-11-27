@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="assembly_station_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="assembly_station_urdf" params="assembly_station_parent assembly_station_prefix *origin">
+    <xacro:macro name="assembly_station_urdf" params="assembly_station_parent assembly_station_prefix mesh_path:='package://ros_industrial_support' *origin">
 
 
   <joint name="${assembly_station_prefix}joint" type="fixed">
@@ -17,12 +17,12 @@
     <link name="${assembly_station_prefix}origin">
       <visual>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/assembly_station/meshes/assembly_station.dae" scale="1.1 1.1 1.1"/>
+          <mesh filename="${mesh_path}/meshes/assembly_station/meshes/assembly_station.dae" scale="1.1 1.1 1.1"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/assembly_station/meshes/assembly_station.dae" scale="1.1 1.1 1.1"/>
+          <mesh filename="${mesh_path}/meshes/assembly_station/meshes/assembly_station.dae" scale="1.1 1.1 1.1"/>
         </geometry>
       </collision>
       <inertial>

@@ -32,7 +32,7 @@
 
  <!-- Robot1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>
-  <xacro:ufactory_xarm6 prefix="robot1_" joint_limited="true"/>
+  <xacro:ufactory_xarm6 prefix="" joint_limited="true"/>
 
   <!-- Vacuum Gripper1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/vacuum_gripper/vacuum_gripper.urdf.xacro"/>
@@ -40,6 +40,9 @@
 
   <!-- bins -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
+  <!--
+  <xacro:bin_urdf prefix="bin_1_" mesh_path="package://ros_industrial_support"/>
+  -->
   <xacro:bin_urdf prefix="bin_1_"/>
 
   <!-- bin to world. -->
@@ -52,12 +55,12 @@
   <joint name="robot1_to_pedestal" type="fixed">
     <origin xyz="0 0 1.15" rpy="0 0 ${radians(0)}" />
     <parent link="robot1_pedestal_link" />
-    <child link="robot1_base_link" />
+    <child link="base_link" />
   </joint>
 
   <!-- gripper1 to robot1. -->
   <joint name="gripper1_to_robot1" type="fixed">
-    <parent link="robot1_tool_link" />
+    <parent link="tool_link" />
     <child link="vacuum_gripper1_base_link" />
   </joint>
 

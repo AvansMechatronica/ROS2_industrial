@@ -23,7 +23,7 @@ def generate_launch_description():
     # Paths to included launch files
     gazebo_launch_dir = os.path.join(get_package_share_directory('gazebo_ros'), 'launch')
     #casus_support_launch_dir = os.path.join(get_package_share_directory('casus_support'), 'launch')
-    #casus_moveit_config_launch_dir = os.path.join(get_package_share_directory('casus_moveit_config'), 'launch')
+    casus_moveit_config_launch_dir = os.path.join(get_package_share_directory('transferframes_moveit_config'), 'launch')
     #ros_industrial_gazebo_launch_dir = os.path.join(get_package_share_directory('ros_industrial_gazebo'), 'launch')
 
     world_path =  os.path.join(get_package_share_directory('transferframes'), 'worlds', 'casus.world')
@@ -63,13 +63,13 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(package_dir, 'launch', 'support', 'spawn_static_world_objects.launch.py'))
     )
 
+    move_group = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(casus_moveit_config_launch_dir, 'move_group.launch.py'))
+    )
 
 
     if 0:
 
-        move_group = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(casus_moveit_config_launch_dir, 'move_group.launch.py'))
-        )
 
         spawn_world_objects = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(ros_industrial_gazebo_launch_dir, 'spawn_static_world_objects.launch.py'))
@@ -139,28 +139,27 @@ def generate_launch_description():
             executable='joint_state_publisher_gui',
             name='joint_state_publisher_gui',
             parameters=[{'use_gui': True},
-                        {'zeros.robot1_joint1': 0.0},
-                        {'zeros.robot1_joint2': 0.785},
-                        {'zeros.robot1_joint3': -1.57},
-                        {'zeros.robot1_joint4': 0.0},
-                        {'zeros.robot1_joint5': 0.785},
-                        {'zeros.robot1_joint6': 0.0},         
+                        {'zeros.joint1': 0.0},
+                        {'zeros.joint2': 0.785},
+                        {'zeros.joint3': -1.57},
+                        {'zeros.joint4': 0.0},
+                        {'zeros.joint5': 0.785},
+                        {'zeros.joint6': 0.0},         
             ],
         )
-
-
 
     return LaunchDescription(
         launch_args + [
             gazebo_launch,
             urdf_description_node,
-            #move_group,
+            spawn_world_objects,
+            move_group,
             #spawn_world_objects,
             #spawn_robots,
             #unpause_gazebo,
             #spawn_parts,
-            #joint_state_publisher,
-            #rviz,
+            joint_state_publisher,
+            rviz,
             #robot_state_publisher
         ]
     )

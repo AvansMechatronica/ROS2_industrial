@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="computer_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="computer_urdf" params="computer_parent computer_prefix *origin">
+    <xacro:macro name="computer_urdf" params="computer_parent computer_prefix mesh_path:='package://ros_industrial_support' *origin">
 
 
   <joint name="${computer_prefix}joint" type="fixed">
@@ -17,12 +17,12 @@
     <link name="${computer_prefix}origin">
       <visual>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/computer_mobile/meshes/computer.dae" scale="0.01 0.01 0.01"/>
+          <mesh filename="${mesh_path}/meshes/computer_mobile/meshes/computer.dae" scale="0.01 0.01 0.01"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/computer_mobile/meshes/computer.dae" scale="0.01 0.01 0.01"/>
+          <mesh filename="${mesh_path}/meshes/computer_mobile/meshes/computer.dae" scale="0.01 0.01 0.01"/>
         </geometry>
       </collision>
       <inertial>
