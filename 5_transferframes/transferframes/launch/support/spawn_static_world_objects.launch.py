@@ -58,7 +58,7 @@ def generate_launch_description():
 
     gazebo_models_package_dir = os.path.join(get_package_share_directory('ros_industrial_support'), 'urdf')
 
-    robot1_pedestal = os.path.join(gazebo_models_package_dir, 'robot_pedestal', 'robot1_pedestal.xacro')
+    #robot1_pedestal = os.path.join(gazebo_models_package_dir, 'robot_pedestal', 'robot1_pedestal.xacro')
     #robot1_pedestal_spawner = spawn_gazebo_object(robot1_pedestal, "robot1_pedestal", 0 ,0 ,0)
 
     robot1_pedestal_path = os.path.join(gazebo_models_package_dir, 'robot_pedestal', 'robot1_pedestal.xacro')
@@ -72,6 +72,9 @@ def generate_launch_description():
 
     assembly_station_path = os.path.join(gazebo_models_package_dir, 'assembly_station', 'assembly_station.xacro')
     assembly_station_spawner = spawn_gazebo_object(assembly_station_path, "assembly_station", 0.5 ,-0.5 ,Y=math.radians(90))
+
+    ufactory_xarm6_w_vacuum_gripper_path = os.path.join(gazebo_models_package_dir, 'ufactory', 'ufactory_xarm6_w_vacuum_gripper.xacro')
+    ufactory_xarm6_w_vacuum_gripper_spawner = spawn_gazebo_object(ufactory_xarm6_w_vacuum_gripper_path, "ufactory_xarm6_w_vacuum_gripper", 0.0 ,0.0 ,1.15)
 
 
     if 0:
@@ -94,4 +97,5 @@ def generate_launch_description():
         bin_spawner,
         computer_mobile_spawner,
         assembly_station_spawner,
+        ufactory_xarm6_w_vacuum_gripper_spawner,
     ])
