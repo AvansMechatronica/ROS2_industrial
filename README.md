@@ -10,7 +10,6 @@ Choose: ros-humble-desktop
 mkir -p /ros_inbdustrial_ws/src
 cd /ros_inbdustrial_ws/src
 gir clone https://github.com/AvansMechatronica/ROS2_industrial.git
-.install
 ```
 
 ## Installing nessery packages etc.
