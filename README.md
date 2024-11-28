@@ -1,14 +1,24 @@
 # ROS2 industrial (Humble-version)
 
+
 ## Pre-requistions ROS2-Humble:
 Following instructions for [Installing ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 
 Choose: ros-humble-desktop
 
+-- Of --
+
+Clone deze repository(zie hieronder) en vervolgens
+```bash
+cd ~/ros2_industrial_ws/src/install
+./install_ros_humble_desktop.bash
+./install_colcon.bash
+```
+
 ## Cloning this repositry:
 ```bash
 mkdir -p /ros2_industrial_ws/src
-cd /ros2_industrial_ws/src
+cd ~/ros2_industrial_ws/src
 git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 ```
 
