@@ -4,6 +4,8 @@
 
 ## ROS Publishers and Subscribers:
 
+## Deze opdracht moet nog uitgeschreven worden in het nederlands
+
 In this assignment, you will complete a code provided to you in assignment1.py  by adding code to replace the <write your code here> bits in the file, corresponding to each part of this assignment. 
 
 Your goal is to publish to and subscribe to a topic. Now, what is new about doing this when you already saw me do this in the lectures? Well, in the lecture I used two ROS nodes, one for publisher and one for subscriber. But in this assignment, you will use only ONE ROS node for both publisher and subscriber. You will do this assignment in 3 parts, and only when you complete all 3 parts, the code will work correctly.
@@ -22,6 +24,8 @@ Start the simulation of the range sensor
 ```bash
 ros2 run range_sensor sensor_info_publisher_simulation
 ```
+Liever met een echte sensor werken zie:
+[MicroROS ESP32 implementatie van range-sensor](./ESP32/README.md)
 
 Examen excisting topic
 ```bash
