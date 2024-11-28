@@ -61,7 +61,6 @@ Now that you have the valid height information only, you will create a new messa
 
 3. Generate the new message type as instructed in the lecture
 
-Upload a screenshot of the command:
 
 ## Part3:
 
@@ -79,31 +78,37 @@ Once you have finished this, and the previous two parts of the assignment, you c
 
 To run it follow this steps:
 
-Step 1: Start up a terminal, source your setup files, and launch the rosmaster:
+instruction will not be repeated in the future when you are asked to start a new terminal
 
-$ roscore
+Step 1: In a new terminal, start the sensor info publisher
 
-Note: ALWAYS SOURCE YOUR SETUP files whenever you start a new terminal. It is assumed you will do this all the time and this instruction will not be repeated in the future when you are asked to start a new terminal
+```bash
+$ ros2 run range_sensor sensor_info_publisher_simulation
+```
 
-Step 2: In a new terminal, start the sensor info publisher
+Step 2: In a new terminal, Run the assignment1.py script with
 
-$ rosrun hrwros_week1 sensor_info_publisher.py
+```bash
+$ ros2 run range_sensor assignment1
+````
 
-Step 3: In a new terminal, Run the week1_assignment1.py script with
+Step 3: In a new terminal, run the command 
 
-$ rosrun hrwros_week1 week1_assignment1.py
-
-Step 4: In a new terminal, run the command 
-
-$ rostopic list.
+```bash
+$ ros2 topic list.
+```
 
 Step 5: If you see the topic /box_height_info listed, verify that it has a publisher with the command
 
-$ rostopic info /box_height_info
+```bash
+$ ros2 topic info /box_height_info
+````
 
 Step 6: Finally, use the command 
 
-$ rostopic echo /box_height_info
+```bash
+$ ros2 topic echo /box_height_info
+```
 
 And wait until you see 5 messages of type BoxHeightInformation. Terminate this command with Ctrl+C and upload a screenshot of the output.
 
