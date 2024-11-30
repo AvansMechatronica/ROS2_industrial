@@ -26,7 +26,8 @@
     <joint name="workcell_to_world_interface" type="fixed">
       <parent link="${workcell_parent}" />
       <child link="workcell" />
-      <origin xyz="0 0 0" rpy="0 0 ${radians(90)}" />
+      <origin xyz="0 0 0.0" rpy="0 0 ${radians(90)}" />
     </joint>
+
   </xacro:macro>
 </robot>

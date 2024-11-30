@@ -12,6 +12,7 @@
   </xacro:hall_urdf>
   -->
 
+
   <xacro:include filename="$(find ros_industrial_support)/urdf/assembly_station/assembly_station.urdf.xacro"/>
   <xacro:assembly_station_urdf assembly_station_prefix="shelf_" assembly_station_parent="world">
     <origin xyz="0.5 -0.5 0.0" rpy="0 0 ${radians(90)}"/>

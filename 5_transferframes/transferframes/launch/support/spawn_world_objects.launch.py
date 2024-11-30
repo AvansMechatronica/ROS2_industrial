@@ -93,9 +93,9 @@ def generate_launch_description():
 
     # Return launch description
     return LaunchDescription(launch_args + [
-        robot1_pedestal_spawner,
+        #robot1_pedestal_spawner,
         bin_spawner,
         computer_mobile_spawner,
         assembly_station_spawner,
-        ufactory_xarm6_w_vacuum_gripper_spawner,
+        #ufactory_xarm6_w_vacuum_gripper_spawner,
     ])

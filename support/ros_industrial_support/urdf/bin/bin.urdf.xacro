@@ -4,28 +4,30 @@
   <xacro:arg name="mesh_path" default="$(find ros_industrial_support)"/>
 
   <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='package://ros_industrial_support'">-->
+  <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='$(find ros_industrial_support)'">-->
   <xacro:macro name="bin_urdf" params="prefix">
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
+
     <!-- link list -->
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="$(find ros_industrial_support)/meshes/bin/visual/bin.dae" />
-          <mesh filename="package://ros_industrial_support/meshes/bin/visual/bin.dae" />
+          <mesh filename="${mesh_path}/meshes/bin/visual/bin.dae" />
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="$(find ros_industrial_support)/meshes/bin/collision/bin_bottom.dae"/>
+          <mesh filename="${mesh_path}/meshes/bin/collision/bin_bottom.dae"/>
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </collision>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="$(find ros_industrial_support)/meshes/bin/collision/bin_sides.dae"/>
+          <mesh filename="${mesh_path}/meshes/bin/collision/bin_sides.dae"/>
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </collision>

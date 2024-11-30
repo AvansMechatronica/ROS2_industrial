@@ -13,14 +13,14 @@
   -->
 
   <xacro:include filename="$(find ros_industrial_support)/urdf/assembly_station/assembly_station.urdf.xacro"/>
-  <xacro:assembly_station_urdf assembly_station_prefix="shelf_" assembly_station_parent="world">
+  <xacro:assembly_station_urdf assembly_station_prefix="assembly_station_" assembly_station_parent="world">
     <origin xyz="0.5 -0.5 0.0" rpy="0 0 ${radians(90)}"/>
   </xacro:assembly_station_urdf>
 
   <!-- Mobile Computer -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
   <xacro:computer_urdf computer_parent="world" computer_prefix="comp_mobile_" >
-  <origin xyz="1.5 -0.5 0" rpy="0 0 ${radians(45)}"/>
+  <origin xyz="1.5 -0.5 0.00" rpy="0 0 ${radians(45)}"/>
   </xacro:computer_urdf>
 
   <!-- Robot1 Pedestal -->

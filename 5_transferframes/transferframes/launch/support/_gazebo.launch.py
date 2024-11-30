@@ -76,6 +76,10 @@ def launch_setup(context, *args, **kwargs):
         parameters=[{'use_sim_time': True}],
     )
 
+    static_objects_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', 'spawn_world_objects.launch.py'])),
+    )
+
     # rviz with moveit configuration
     if not rviz_config.perform(context):
         rviz_config_file = PathJoinSubstitution([FindPackageShare(moveit_config_package_name), 'config', 'environment.rviz'])
@@ -148,14 +152,22 @@ def launch_setup(context, *args, **kwargs):
                     on_exit=rviz2_node,
                 )
             ),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
-                    on_exit=controller_nodes,
-                )
-            ),
-            robot_state_publisher_node
-        ]
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=controller_nodes,
+            #    )
+            #),
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=static_objects_launch,
+            #    )
+            #),
+            robot_state_publisher_node,
+            
+            #static_objects_launch
+        ] + controller_nodes
     else:
         return [
             RegisterEventHandler(
