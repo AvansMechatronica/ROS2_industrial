@@ -1,0 +1,1 @@
+ros_industrial_msgs/PartLot[] parts

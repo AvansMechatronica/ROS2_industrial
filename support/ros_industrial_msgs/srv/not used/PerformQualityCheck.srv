@@ -1,0 +1,9 @@
+string order_id
+---
+bool valid_id
+bool all_passed
+bool incorrect_tray
+ros_industrial_msgs/QualityIssue quadrant1
+ros_industrial_msgs/QualityIssue quadrant2
+ros_industrial_msgs/QualityIssue quadrant3
+ros_industrial_msgs/QualityIssue quadrant4

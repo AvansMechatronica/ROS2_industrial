@@ -1,0 +1,5 @@
+string order_id
+---
+bool valid_id
+bool agv_at_station
+ros_industrial_msgs/PartPose[] parts

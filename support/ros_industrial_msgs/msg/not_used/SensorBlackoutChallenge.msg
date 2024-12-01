@@ -1,0 +1,3 @@
+float64 duration
+ros_industrial_msgs/Condition condition
+ros_industrial_msgs/Sensors sensors_to_disable
