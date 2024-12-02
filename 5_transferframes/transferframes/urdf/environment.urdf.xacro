@@ -29,10 +29,12 @@
     <origin xyz="-0.0 0 0.0" rpy="0 0 0"/>
   </xacro:robot_pedestal_urdf>
 
+  <!--
   <xacro:include filename="$(find ros_industrial_support)/urdf/logical_camera/logical_camera.urdf.xacro"/>
   <xacro:logical_camera_urdf logical_camera_prefix="camera1_" logical_camera_parent="world">
     <origin xyz="0.5 -0.5 2.0" rpy="0 0 0"/>
   </xacro:logical_camera_urdf>
+  -->
 
  <!-- Robot1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>

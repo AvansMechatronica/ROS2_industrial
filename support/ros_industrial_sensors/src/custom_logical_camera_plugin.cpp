@@ -20,7 +20,7 @@ class CustomLogicalCameraPluginPrivate
 public:
   /// Node for ros communication
   gazebo_ros::Node::SharedPtr ros_node_;
-  
+
   /// Publish for logical camera message
   rclcpp::Publisher<ros_industrial_msgs::msg::LogicalCameraImage>::SharedPtr basic_pub_;
 
@@ -41,10 +41,6 @@ public:
 
   std::map<std::string, int> part_types_;
 
-  /// Sensor Health Subscription
-  ros_industrial_msgs::msg::Sensors sensor_health_;
-  rclcpp::Subscription<ros_industrial_msgs::msg::Sensors>::SharedPtr sensor_health_sub_;
-
   /// Publish latest logical camera data to ROS
   void OnUpdate();
 };
@@ -60,18 +56,13 @@ CustomLogicalCameraPlugin::~CustomLogicalCameraPlugin()
 
 void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
 {
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPlugin::Load entry");
+
   impl_->sensor_ = std::dynamic_pointer_cast<gazebo::sensors::LogicalCameraSensor>(_sensor);
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
 
    // Set list of models to publish
   impl_->parts_to_publish_ = {"pump", "battery", "regulator", "sensor"};
-
-  impl_->part_types_ = {
-    {"battery", ros_industrial_msgs::msg::Part::BATTERY},
-    {"pump", ros_industrial_msgs::msg::Part::PUMP},
-    {"regulator", ros_industrial_msgs::msg::Part::REGULATOR},
-    {"sensor", ros_industrial_msgs::msg::Part::SENSOR},
-  };
 
   impl_->camera_name_ = _sdf->Get<std::string>("camera_name");
 
@@ -82,17 +73,20 @@ void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::El
 
   impl_->sensor_update_event_ = impl_->sensor_->ConnectUpdated(
     std::bind(&CustomLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
+
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPlugin::Load exit");
 }
 
 void CustomLogicalCameraPluginPrivate::OnUpdate()
 {
+  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPluginPrivate::OnUpdate entry");
 
   const auto & image = this->sensor_->Image();
 
   geometry_msgs::msg::Pose sensor_pose = gazebo_ros::Convert<geometry_msgs::msg::Pose>(
     gazebo::msgs::ConvertIgn(image.pose()));
 
-  std::vector<ros_industrial_msgs::msg::PartPose> parts;
+  std::vector<ros_industrial_msgs::msg::PartPose> part_poses;
 
   for (int i = 0; i < image.model_size(); i++) {
 
@@ -101,14 +95,16 @@ void CustomLogicalCameraPluginPrivate::OnUpdate()
 
 
     for(std::string part_type : parts_to_publish_){
+      std::cout << "part_type " << part_type << std::endl;
       if (name.find(part_type) != std::string::npos) {
-        ros_industrial_msgs::msg::PartPose part;
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "part found");
+        ros_industrial_msgs::msg::PartPose part_pose;
 
-        part.part.type = part_types_[part_type];
-        
-        part.pose = gazebo_ros::Convert<geometry_msgs::msg::Pose>(gazebo::msgs::ConvertIgn(lc_model.pose()));
+        //part.part.type = part_types_[part_type];
+        part_pose.part.data = name;
+        part_pose.pose = gazebo_ros::Convert<geometry_msgs::msg::Pose>(gazebo::msgs::ConvertIgn(lc_model.pose()));
 
-        parts.push_back(part);
+        part_poses.push_back(part_pose);
 
         break;
       }
@@ -119,15 +115,13 @@ void CustomLogicalCameraPluginPrivate::OnUpdate()
 
   basic_image_msg_->part_poses.clear();
 
-  for (ros_industrial_msgs::msg::PartPose &part : parts) {
-    basic_image_msg_->part_poses.push_back(part.pose);
+  for (ros_industrial_msgs::msg::PartPose &part_pose : part_poses) {
+    basic_image_msg_->part_poses.push_back(part_pose);
   }
 
   basic_pub_->publish(*basic_image_msg_);
-
 }
-
 
 GZ_REGISTER_SENSOR_PLUGIN(CustomLogicalCameraPlugin)
 
-}  // namespace ariac_sensors
+}  // namespace ros_industrial_sensors

@@ -39,7 +39,7 @@ set(msg_files
   #"msg/Order.msg"
   #"msg/OrderCondition.msg"
   #"msg/PartLot.msg"
-  "msg/Part.msg"
+  #"msg/Part.msg"
   #"msg/PartPlaceCondition.msg"
   "msg/PartPose.msg"
   #"msg/Parts.msg"

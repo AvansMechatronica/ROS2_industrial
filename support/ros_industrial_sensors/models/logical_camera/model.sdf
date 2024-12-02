@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <sdf version="1.6">
-  <model name="basic_logical_camera">
+  <model name="custom_logical_camera">
     <static>true</static>
-    <link name="basic_logical_camera">
+    <link name="custom_logical_camerax">
       <visual name="visual">
         <pose>-0.02 0 -0.02 0 0 -1.5708</pose>
         <geometry>
@@ -11,8 +11,7 @@
           </mesh>
         </geometry>
       </visual>
-
-      <sensor name="custom_logical_camera" type="logical_camera">
+      <sensor name="logical_camera" type="logical_camera">
         <logical_camera>
             <near>0.2</near>
             <far>1.1</far>

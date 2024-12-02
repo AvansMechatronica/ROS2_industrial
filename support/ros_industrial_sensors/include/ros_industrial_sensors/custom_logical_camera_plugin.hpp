@@ -2,7 +2,7 @@
 #define CUSTOM_LOGICAL_CAMERA_PLUGIN_HPP_
 
 #include <gazebo/common/Plugin.hh>
-#include <ros_industrial_msgs/msg/sensors.hpp>
+//#include <ros_industrial_msgs/msg/sensors.hpp>
 
 #include <memory>
 
@@ -29,6 +29,6 @@ private:
   std::unique_ptr<CustomLogicalCameraPluginPrivate> impl_;
 };
 
-}  // namespace ariac_sensors
+}  // namespace ros_industrial_sensors
 
 #endif  // CUSTOM_LOGICAL_CAMERA_PLUGIN_HPP_

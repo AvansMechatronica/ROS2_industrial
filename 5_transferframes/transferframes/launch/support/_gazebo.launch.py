@@ -140,12 +140,11 @@ def launch_setup(context, *args, **kwargs):
             output='screen',
             arguments=[
                 '-x', '0.5', '-y', '-0.5', '-z', '2.0', '-P', str(math.radians(90)),
-                '-entity', 'logical_camera',
+                '-entity', 'logical_camera_1',
                 '-file', pkg_path+'/models/logical_camera/model.sdf',
                 '-timeout', '50'
             ],
     )
-    # str(math.radians(90))
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -161,36 +160,25 @@ def launch_setup(context, *args, **kwargs):
                 )
             ),
             RegisterEventHandler(
-                condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=rviz2_node,
                 )
             ),
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=camera_node,
+            #    )
+            #),
             RegisterEventHandler(
-                condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
-                    on_exit=camera_node,
+                    on_exit=controller_nodes,
                 )
             ),
-            #RegisterEventHandler(
-            #    event_handler=OnProcessExit(
-            #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=controller_nodes,
-            #    )
-            #),
-            #RegisterEventHandler(
-            #    event_handler=OnProcessExit(
-            #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=static_objects_launch,
-            #    )
-            #),
             robot_state_publisher_node,
-
-            
-            #static_objects_launch
-        ] + controller_nodes
+        ] #+ controller_nodes
     else:
         return [
             RegisterEventHandler(
