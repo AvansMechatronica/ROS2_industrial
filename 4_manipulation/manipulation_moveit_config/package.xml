@@ -8,7 +8,7 @@
   </description>
   <maintainer email="ga.harkema@avans.nl">Gerard Harkema</maintainer>
 
-  <license>CC BY-NC-SA 4.0</license>
+  <license>BSD</license>
 
   <url type="website">http://moveit.ros.org/</url>
   <url type="bugtracker">https://github.com/ros-planning/moveit2/issues</url>
@@ -43,7 +43,6 @@
   <exec_depend>rviz_default_plugins</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>warehouse_ros_mongo</exec_depend>
-  <exec_depend>xacro</exec_depend>
 
 
   <export>

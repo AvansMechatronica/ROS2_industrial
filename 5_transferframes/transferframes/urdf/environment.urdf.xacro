@@ -70,5 +70,18 @@
     <child link="vacuum_gripper1_base_link" />
   </joint>
 
+    <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+      <ros>
+        <namespace>/robot</namespace>
+        <remapping>
+          <remap from="~/grasp" to="/gripper/grasp"/>
+        </remapping>
+      </ros>
+      <link_name>link_eef</link_name>
+      
+      <!-- Max distance to attract entities -->
+      <max_distance>10.0</max_distance>
+
+    </plugin>  
 
 </robot>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+    <model name="vacuum_gripper">
+
+        <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+            <ros>
+                <namespace>/robot</namespace>
+                <remapping>
+                    <remap from="~/grasp" to="/gripper/grasp"/>
+                </remapping>
+            </ros>
+            <link_name>link6</link_name>
+            
+            <!-- Max distance to attract entities -->
+            <max_distance>10.0</max_distance>
+
+        </plugin>
+    </model>
+</sdf>

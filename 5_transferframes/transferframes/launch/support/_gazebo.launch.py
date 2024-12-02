@@ -145,6 +145,18 @@ def launch_setup(context, *args, **kwargs):
                 '-timeout', '50'
             ],
     )
+    pkg_path = get_package_share_directory('transferframes')
+    gripper_node = Node(
+            package='gazebo_ros',
+            executable='spawn_entity.py',
+            name='camera_spawner',
+            output='screen',
+            arguments=[
+                '-entity', 'vacuuam_gripper',
+                '-file', pkg_path+'/launch/support/vacuum_gripper.xml',
+                '-timeout', '50'
+            ],
+    )
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -175,6 +187,12 @@ def launch_setup(context, *args, **kwargs):
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=controller_nodes,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=gazebo_spawn_entity_node,
+                    on_exit=gripper_node,
                 )
             ),
             robot_state_publisher_node,

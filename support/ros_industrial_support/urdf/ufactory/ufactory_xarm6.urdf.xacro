@@ -78,8 +78,9 @@
   <link name="${prefix}base_link"/>
   <link name="${prefix}tool_link"/>
 
-  <joint name="${prefix}tool_link" type="fixed">
+  <joint name="${prefix}eff_to_tool" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
+
     <parent link="${prefix}link_eef" />
     <child link="${prefix}tool_link" />
   </joint>
