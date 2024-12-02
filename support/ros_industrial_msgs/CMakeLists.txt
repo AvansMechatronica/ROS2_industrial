@@ -13,13 +13,13 @@ find_package(geometry_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 set(msg_files
-  "msg/AdvancedLogicalCameraImage.msg"
+  #"msg/AdvancedLogicalCameraImage.msg"
   #"msg/AGVStatus.msg"
   #"msg/AssemblyPart.msg"
   #"msg/AssemblyStationState.msg"
   #"msg/AssemblyTask.msg"
   #"msg/AssemblyState.msg"
-  "msg/BasicLogicalCameraImage.msg"
+  "msg/LogicalCameraImage.msg"
   #"msg/BinInfo.msg"
   #"msg/BinParts.msg"
   #"msg/BreakBeamStatus.msg"
@@ -35,7 +35,7 @@ set(msg_files
   #"msg/HumanState.msg"
   #"msg/KittingPart.msg"
   #"msg/KittingTask.msg"
-  "msg/KitTrayPose.msg"
+  #"msg/KitTrayPose.msg"
   #"msg/Order.msg"
   #"msg/OrderCondition.msg"
   #"msg/PartLot.msg"
@@ -47,7 +47,7 @@ set(msg_files
   #"msg/RobotMalfunctionChallenge.msg"
   #"msg/Robots.msg"
   #"msg/SensorBlackoutChallenge.msg"
-  "msg/Sensors.msg"
+  #"msg/Sensors.msg"
   #"msg/SubmissionCondition.msg"
   #"msg/TimeCondition.msg"
   #"msg/Trial.msg"

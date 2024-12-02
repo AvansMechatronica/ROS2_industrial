@@ -139,12 +139,13 @@ def launch_setup(context, *args, **kwargs):
             name='camera_spawner',
             output='screen',
             arguments=[
-                '-x', '0.5', '-y', '-0.5', '-z', '2.0', '-X', str(math.radians(90)),
+                '-x', '0.5', '-y', '-0.5', '-z', '2.0', '-P', str(math.radians(90)),
                 '-entity', 'logical_camera',
-                '-file', pkg_path+'/models/basic_logical_camera/model.sdf'
+                '-file', pkg_path+'/models/logical_camera/model.sdf',
+                '-timeout', '50'
             ],
     )
-
+    # str(math.radians(90))
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(

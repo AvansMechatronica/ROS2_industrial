@@ -7,12 +7,12 @@
         <pose>-0.02 0 -0.02 0 0 -1.5708</pose>
         <geometry>
           <mesh>
-            <uri>model://basic_logical_camera/meshes/camera.dae</uri>
+            <uri>model://logical_camera/meshes/camera.dae</uri>
           </mesh>
         </geometry>
       </visual>
 
-      <sensor name="basic_logical_camera" type="logical_camera">
+      <sensor name="custom_logical_camera" type="logical_camera">
         <logical_camera>
             <near>0.2</near>
             <far>1.1</far>
@@ -24,13 +24,12 @@
         <always_on>true</always_on>
         <update_rate>10</update_rate>
 
-        <plugin name="basic_logical_camera_plugin" filename="libCustomLogicalCameraPlugin.so">
+        <plugin name="custom_logical_camera_plugin" filename="libCustomLogicalCameraPlugin.so">
           <ros>
             <namespace></namespace>
           </ros>
-          <sensor_type>basic</sensor_type>
-          <camera_name>basic_logical_camera</camera_name>
-          <frame_name>basic_logical_camera_frame</frame_name>
+          <camera_name>custom_logical_camera</camera_name>
+          <frame_name>custom_logical_camera_frame</frame_name>
         </plugin>
       </sensor>
     </link>

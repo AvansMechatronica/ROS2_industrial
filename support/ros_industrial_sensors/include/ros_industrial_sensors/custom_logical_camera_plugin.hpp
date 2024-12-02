@@ -1,12 +1,12 @@
-#ifndef ARIAC_LOGICAL_CAMERA_PLUGIN_HPP_
-#define ARIAC_LOGICAL_CAMERA_PLUGIN_HPP_
+#ifndef CUSTOM_LOGICAL_CAMERA_PLUGIN_HPP_
+#define CUSTOM_LOGICAL_CAMERA_PLUGIN_HPP_
 
 #include <gazebo/common/Plugin.hh>
 #include <ros_industrial_msgs/msg/sensors.hpp>
 
 #include <memory>
 
-namespace ariac_sensors
+namespace ros_industrial_sensors
 {
 
 class CustomLogicalCameraPluginPrivate;
@@ -23,7 +23,6 @@ public:
   // Documentation Inherited
   void Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf) override;
 
-  void SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg);
 
 private:
   /// Private data pointer
@@ -32,4 +31,4 @@ private:
 
 }  // namespace ariac_sensors
 
-#endif  // ARIAC_LOGICAL_CAMERA_PLUGIN_HPP_
+#endif  // CUSTOM_LOGICAL_CAMERA_PLUGIN_HPP_
