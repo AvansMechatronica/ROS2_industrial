@@ -2,11 +2,11 @@
 #define ARIAC_CAMERA_PLUGIN_HPP_
 
 #include <gazebo/common/Plugin.hh>
-#include <ros_industrial_msgs/msg/sensors.hpp>
+#include <ariac_msgs/msg/sensors.hpp>
 
 #include <memory>
 
-namespace ros_industrial_sensors
+namespace ariac_sensors
 {
 
 class AriacCameraPluginPrivate;
@@ -32,12 +32,12 @@ public:
                 unsigned int _width, unsigned int _height,
                 unsigned int _depth, const std::string &_format);
 
-  void SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg);
+  void SensorHealthCallback(const ariac_msgs::msg::Sensors::SharedPtr msg);
 
 private:
   std::unique_ptr<AriacCameraPluginPrivate> impl_;
 };
 
-}  // namespace ros_industrial_sensors
+}  // namespace ariac_sensors
 
 #endif  // ARIAC_CAMERA_PLUGIN_HPP_

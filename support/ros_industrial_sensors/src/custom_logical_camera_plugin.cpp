@@ -1,4 +1,4 @@
-#include <ros_industrial_sensors/ros_industrial_logical_camera_plugin.hpp>
+#include <ros_industrial_sensors/custom_logical_camera_plugin.hpp>
 
 #include <gazebo/sensors/LogicalCameraSensor.hh>
 
@@ -14,10 +14,10 @@
 
 #include <memory>
 
-namespace ros_industrial_sensors
+namespace ariac_sensors
 {
 
-class RosIndustrialLogicalCameraPluginPrivate
+class AriacLogicalCameraPluginPrivate
 {
 public:
   /// Node for ros communication
@@ -31,7 +31,7 @@ public:
   ros_industrial_msgs::msg::AdvancedLogicalCameraImage::SharedPtr advanced_image_msg_;
   ros_industrial_msgs::msg::BasicLogicalCameraImage::SharedPtr basic_image_msg_;
   
-  /// RosIndustrialLogicalCameraPlugin sensor this plugin is attached to
+  /// AriacLogicalCameraPlugin sensor this plugin is attached to
   gazebo::sensors::LogicalCameraSensorPtr sensor_;
   
   /// Event triggered when sensor updates
@@ -55,16 +55,16 @@ public:
   void OnUpdate();
 };
 
-RosIndustrialLogicalCameraPlugin::RosIndustrialLogicalCameraPlugin()
-: impl_(std::make_unique<RosIndustrialLogicalCameraPluginPrivate>())
+AriacLogicalCameraPlugin::AriacLogicalCameraPlugin()
+: impl_(std::make_unique<AriacLogicalCameraPluginPrivate>())
 {
 }
 
-RosIndustrialLogicalCameraPlugin::~RosIndustrialLogicalCameraPlugin()
+AriacLogicalCameraPlugin::~AriacLogicalCameraPlugin()
 {
 }
 
-void RosIndustrialLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
+void AriacLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
 {
   impl_->sensor_ = std::dynamic_pointer_cast<gazebo::sensors::LogicalCameraSensor>(_sensor);
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
@@ -99,20 +99,20 @@ void RosIndustrialLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, 
 
   } else if (impl_->sensor_type_ == "advanced") {
     impl_->advanced_pub_ = impl_->ros_node_->create_publisher<ros_industrial_msgs::msg::AdvancedLogicalCameraImage>(
-      "ros_industrial/sensors/" + impl_->camera_name_ + "/image", rclcpp::SensorDataQoS());
+      "ariac/sensors/" + impl_->camera_name_ + "/image", rclcpp::SensorDataQoS());
 
     impl_->advanced_image_msg_ = std::make_shared<ros_industrial_msgs::msg::AdvancedLogicalCameraImage>();
   }
 
   // Subscribe to sensor health topic
   impl_->sensor_health_sub_ = impl_->ros_node_->create_subscription<ros_industrial_msgs::msg::Sensors>("/ariac/sensor_health", 10, 
-    std::bind(&RosIndustrialLogicalCameraPlugin::SensorHealthCallback, this, std::placeholders::_1));
+    std::bind(&AriacLogicalCameraPlugin::SensorHealthCallback, this, std::placeholders::_1));
 
   impl_->sensor_update_event_ = impl_->sensor_->ConnectUpdated(
-    std::bind(&RosIndustrialLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
+    std::bind(&AriacLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
 }
 
-void RosIndustrialLogicalCameraPluginPrivate::OnUpdate()
+void AriacLogicalCameraPluginPrivate::OnUpdate()
 {
   if (!sensor_health_.logical_camera) {
     return;
@@ -189,10 +189,10 @@ void RosIndustrialLogicalCameraPluginPrivate::OnUpdate()
   }
 }
 
-void RosIndustrialLogicalCameraPlugin::SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg){
+void AriacLogicalCameraPlugin::SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg){
   impl_->sensor_health_ = *msg;
 }
 
-GZ_REGISTER_SENSOR_PLUGIN(RosIndustrialLogicalCameraPlugin)
+GZ_REGISTER_SENSOR_PLUGIN(AriacLogicalCameraPlugin)
 
-}  // namespace ros_industrial_sensors
+}  // namespace ariac_sensors

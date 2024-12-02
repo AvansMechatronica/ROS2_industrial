@@ -29,40 +29,40 @@ link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 # Ariac Ray Plugin
 #add_library(AriacRayPlugin SHARED
-#  src/ros_industrial_ray_plugin.cpp
+#  src/ariac_ray_plugin.cpp
 #)
 #target_include_directories(AriacRayPlugin PUBLIC include)
 #ament_target_dependencies(AriacRayPlugin
 #  "gazebo_ros"
 #  "sensor_msgs"
-#  "ros_indistrial_msgs"
+#  "ariac_msgs"
 #)
 #ament_export_libraries(AriacRayPlugin)
 
-# Ariac Camera Pluginrm
+# Ariac Camera Plugin
 #add_library(AriacCameraPlugin SHARED
-#  src/ros_industrial_camera_plugin.cpp
+#  src/ariac_camera_plugin.cpp
 #)
 #target_include_directories(AriacCameraPlugin PUBLIC include)
 #ament_target_dependencies(AriacCameraPlugin
 #  "gazebo_ros"
 #  "sensor_msgs"
-#  "ros_indistrial_msgs"
+#  "ariac_msgs"
 #  "camera_info_manager"
 #  "image_transport"
 #)
 #ament_export_libraries(AriacCameraPlugin)
 
 # Ariac Logical Camera Plugin
-add_library(RosIndustrialLogicalCameraPlugin SHARED
-  src/ros_industrial_logical_camera_plugin.cpp
+add_library(CustomLogicalCameraPlugin SHARED
+  src/custom_logical_camera_plugin.cpp
 )
-target_include_directories(RosIndustrialLogicalCameraPlugin PUBLIC include)
-ament_target_dependencies(RosIndustrialLogicalCameraPlugin
+target_include_directories(CustomLogicalCameraPlugin PUBLIC include)
+ament_target_dependencies(CustomLogicalCameraPlugin
   "gazebo_ros"
   "ros_industrial_msgs"
 )
-ament_export_libraries(RosIndustrialLogicalCameraPlugin)
+ament_export_libraries(CustomLogicalCameraPlugin)
 
 # AGV Tray Sensor Plugin
 #add_library(AGVTraySensorPlugin SHARED
@@ -72,7 +72,7 @@ ament_export_libraries(RosIndustrialLogicalCameraPlugin)
 #ament_target_dependencies(AGVTraySensorPlugin
 #  "orocos_kdl"
 #  "gazebo_ros"
-#  "ros_industrial_msgs"
+#  "ariac_msgs"
 #)
 #ament_export_libraries(AGVTraySensorPlugin)
 
@@ -83,7 +83,7 @@ ament_export_libraries(RosIndustrialLogicalCameraPlugin)
 #target_include_directories(AssemblyStationSensorPlugin PUBLIC include)
 #ament_target_dependencies(AssemblyStationSensorPlugin
 #  "gazebo_ros"
-#  "ros_industrial_msgs"
+#  "ariac_msgs"
 #)
 #ament_export_libraries(AssemblyStationSensorPlugin)
 
@@ -97,7 +97,7 @@ install(TARGETS
     #AssemblyStationSensorPlugin
     #AriacRayPlugin
     #AriacCameraPlugin
-    RosIndustrialLogicalCameraPlugin
+    CustomLogicalCameraPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
