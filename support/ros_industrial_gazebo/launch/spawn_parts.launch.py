@@ -4,7 +4,6 @@ from ament_index_python import get_package_share_directory
 
 def generate_launch_description():
     pkg_path = get_package_share_directory('ros_industrial_gazebo')
-    print(pkg_path)
     return LaunchDescription([
         Node(
             package='gazebo_ros',

@@ -17,7 +17,7 @@
 namespace ariac_sensors
 {
 
-class AriacLogicalCameraPluginPrivate
+class CustomLogicalCameraPluginPrivate
 {
 public:
   /// Node for ros communication
@@ -31,7 +31,7 @@ public:
   ros_industrial_msgs::msg::AdvancedLogicalCameraImage::SharedPtr advanced_image_msg_;
   ros_industrial_msgs::msg::BasicLogicalCameraImage::SharedPtr basic_image_msg_;
   
-  /// AriacLogicalCameraPlugin sensor this plugin is attached to
+  /// CustomLogicalCameraPlugin sensor this plugin is attached to
   gazebo::sensors::LogicalCameraSensorPtr sensor_;
   
   /// Event triggered when sensor updates
@@ -55,16 +55,16 @@ public:
   void OnUpdate();
 };
 
-AriacLogicalCameraPlugin::AriacLogicalCameraPlugin()
-: impl_(std::make_unique<AriacLogicalCameraPluginPrivate>())
+CustomLogicalCameraPlugin::CustomLogicalCameraPlugin()
+: impl_(std::make_unique<CustomLogicalCameraPluginPrivate>())
 {
 }
 
-AriacLogicalCameraPlugin::~AriacLogicalCameraPlugin()
+CustomLogicalCameraPlugin::~CustomLogicalCameraPlugin()
 {
 }
 
-void AriacLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
+void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
 {
   impl_->sensor_ = std::dynamic_pointer_cast<gazebo::sensors::LogicalCameraSensor>(_sensor);
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
@@ -106,13 +106,13 @@ void AriacLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::Ele
 
   // Subscribe to sensor health topic
   impl_->sensor_health_sub_ = impl_->ros_node_->create_subscription<ros_industrial_msgs::msg::Sensors>("/ariac/sensor_health", 10, 
-    std::bind(&AriacLogicalCameraPlugin::SensorHealthCallback, this, std::placeholders::_1));
+    std::bind(&CustomLogicalCameraPlugin::SensorHealthCallback, this, std::placeholders::_1));
 
   impl_->sensor_update_event_ = impl_->sensor_->ConnectUpdated(
-    std::bind(&AriacLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
+    std::bind(&CustomLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
 }
 
-void AriacLogicalCameraPluginPrivate::OnUpdate()
+void CustomLogicalCameraPluginPrivate::OnUpdate()
 {
   if (!sensor_health_.logical_camera) {
     return;
@@ -189,10 +189,10 @@ void AriacLogicalCameraPluginPrivate::OnUpdate()
   }
 }
 
-void AriacLogicalCameraPlugin::SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg){
+void CustomLogicalCameraPlugin::SensorHealthCallback(const ros_industrial_msgs::msg::Sensors::SharedPtr msg){
   impl_->sensor_health_ = *msg;
 }
 
-GZ_REGISTER_SENSOR_PLUGIN(AriacLogicalCameraPlugin)
+GZ_REGISTER_SENSOR_PLUGIN(CustomLogicalCameraPlugin)
 
 }  // namespace ariac_sensors

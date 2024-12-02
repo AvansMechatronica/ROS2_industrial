@@ -9,16 +9,16 @@
 namespace ariac_sensors
 {
 
-class AriacLogicalCameraPluginPrivate;
+class CustomLogicalCameraPluginPrivate;
 
-/// Plugin to attach to a gazebo AriacLogicalCameraPlugin sensor and publish ROS message of output
-class AriacLogicalCameraPlugin : public gazebo::SensorPlugin
+/// Plugin to attach to a gazebo CustomLogicalCameraPlugin sensor and publish ROS message of output
+class CustomLogicalCameraPlugin : public gazebo::SensorPlugin
 {
 public:
   /// Constructor.
-  AriacLogicalCameraPlugin();
+  CustomLogicalCameraPlugin();
   /// Destructor.
-  virtual ~AriacLogicalCameraPlugin();
+  virtual ~CustomLogicalCameraPlugin();
 
   // Documentation Inherited
   void Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf) override;
@@ -27,7 +27,7 @@ public:
 
 private:
   /// Private data pointer
-  std::unique_ptr<AriacLogicalCameraPluginPrivate> impl_;
+  std::unique_ptr<CustomLogicalCameraPluginPrivate> impl_;
 };
 
 }  // namespace ariac_sensors

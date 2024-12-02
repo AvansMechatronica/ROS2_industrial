@@ -8,6 +8,7 @@
 
 import os
 import yaml
+import math
 from ament_index_python import get_package_share_directory
 from launch.launch_description_sources import load_python_launch_file_as_module
 from launch import LaunchDescription
@@ -131,6 +132,19 @@ def launch_setup(context, *args, **kwargs):
             parameters=[{'use_sim_time': True}],
         ))
 
+    pkg_path = get_package_share_directory('ros_industrial_sensors')
+    camera_node = Node(
+            package='gazebo_ros',
+            executable='spawn_entity.py',
+            name='camera_spawner',
+            output='screen',
+            arguments=[
+                '-x', '0.5', '-y', '-0.5', '-z', '2.0', '-X', str(math.radians(90)),
+                '-entity', 'logical_camera',
+                '-file', pkg_path+'/models/basic_logical_camera/model.sdf'
+            ],
+    )
+
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -152,6 +166,13 @@ def launch_setup(context, *args, **kwargs):
                     on_exit=rviz2_node,
                 )
             ),
+            RegisterEventHandler(
+                condition=IfCondition(show_rviz),
+                event_handler=OnProcessExit(
+                    target_action=gazebo_spawn_entity_node,
+                    on_exit=camera_node,
+                )
+            ),
             #RegisterEventHandler(
             #    event_handler=OnProcessExit(
             #        target_action=gazebo_spawn_entity_node,
@@ -165,6 +186,7 @@ def launch_setup(context, *args, **kwargs):
             #    )
             #),
             robot_state_publisher_node,
+
             
             #static_objects_launch
         ] + controller_nodes
