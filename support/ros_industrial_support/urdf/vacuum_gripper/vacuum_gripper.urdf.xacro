@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="vacuum_gripper_urdf" params="prefix joint_prefix">
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
     <!-- link list -->
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/vacuum_gripper/visual/vacuum_gripper.dae"/>
+          <mesh filename="${mesh_path}/meshes/vacuum_gripper/visual/vacuum_gripper.dae"/>
         </geometry>
         <material name="red">
           <color rgba="1 0 0 1"/>
@@ -15,7 +16,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/vacuum_gripper/collision/vacuum_gripper.dae"/>
+          <mesh filename="${mesh_path}/meshes/vacuum_gripper/collision/vacuum_gripper.dae"/>
         </geometry>
         <material name="red"/>
       </collision>
@@ -36,5 +37,23 @@
       <parent link="${prefix}base_link" />
       <child link="${prefix}suction_cup" />
     </joint>
+ 
+    <gazebo>
+      <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
+          <ros>
+              <namespace>/robot</namespace>
+              <remapping>
+                  <remap from="~/grasp" to="/gripper/grasp"/>
+              </remapping>
+          </ros>
+          <link_name>"${prefix}suction_cup"</link_name>
+          
+          <!-- Max distance to attract entities -->
+          <max_distance>10.0</max_distance>
+
+      </plugin>
+    </gazebo>
+
+
   </xacro:macro>
 </robot>

@@ -37,6 +37,7 @@
   -->
 
  <!-- Robot1 -->
+ 
   <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>
   <xacro:ufactory_xarm6 prefix="" joint_limited="true"/>
 

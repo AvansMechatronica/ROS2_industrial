@@ -1,18 +1,19 @@
 <?xml version="1.0" ?>
 <robot name="workcell_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="workcell_urdf" params="workcell_parent">
-
+    <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
+    
     <!-- Links -->
     <link name="world_interface"/>
     <link name="workcell">
       <visual>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/workcell/visual/workcell.dae"/>
+          <mesh filename="${mesh_path}/meshes/workcell/visual/workcell.dae"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://ros_industrial_support/meshes/workcell/collision/workcell.dae"/>
+          <mesh filename="${mesh_path}/meshes/workcell/collision/workcell.dae"/>
         </geometry>
       </collision>
       <inertial>

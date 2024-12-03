@@ -9,6 +9,7 @@ sudo apt -y install ros-$ROS_DISTRO-ros-controllers
 sudo apt -y install ros-$ROS_DISTRO-controller-manager
 sudo apt -y install ros-$ROS_DISTRO-controller-manager-msgs
 
+CURRENT_DIR=$(pwd)
 
 if ros2 pkg list | grep -q "xarm_description"; then
     echo "xarm packages alredy installed"
@@ -23,6 +24,7 @@ else
     git submodule update --init --remote
 fi
 
+cd "$CURRENT_DIR"
 if ros2 pkg list | grep -q "pymoveit2"; then
     echo "pymoveit2 packages alredy installed"
 else
@@ -30,6 +32,7 @@ else
     git clone https://github.com/AvansMechatronica/pymoveit2.git ../../pymoveit2 
 fi
 
+cd "$CURRENT_DIR"
 if ros2 pkg list | grep -q "my_moveit_python"; then
     echo "my_moveit_python packages alredy installed"
 else
@@ -37,8 +40,7 @@ else
     git clone https://github.com/AvansMechatronica/my_moveit_python.git ../../my_moveit_python 
 fi
 
-
-
-cd ../..
+cd "$CURRENT_DIR"
+cd ../../..
 rosdep update
 rosdep install --from-paths . --ignore-src --rosdistro $ROS_DISTRO -y

@@ -177,24 +177,24 @@ def launch_setup(context, *args, **kwargs):
                     on_exit=rviz2_node,
                 )
             ),
-            #RegisterEventHandler(
-            #    event_handler=OnProcessExit(
-            #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=camera_node,
-            #    )
-            #),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=gazebo_spawn_entity_node,
+                    on_exit=camera_node,
+                )
+            ),
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=controller_nodes,
                 )
             ),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
-                    on_exit=gripper_node,
-                )
-            ),
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=gripper_node,
+            #    )
+            #),
             robot_state_publisher_node,
         ] #+ controller_nodes
     else:

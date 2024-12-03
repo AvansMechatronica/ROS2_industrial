@@ -56,7 +56,7 @@ CustomLogicalCameraPlugin::~CustomLogicalCameraPlugin()
 
 void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
 {
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPlugin::Load entry");
+  //RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "CustomLogicalCameraPlugin::Load entry");
 
   impl_->sensor_ = std::dynamic_pointer_cast<gazebo::sensors::LogicalCameraSensor>(_sensor);
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
@@ -74,12 +74,12 @@ void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::El
   impl_->sensor_update_event_ = impl_->sensor_->ConnectUpdated(
     std::bind(&CustomLogicalCameraPluginPrivate::OnUpdate, impl_.get()));
 
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPlugin::Load exit");
+  //RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "CustomLogicalCameraPlugin::Load exit");
 }
 
 void CustomLogicalCameraPluginPrivate::OnUpdate()
 {
-  RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "CustomLogicalCameraPluginPrivate::OnUpdate entry");
+  //RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "CustomLogicalCameraPluginPrivate::OnUpdate entry");
 
   const auto & image = this->sensor_->Image();
 
@@ -95,9 +95,9 @@ void CustomLogicalCameraPluginPrivate::OnUpdate()
 
 
     for(std::string part_type : parts_to_publish_){
-      std::cout << "part_type " << part_type << std::endl;
+      //std::cout << "part_type " << part_type << std::endl;
       if (name.find(part_type) != std::string::npos) {
-        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "part found");
+        //RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "part found");
         ros_industrial_msgs::msg::PartPose part_pose;
 
         //part.part.type = part_types_[part_type];
