@@ -1,0 +1,26 @@
+digraph G {
+"link_base" -> "link1"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"xarm_link" -> "link_base"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"link1" -> "link2"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"link2" -> "link3"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"link3" -> "link4"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"link4" -> "link5"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"link5" -> "link6"[label=" Broadcaster: default_authority\nAverage rate: 183.866\nBuffer length: 2.975\nMost recent transform: 27.088\nOldest transform: 24.113\n"];
+"world" -> "assembly_station_origin_pre"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"assembly_station_origin_pre" -> "assembly_station_origin"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"world" -> "bin_1_base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"bin_1_base_link" -> "bin_1_drop_point"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"world" -> "camera1_origin"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"camera1_origin" -> "camera1_origin_post"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"world" -> "comp_mobile_origin"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"link_eef" -> "tool_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"link6" -> "link_eef"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"tool_link" -> "vacuum_gripper1_base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"world" -> "robot1_pedestal_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"robot1_pedestal_link" -> "base_link"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"vacuum_gripper1_base_link" -> "vacuum_gripper1_suction_cup"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1733258093.1653156"[ shape=plaintext ] ;
+}->"world";
+}

@@ -29,15 +29,13 @@
     <origin xyz="-0.0 0 0.0" rpy="0 0 0"/>
   </xacro:robot_pedestal_urdf>
 
-  <!--
+  <!-- Camera1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/logical_camera/logical_camera.urdf.xacro"/>
   <xacro:logical_camera_urdf logical_camera_prefix="camera1_" logical_camera_parent="world">
-    <origin xyz="0.5 -0.5 2.0" rpy="0 0 0"/>
+    <origin xyz="0.5 -0.7 2.0" rpy="0 ${radians(90)} 0"/>
   </xacro:logical_camera_urdf>
-  -->
 
- <!-- Robot1 -->
- 
+  <!-- Robot1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>
   <xacro:ufactory_xarm6 prefix="" joint_limited="true"/>
 
@@ -47,9 +45,6 @@
 
   <!-- bins -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
-  <!--
-  <xacro:bin_urdf prefix="bin_1_" mesh_path="package://ros_industrial_support"/>
-  -->
   <xacro:bin_urdf prefix="bin_1_"/>
 
   <!-- bin to world. -->
@@ -70,19 +65,5 @@
     <parent link="tool_link" />
     <child link="vacuum_gripper1_base_link" />
   </joint>
-
-    <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
-      <ros>
-        <namespace>/robot</namespace>
-        <remapping>
-          <remap from="~/grasp" to="/gripper/grasp"/>
-        </remapping>
-      </ros>
-      <link_name>link_eef</link_name>
-      
-      <!-- Max distance to attract entities -->
-      <max_distance>10.0</max_distance>
-
-    </plugin>  
 
 </robot>

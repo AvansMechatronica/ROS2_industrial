@@ -38,6 +38,7 @@ public:
 
   std::string camera_name_;
   std::string sensor_type_;
+  std::string camera_frame_name_;
 
   std::map<std::string, int> part_types_;
 
@@ -65,6 +66,7 @@ void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::El
   impl_->parts_to_publish_ = {"pump", "battery", "regulator", "sensor"};
 
   impl_->camera_name_ = _sdf->Get<std::string>("camera_name");
+  impl_->camera_frame_name_ = _sdf->Get<std::string>("camera_frame_name");
 
   impl_->basic_pub_ = impl_->ros_node_->create_publisher<ros_industrial_msgs::msg::LogicalCameraImage>(
     "ros_industrial/sensors/" + impl_->camera_name_ + "/image", rclcpp::SensorDataQoS());
@@ -111,7 +113,7 @@ void CustomLogicalCameraPluginPrivate::OnUpdate()
     }
   }
 
-  basic_image_msg_->sensor_pose = sensor_pose;
+  basic_image_msg_->camera_frame.data = camera_frame_name_;
 
   basic_image_msg_->part_poses.clear();
 

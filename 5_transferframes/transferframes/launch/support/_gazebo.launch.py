@@ -139,7 +139,7 @@ def launch_setup(context, *args, **kwargs):
             name='camera_spawner',
             output='screen',
             arguments=[
-                '-x', '0.5', '-y', '-0.5', '-z', '2.0', '-P', str(math.radians(90)),
+                '-x', '0.5', '-y', '-0.7', '-z', '2.0', '-P', str(math.radians(90)),
                 '-entity', 'logical_camera_1',
                 '-file', pkg_path+'/models/logical_camera/model.sdf',
                 '-timeout', '50'

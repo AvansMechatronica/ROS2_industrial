@@ -14,7 +14,7 @@
       <sensor name="logical_camera" type="logical_camera">
         <logical_camera>
             <near>0.2</near>
-            <far>1.1</far>
+            <far>0.8</far>
             <horizontal_fov>1.5</horizontal_fov>
             <aspect_ratio>1.2</aspect_ratio>
         </logical_camera>
@@ -28,7 +28,7 @@
             <namespace></namespace>
           </ros>
           <camera_name>custom_logical_camera</camera_name>
-          <frame_name>custom_logical_camera_frame</frame_name>
+          <camera_frame_name>camera1_orgin</camera_frame_name>
         </plugin>
       </sensor>
     </link>

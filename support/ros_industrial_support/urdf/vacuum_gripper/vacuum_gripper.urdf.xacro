@@ -38,6 +38,7 @@
       <child link="${prefix}suction_cup" />
     </joint>
  
+    <!--
     <gazebo>
       <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
           <ros>
@@ -47,12 +48,14 @@
               </remapping>
           </ros>
           <link_name>"${prefix}suction_cup"</link_name>
-          
+    -->      
           <!-- Max distance to attract entities -->
+    <!--
           <max_distance>10.0</max_distance>
 
       </plugin>
     </gazebo>
+    -->
 
 
   </xacro:macro>

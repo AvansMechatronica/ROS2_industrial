@@ -19,9 +19,6 @@
   </joint>
 
     <!-- Links -->
-<!--
-<link name="${assembly_station_parent}"/>
--->
     <link name="${assembly_station_prefix}origin">
       <visual>
         <geometry>
