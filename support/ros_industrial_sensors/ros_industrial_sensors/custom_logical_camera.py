@@ -80,7 +80,7 @@ class Camera(Node):
                     t.transform.rotation.y = part_pose.pose.orientation.y
                     t.transform.rotation.z = part_pose.pose.orientation.z
                     t.transform.rotation.w = part_pose.pose.orientation.w
-                    print(t)
+                    #print(t)
                     self.tf_broadcaster.sendTransform(t)
 
                 # Extract part information and camera frame
