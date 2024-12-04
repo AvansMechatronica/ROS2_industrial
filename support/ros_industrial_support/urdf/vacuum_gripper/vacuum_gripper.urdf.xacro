@@ -38,25 +38,22 @@
       <child link="${prefix}suction_cup" />
     </joint>
  
-    <!--
     <gazebo>
       <plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">
           <ros>
-              <namespace>/robot</namespace>
-              <remapping>
-                  <remap from="~/grasp" to="/gripper/grasp"/>
-              </remapping>
+
+            <!-- Remap service name -->
+            <remapping>switch:=custom_switch</remapping>
+
+            <!-- Remap publisher topic name -->
+            <remapping>grasping:=custom_grasping</remapping>
           </ros>
           <link_name>"${prefix}suction_cup"</link_name>
-    -->      
           <!-- Max distance to attract entities -->
-    <!--
           <max_distance>10.0</max_distance>
 
       </plugin>
     </gazebo>
-    -->
-
 
   </xacro:macro>
 </robot>
