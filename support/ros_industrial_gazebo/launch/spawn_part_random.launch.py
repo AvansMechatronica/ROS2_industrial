@@ -6,7 +6,7 @@ x_width = 0.5
 x_base = 0.1
 x_offset = random.random() * x_width
 y_width = 0.5
-y_base = -0.8
+y_base = -0.5
 y_offset = random.random() * y_width
 x_pos = x_base + x_offset
 y_pos = y_base + y_offset
@@ -26,7 +26,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', str(x_pos), '-y', str(y_pos), '-z', '1.5', '-P', str(math.radians(180)),
+                '-x', str(x_pos), '-y', str(y_pos), '-z', '1.5',
                 '-entity', entity,
                 '-file', file
             ],

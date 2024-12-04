@@ -25,7 +25,7 @@ joint_names = [
         prefix + "joint6",
     ]
 base_link_name = "link_base"
-end_effector_name = "link_eef"
+end_effector_name = "vacuum_gripper1_suction_cup" # "link_eef"
 group_name = "xarm6"
 package_name = 'transferframes_moveit_config'
 srdf_file_name = 'config/manipuation_environment.srdf'
@@ -81,9 +81,9 @@ def main():
 
 
         #print("Move to published fransfer frame")
-        to_frame_rel = 'xarm_link'
+        to_frame_rel = 'base_link'
         from_frame_rel = part
-        if 0:
+        if 1:
             try:
                 t = node.tf_buffer.lookup_transform(
                     to_frame_rel,

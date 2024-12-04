@@ -69,7 +69,7 @@ class Camera(Node):
 
                     t = TransformStamped()
                     t.header.stamp = self.get_clock().now().to_msg()
-                    t.header.frame_id =  'camera1_origin' #'camera1_orgin_post'#self.camera_image.camera_frame.data
+                    t.header.frame_id =  self.camera_image.camera_frame.data
                     t.child_frame_id = part_pose.part.data
                     if 0:
                         t.transform.translation = Vector3(
