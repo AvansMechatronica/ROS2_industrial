@@ -26,7 +26,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', str(x_pos), '-y', str(y_pos), '-z', '1.5', 
+                '-x', str(x_pos), '-y', str(y_pos), '-z', '1.5', '-P', str(math.radians(180)),
                 '-entity', entity,
                 '-file', file
             ],

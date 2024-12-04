@@ -2,6 +2,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python import get_package_share_directory
 import random
+import math
 
 def generate_launch_description():
     pkg_path = get_package_share_directory('ros_industrial_gazebo')
@@ -12,7 +13,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', '0.5', '-y', '-0.8', '-z', '1.5', 
+                '-x', '0.5', '-y', '-0.8', '-z', '1.5', '-P', str(math.radians(180)),
                 '-entity', 'battery_' + str(random.randint(0, 1000)),
                 '-file', pkg_path+'/models/battery/model.sdf'
             ],
@@ -23,7 +24,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', '0.5', '-y', '-0.6', '-z', '1.5', 
+                '-x', '0.5', '-y', '-0.6', '-z', '1.5', '-P', str(math.radians(180)), 
                 '-entity', 'regulator_' + str(random.randint(0, 1000)),
                 '-file', pkg_path+'/models/regulator/model.sdf'
             ],
@@ -34,7 +35,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', '0.3', '-y', '-0.8', '-z', '1.5', 
+                '-x', '0.3', '-y', '-0.8', '-z', '1.5', '-P', str(math.radians(180)),
                 '-entity', 'pump_' + str(random.randint(0, 1000)),
                 '-file', pkg_path+'/models/pump/model.sdf'
             ],
@@ -45,7 +46,7 @@ def generate_launch_description():
             name='gear_part_0_spawner',
             output='screen',
             arguments=[
-                '-x', '0.3', '-y', '-0.6', '-z', '1.5', 
+                '-x', '0.3', '-y', '-0.6', '-z', '1.5', '-P', str(math.radians(180)),
                 '-entity', 'sensor_' + str(random.randint(0, 1000)),
                 '-file', pkg_path+'/models/sensor/model.sdf'
             ],

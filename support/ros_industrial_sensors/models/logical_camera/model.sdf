@@ -2,7 +2,8 @@
 <sdf version="1.6">
   <model name="custom_logical_camera">
     <static>true</static>
-    <link name="custom_logical_camerax">
+
+    <link name="custom_logical_camera">
       <visual name="visual">
         <pose>-0.02 0 -0.02 0 0 -1.5708</pose>
         <geometry>
@@ -28,7 +29,7 @@
             <namespace></namespace>
           </ros>
           <camera_name>custom_logical_camera</camera_name>
-          <camera_frame_name>camera1_orgin</camera_frame_name>
+          <camera_frame_name>camera1_origin</camera_frame_name>
         </plugin>
       </sensor>
     </link>
