@@ -31,16 +31,43 @@ srdf_file_name = 'config/manipuation_environment.srdf'
 
 joint_states = ['left', 'right', 'home']
 
+class Assignment(Node):
+    def __init__(self, node):
+        super().__init__('Assignment')
+
+        # Create node for this example
+        self.node = node
+
+        self.node.tf_buffer = Buffer()
+        self.node.tf_listener = TransformListener(self.node.tf_buffer, node)
+
+        self.lite6_groupstates = srdfGroupStates(package_name, srdf_file_name, group_name)
+        self.move_group_helper = MovegroupHelper(self.node, joint_names, base_link_name, end_effector_name, group_name)
+    
+    def execute(self):
+        for joint_state in joint_states:
+            # Move to joint configuration
+            result, joint_values = self.lite6_groupstates.get_joint_values(joint_state)
+            if result:
+                print("Move to " + joint_state)
+                self.move_group_helper.move_to_configuration(joint_values)
+            else:
+                print( "Failed to get joint_values of " + joint_state)
+
+
+            print("Move to fixed pose")
+            translation = [0.5, 0.2, 0.25]
+            rotation = [1.0, 0.0, 0.0, 0.0]
+            self.move_group_helper.move_to_pose(translation, rotation)
+
+        pass
+
 def main():
     rclpy.init()
     # Create node for this example
     node = Node("assignment1")
 
-    node.tf_buffer = Buffer()
-    node.tf_listener = TransformListener(node.tf_buffer, node)
-
-    lite6_groupstates = srdfGroupStates(package_name, srdf_file_name, group_name)
-    move_group_helper = MovegroupHelper(node, joint_names, base_link_name, end_effector_name, group_name)
+    assignment = Assignment(node) # Note must be placed bevore creating executer
 
     # Spin the node in background thread(s) and wait a bit for initialization
     executor = rclpy.executors.MultiThreadedExecutor(2)
@@ -48,23 +75,8 @@ def main():
     executor_thread = Thread(target=executor.spin, daemon=True, args=())
     executor_thread.start()
     node.create_rate(1.0).sleep()
-
-
-    for joint_state in joint_states:
-        # Move to joint configuration
-        result, joint_values = lite6_groupstates.get_joint_values(joint_state)
-        if result:
-            print("Move to " + joint_state)
-            move_group_helper.move_to_configuration(joint_values)
-        else:
-            print( "Failed to get joint_values of " + joint_state)
-
-
-    print("Move to fixed pose")
-    translation = [0.5, 0.2, 0.25]
-    rotation = [1.0, 0.0, 0.0, 0.0]
-    move_group_helper.move_to_pose(translation, rotation)
-
+    
+    assignment.execute()
 
     rclpy.shutdown()
     executor_thread.join()

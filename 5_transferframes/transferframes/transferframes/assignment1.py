@@ -47,11 +47,9 @@ class PickAndDrop(Node):
         # Initialize the TransformListener and buffer
         self.node.tf_buffer = Buffer()
         self.node.tf_listener = TransformListener(self.node.tf_buffer, self.node)
-
         # Initialize SRDF and MoveGroup helper
         self.lite6_groupstates = srdfGroupStates(package_name, srdf_file_name, group_name)
         self.move_group_helper = MovegroupHelper(self.node, joint_names, base_link_name, end_effector_name, group_name)
-
         # Initialize the camera
         self.camera = Camera()
 
@@ -68,7 +66,7 @@ class PickAndDrop(Node):
 
         result, photo = self.camera.take_photo()
         if not result:
-            
+            self.node.get_logger().info(f'No parts found')
             return
         
         parts = photo['parts']
@@ -160,44 +158,53 @@ class PickAndDrop(Node):
         pass
     def __del__(self):
         # Safe cleanup of executor and thread
-        self.camera.destroy_node()
+        #self.camera.destroy_node()
         pass
 
 # Define the main entry point
 def main(args=None):
     rclpy.init(args=args)
 
-    #try:
     # Create the ROS 2 node
     node = Node("assignment1")
-    # Debugging: Initialize executor
-    try:
-        executor = MultiThreadedExecutor(num_threads=2)
-        if executor is None:
-            node.get_logger().error("Failed to initialize MultiThreadedExecutor: executor is None!")
-        else:
-            executor.add_node(node)  # Add node to executor
-            node.get_logger().info("Executor initialized successfully.")
-    except Exception as e:
-        node.get_logger().error(f"Error initializing executor: {str(e)}")
 
-    # Debugging: Check if executor exists before proceeding
-    if executor:
-        try:
-            # Spin the executor in a background thread
-            executor_thread = Thread(target=executor.spin, daemon=True)
-            executor_thread.start()
-            node.get_logger().info("Executor thread started.")
-        except Exception as e:
-            node.get_logger().error(f"Error starting executor thread: {str(e)}")
-    else:
-        node.get_logger().error("Executor is None, cannot start thread.")
-
-    # Wait for initialization
-    node.create_rate(1.0).sleep()
-    
     # Instantiate the PickAndDrop class and execute
-    pick_and_drop = PickAndDrop(node)
+    pick_and_drop = PickAndDrop(node) # Note must be placed bevore creating executer
+
+
+    # Spin the node in background thread(s) and wait a bit for initialization
+    executor = rclpy.executors.MultiThreadedExecutor(2)
+    executor.add_node(node)
+    executor_thread = Thread(target=executor.spin, daemon=True, args=())
+    executor_thread.start()
+    node.create_rate(1.0).sleep()
+
+    if 0:
+        try:
+            executor = MultiThreadedExecutor(num_threads=2)
+            if executor is None:
+                node.get_logger().error("Failed to initialize MultiThreadedExecutor: executor is None!")
+            else:
+                executor.add_node(node)  # Add node to executor
+                node.get_logger().info("Executor initialized successfully.")
+        except Exception as e:
+            node.get_logger().error(f"Error initializing executor: {str(e)}")
+
+        # Debugging: Check if executor exists before proceeding
+        if executor:
+            try:
+                # Spin the executor in a background thread
+                executor_thread = Thread(target=executor.spin, daemon=True)
+                executor_thread.start()
+                node.get_logger().info("Executor thread started.")
+            except Exception as e:
+                node.get_logger().error(f"Error starting executor thread: {str(e)}")
+        else:
+            node.get_logger().error("Executor is None, cannot start thread.")
+
+        # Wait for initialization
+        node.create_rate(1.0).sleep()
+    
 
     pick_and_drop.execute()
 
