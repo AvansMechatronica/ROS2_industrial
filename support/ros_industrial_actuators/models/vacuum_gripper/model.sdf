@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="vacuum_gripper">
+    <static>true</static>
+
+    <plugin name="vacuum_gripper" filename="libMyVacuumGripperPlugin.so">
+        <ros>
+
+          <namespace>/demo</namespace>
+
+          <remapping>switch:=custom_switch</remapping>
+          <remapping>grasping:=custom_grasping</remapping>
+        </ros>
+      <link_name> "vacuum_gripper1_suction_cup" </link_name>
+      <!--<link_name>"${prefix}suction_cup"</link_name>-->
+      <!-- Max distance to attract entities -->
+      <max_distance>10.0</max_distance>
+
+    </plugin>
+
+
+  </model>
+</sdf>

@@ -57,7 +57,7 @@ CustomLogicalCameraPlugin::~CustomLogicalCameraPlugin()
 
 void CustomLogicalCameraPlugin::Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf)
 {
-  //RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "CustomLogicalCameraPlugin::Load entry");
+  RCLCPP_INFO(rclcpp::get_logger("logical camera plugin"), "CustomLogicalCameraPlugin::Load entry");
 
   impl_->sensor_ = std::dynamic_pointer_cast<gazebo::sensors::LogicalCameraSensor>(_sensor);
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
