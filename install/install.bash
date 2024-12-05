@@ -8,6 +8,7 @@ sudo apt -y install ros-$ROS_DISTRO-moveit-visual-tools
 sudo apt -y install ros-$ROS_DISTRO-ros-controllers
 sudo apt -y install ros-$ROS_DISTRO-controller-manager
 sudo apt -y install ros-$ROS_DISTRO-controller-manager-msgs
+pip install numpy==1.24.3 scipy==1.10.1
 
 CURRENT_DIR=$(pwd)
 

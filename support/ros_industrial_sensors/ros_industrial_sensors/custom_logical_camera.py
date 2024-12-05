@@ -5,6 +5,9 @@ from ros_industrial_msgs.msg import LogicalCameraImage  # Ensure this matches th
 from geometry_msgs.msg import Pose
 from geometry_msgs.msg import TransformStamped, Vector3
 from tf2_ros import StaticTransformBroadcaster
+#from tf_transformations import quaternion_from_euler, quaternion_multiply
+from math import pi
+from scipy.spatial.transform import Rotation
 
 # Define a subscriber node
 class Camera(Node):
@@ -84,6 +87,33 @@ class Camera(Node):
                     t.transform.rotation.y = part_pose.pose.orientation.y
                     t.transform.rotation.z = part_pose.pose.orientation.z
                     t.transform.rotation.w = part_pose.pose.orientation.w
+
+                    if 1: # Patch for transfer_framse workshop
+                        # Original quaternion from part_pose
+                        q_orig = [
+                            part_pose.pose.orientation.w,
+                            part_pose.pose.orientation.x,
+                            part_pose.pose.orientation.y,
+                            part_pose.pose.orientation.z
+                        ]
+
+                        # Convert ROS quaternion (w, x, y, z) to scipy quaternion format (x, y, z, w)
+                        r_orig = Rotation.from_quat([q_orig[1], q_orig[2], q_orig[3], q_orig[0]])
+
+                        # Rotation quaternion: 180 degrees about the Y-axis
+                        r_rot = Rotation.from_euler('xyz', [0, pi, 0], degrees=False)
+
+                        # Combine rotations
+                        r_new = r_rot * r_orig  # Composition of rotations
+                        q_new = r_new.as_quat()  # Resulting quaternion in (x, y, z, w)
+
+                        # Assign combined quaternion to transformation
+                        t.transform.rotation.w = q_new[3]  # Scipy returns (x, y, z, w), so reorder to ROS format
+                        t.transform.rotation.x = q_new[0]
+                        t.transform.rotation.y = q_new[1]
+                        t.transform.rotation.z = q_new[2]
+
+
                     #print(t)
                     self.tf_broadcaster.sendTransform(t)
 
