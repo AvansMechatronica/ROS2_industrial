@@ -15,6 +15,7 @@ from my_moveit_python import srdfGroupStates
 from my_moveit_python import MovegroupHelper
 from ros_industrial_sensors.custom_logical_camera import Camera
 from rclpy.executors import MultiThreadedExecutor
+import time
 
 prefix = ''
 joint_names = [
@@ -59,10 +60,10 @@ class PickAndDrop(Node):
         # Move to joint configuration
         result, joint_values = self.lite6_groupstates.get_joint_values('home')
         if result:
-            print("Move to " + 'home')
+            self.node.get_logger().info("Move to " + 'home')
             self.move_group_helper.move_to_configuration(joint_values)
         else:
-            print( "Failed to get joint_values of " + 'home')
+            self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
 
         result, photo = self.camera.take_photo()
@@ -70,21 +71,23 @@ class PickAndDrop(Node):
             
             return
         
-        self.camera.destroy_node()
         parts = photo['parts']
-        camera_frame = ['camera_frame']
-        print("Parts detected: ")
-        print(parts)
+        #camera_frame = ['camera_frame']
+        #self.node.get_logger().info("Parts detected: {parts}")
+
         
         for part in parts:
-            print(f'Handeling: {part}')
+            self.node.get_logger().info(f'Handeling: {part}')
 
-            #print("Move to published fransfer frame")
+            #self.node.get_logger().info("Move to published fransfer frame")
             ## goto pre-grasp
             self.move_to_object(part, 0.01)
             ## goto grasp
             self.move_to_object(part)
+            time.sleep(1.0)
             ## gripper enable
+            self.gripper_pull()
+            time.sleep(1.0)
             ## goto post-grasp
             self.move_to_object(part, 0.01)
         
@@ -92,36 +95,37 @@ class PickAndDrop(Node):
             # Move to joint configuration
             result, joint_values = self.lite6_groupstates.get_joint_values('home')
             if result:
-                print("Move to " + 'home')
+                self.node.get_logger().info("Move to " + 'home')
                 self.move_group_helper.move_to_configuration(joint_values)
             else:
-                print( "Failed to get joint_values of " + 'home')
+                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
 
             # Move to joint configuration
             result, joint_values = self.lite6_groupstates.get_joint_values('drop')
             if result:
-                print("Move to " + 'drop')
+                self.node.get_logger().info("Move to " + 'drop')
                 self.move_group_helper.move_to_configuration(joint_values)
             else:
-                print( "Failed to get joint_values of " + 'drop')
+                self.node.get_logger().error( "Failed to get joint_values of " + 'drop')
 
             ## gripper release
+            self.gripper_release()
 
             # Move to joint configuration
             result, joint_values = self.lite6_groupstates.get_joint_values('home')
             if result:
-                print("Move to " + 'home')
+                self.node.get_logger().info("Move to " + 'home')
                 self.move_group_helper.move_to_configuration(joint_values)
             else:
-                print( "Failed to get joint_values of " + 'home')
+                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
         result, joint_values = self.lite6_groupstates.get_joint_values('resting')
         if result:
-            print("Move to " + 'resting')
+            self.node.get_logger().info("Move to " + 'resting')
             self.move_group_helper.move_to_configuration(joint_values)
         else:
-            print( "Failed to get joint_values of " + 'resting')
+            self.node.get_logger().error( "Failed to get joint_values of " + 'resting')
 
     def move_to_object(self, part, z_offset = 0.0):
         to_frame_rel = 'base_link'
@@ -145,11 +149,18 @@ class PickAndDrop(Node):
             self.move_group_helper.move_to_pose(translation, rotation)
         
         except TransformException as ex:
-            self.node.get_logger().info(
+            self.node.get_logger().error(
                 f'Could not transform {from_frame_rel} to {to_frame_rel}: {ex}')
 
+    def gripper_pull(self):
+        self.node.get_logger().info("Gripper pull")
+        pass
+    def gripper_release(self):
+        self.node.get_logger().info("Gripper release")
+        pass
     def __del__(self):
         # Safe cleanup of executor and thread
+        self.camera.destroy_node()
         pass
 
 # Define the main entry point
@@ -187,12 +198,10 @@ def main(args=None):
     
     # Instantiate the PickAndDrop class and execute
     pick_and_drop = PickAndDrop(node)
+
     pick_and_drop.execute()
 
-    #finally:
-    #    # Cleanup and shutdown
-    #    if 'pick_and_drop' in locals():
-    #        pick_and_drop.destroy_node()
+    pick_and_drop.destroy_node()
         
     rclpy.shutdown()
 
