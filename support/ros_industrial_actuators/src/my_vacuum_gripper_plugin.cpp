@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /*
- * \brief Vacuum Gripper plugin for attracting entities around the model like vacuum
+ * \brief vacuum-gripper-plugin for attracting entities around the model like vacuum
  *
  * \author  Kentaro Wada
  *
@@ -94,7 +94,7 @@ GazeboRosVacuumGripper::~GazeboRosVacuumGripper()
 
 void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
-  RCLCPP_INFO(rclcpp::get_logger("vacuum gripper plugin"), "GazeboRosVacuumGripper::Load entry");
+  RCLCPP_INFO(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry");
   impl_->world_ = _model->GetWorld();
 
   // Initialize ROS node
@@ -103,18 +103,25 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
   // Get QoS profiles
   const gazebo_ros::QoS & qos = impl_->ros_node_->get_qos();
 
+    // Get gripper link
+#if 0
+
+    auto link = _sdf->Get<std::string>("link_name");
+    impl_->link_ = _model->GetLink(link);
+#else
   if (_sdf->HasElement("link_name")) {
     auto link = _sdf->Get<std::string>("link_name");
     impl_->link_ = _model->GetLink(link);
+
     if (!impl_->link_) {
-      RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Link [%s] not found. Aborting", link.c_str());
+      RCLCPP_ERROR(rclcpp::get_logger("vacuum-gripper-plugin"), "Link [%s] not found. Aborting", link.c_str());
       impl_->ros_node_.reset();
       return;
     }
   } else {
-    RCLCPP_ERROR(impl_->ros_node_->get_logger(), "Please specify <link_name>. Aborting.");
+    RCLCPP_ERROR(rclcpp::get_logger("vacuum-gripper-plugin"), "Please specify <link_name>. Aborting.");
   }
-
+#endif
   impl_->max_distance_ = _sdf->Get<double>("max_distance", 0.05).first;
 
   if (_sdf->HasElement("fixed")) {
@@ -124,7 +131,7 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
       auto name = fixed->Get<std::string>();
       impl_->fixed_.insert(name);
       RCLCPP_INFO(
-        impl_->ros_node_->get_logger(),
+        rclcpp::get_logger("vacuum-gripper-plugin"),
         "Model/Link [%s] exempted from gripper force", name.c_str());
     }
   }
@@ -136,7 +143,7 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
     "grasping", qos.get_publisher_qos("grasping", rclcpp::QoS(1)));
 
   RCLCPP_INFO(
-    impl_->ros_node_->get_logger(),
+    rclcpp::get_logger("vacuum-gripper-plugin"),
     "Advertise gripper status on [%s]", impl_->pub_->get_topic_name());
 
   // Initialize service
@@ -147,12 +154,13 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
       std::placeholders::_1, std::placeholders::_2));
 
   RCLCPP_INFO(
-    impl_->ros_node_->get_logger(),
+    rclcpp::get_logger("vacuum-gripper-plugin"),
     "Advertise gripper switch service on [%s]", impl_->service_->get_service_name());
 
   // Listen to the update event (broadcast every simulation iteration)
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&GazeboRosVacuumGripperPrivate::OnUpdate, impl_.get()));
+  RCLCPP_INFO(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry<exit>");
 }
 
 void GazeboRosVacuumGripperPrivate::OnUpdate()
@@ -211,14 +219,14 @@ void GazeboRosVacuumGripperPrivate::OnSwitch(
       status_ = true;
       res->success = true;
     } else {
-      RCLCPP_WARN(ros_node_->get_logger(), "Gripper is already on");
+      RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper is already on");
     }
   } else {
     if (status_) {
       status_ = false;
       res->success = true;
     } else {
-      RCLCPP_WARN(ros_node_->get_logger(), "Gripper is already off");
+      RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper is already off");
     }
   }
 }

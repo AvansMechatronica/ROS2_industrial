@@ -35,21 +35,7 @@
         <geometry>
           <box size="0.001 0.001 0.001"/>
         </geometry>
-      </visual>
-      <collision>
-        <origin xyz="0 0 0"/>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-      </collision>
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="0.001" ixy="0" ixz="0"
-                 iyy="0.001" iyz="0"
-                 izz="0.001" />
-        <mass value="0.001" />
-      </inertial>
-
+        </visual>
     </link>
 
     <!-- joint list -->
@@ -59,21 +45,8 @@
       <child link="${prefix}suction_cup" />
     </joint>
  
-    <gazebo reference="vacuum_gripper1_suction_cup">
-      <sensor type="contact" name="bumper">
-        <update_rate>10</update_rate>
-        <contact>
-          <collision>${prefix}_gripper_collision_collision</collision>
-        </contact>
-      </sensor>
-    </gazebo>
-
-    <gazebo reference="vacuum_gripper1_suction_cup">
-      <material>Gazebo/Black</material>      
-    </gazebo>
-
     <gazebo>
-      <!--<plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">-->
+      <!--<plugin name="vacuum_gripper" filename="my_libgazebo_ros_vacuum_gripper.so">-->
       <plugin filename="libMyVacuumGripperPlugin.so" name="vacuum_gripper">
           <ros>
 
@@ -85,12 +58,14 @@
           </ros>
 
         <!--<link_name>${prefix}suction_cup</link_name>-->
-        <link_name>xarm:link6</link_name>
-        <!--<link_name>vacuum_gripper1_suction_cup</link_name>-->
+        <link_name>vacuum_gripper1_suction_cup</link_name>
         <!-- Max distance to attract entities -->
         <max_distance>10.0</max_distance>
 
       </plugin>
+      <gazebo reference="vacuum_gripper1_suction_cup">
+        <material>Gazebo/Blue</material>
+      </gazebo>
     </gazebo>
 
   </xacro:macro>
