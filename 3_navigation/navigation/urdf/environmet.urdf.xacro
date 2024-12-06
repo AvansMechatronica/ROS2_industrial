@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- world -->
+  <link name="world" />
+
+  <!-- Joints -->
+  <joint name="world_interface_to_world" type="fixed">
+    <parent link="world" />
+    <child link="world_interface" />
+  </joint>
+
+  <!-- workcell -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/workcell/workcell.urdf.xacro"/>
+  <xacro:workcell_urdf workcell_parent="world_interface"/>
+
+
+
+</robot>
