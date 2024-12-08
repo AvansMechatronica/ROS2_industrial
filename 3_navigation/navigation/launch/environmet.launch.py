@@ -8,12 +8,13 @@ from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, Regi
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.substitutions import FindPackageShare
 import subprocess
+from launch.event_handlers import OnProcessExit, OnProcessStart
 
 def generate_launch_description():
     # Paths to xacro and RViz config files
     package_share_directory = get_package_share_directory('navigation')
     xacro_file = os.path.join(package_share_directory, 'urdf', 'environmet.urdf.xacro')
-    rviz_config_file = os.path.join(package_share_directory, 'config', 'environmet.rviz')
+    rviz_config_file = os.path.join(package_share_directory, 'config', 'environment.rviz')
 
     result = subprocess.run(['xacro', xacro_file], stdout=subprocess.PIPE, text=True)
     
@@ -83,10 +84,41 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
-    return LaunchDescription([
-        robot_state_node,
-        joint_state_node,
-        rviz_node,
-        gazebo_node,
-        environment_node,
-    ])
+    if 0:
+        return [
+            RegisterEventHandler(
+                event_handler=OnProcessStart(
+                    target_action=robot_state_node,
+                    on_start=gazebo_node,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=gazebo_node,
+                    on_exit=environment_node,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=environment_node,
+                    on_exit=rviz_node,
+                )
+            ),
+
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=robot_state_node,
+                    on_exit=joint_state_node,
+                )
+            ),
+            joint_state_node,
+        ] 
+    else:
+
+        return LaunchDescription([
+            robot_state_node,
+            joint_state_node,
+            rviz_node,
+            gazebo_node,
+            environment_node,
+        ])
