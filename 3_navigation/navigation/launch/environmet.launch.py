@@ -84,6 +84,21 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
     )
 
+    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')   
+    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    x_pose = LaunchConfiguration('x_pose', default='0.0')
+    y_pose = LaunchConfiguration('y_pose', default='0.0')
+
+    spawn_turtlebot_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
+        ),
+        launch_arguments={
+            'x_pose': x_pose,
+            'y_pose': y_pose
+        }.items()
+    )
+
     if 0:
         return [
             RegisterEventHandler(
@@ -121,4 +136,5 @@ def generate_launch_description():
             rviz_node,
             gazebo_node,
             environment_node,
+            spawn_turtlebot_cmd,
         ])

@@ -13,6 +13,7 @@ pip install numpy==1.24.3 scipy==1.10.1
 CURRENT_DIR=$(pwd)
 
 rosdep update
+
 cd $CURRENT_DIR/src
 rosdep install --from-paths install --ignore-src -r -y
 

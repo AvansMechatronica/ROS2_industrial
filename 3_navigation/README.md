@@ -1,5 +1,30 @@
 # ROS2 navigation
 
-## need to be developed
+## Under development
+
+Starten van de omgeving
+```bash
+ros2 launch navigation environment.launch.py
+```
+
+```bash
+ros2 run turtlebot3_teleop teleop_keyboard
+```
+
+```bash
+ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
+```
+
+```bash
+ros2 run nav2_map_server map_saver_cli -f my_map
+```
+
+```bash
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+```
+
+```bash
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=~/ros_industrial_ws/src/ROS2_industrial/3_navigation/navigation/map_factory_v1.yaml
+```
 
 [Back](../README.md)
