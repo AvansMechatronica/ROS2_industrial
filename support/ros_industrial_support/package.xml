@@ -4,7 +4,7 @@
   <name>ros_industrial_support</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="ga.harkema@avans.nl">student</maintainer>
+  <maintainer email="ga.harkema@avans.nl">Gerard Harkema</maintainer>
   <license>CC BY-NC-SA 4.0</license>
 
   <test_depend>ament_copyright</test_depend>

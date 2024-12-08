@@ -4,12 +4,21 @@
   <name>ros_industrial_install</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="g.a.harkema@avans.nl">Gerard Harkema</maintainer>
+  <maintainer email="ga.harkema@avans.nl">Gerard Harkema</maintainer>
   <license>CC BY-NC-SA 4.0</license>
 
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+
+  <depend>moveit</depend>
+  <depend>joint-state-publisher-gui</depend>
+  <depend>combined-robot-hw</depend>
+  <depend>moveit-servo</depend>
+  <depend>moveit-visual-tools</depend>
+  <depend>ros-controllers</depend>
+  <depend>controller-manager</depend>
+  <depend>controller-manager-msgs</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

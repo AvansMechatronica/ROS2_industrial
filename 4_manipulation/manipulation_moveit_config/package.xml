@@ -8,7 +8,7 @@
   </description>
   <maintainer email="ga.harkema@avans.nl">Gerard Harkema</maintainer>
 
-  <license>BSD</license>
+  <license>CC BY-NC-SA 4.0</license>
 
   <url type="website">http://moveit.ros.org/</url>
   <url type="bugtracker">https://github.com/ros-planning/moveit2/issues</url>

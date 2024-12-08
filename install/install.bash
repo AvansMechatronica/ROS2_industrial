@@ -49,7 +49,7 @@ fi
 
 
 if ros2 pkg list | grep -q "turtlebo3"; then
-    echo "turtlebo3 packages alredy installed"
+    echo "turtlebo3 packages already installed"
 else
     echo "installing turtlebot3 packages"
 

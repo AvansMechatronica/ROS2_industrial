@@ -7,8 +7,8 @@
     A ROS 2 package for simulating industrial sensors, including plugins for Gazebo and Python scripts for handling sensor data.
   </description>
 
-  <maintainer email="justin.albrecht@nist.gov">Justin Albrecht</maintainer>
-  <license>Apache-2.0</license>
+  <maintainer email="ga.harkema@avans.nl">Gerard Harkema</maintainer>
+    <license>CC BY-NC-SA 4.0</license>
 
   <!-- Build tool dependencies -->
   <buildtool_depend>ament_cmake</buildtool_depend>
