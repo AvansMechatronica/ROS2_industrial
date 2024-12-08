@@ -24,7 +24,7 @@ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
 ```bash
-ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=~/ros_industrial_ws/src/ROS2_industrial/3_navigation/navigation/map_factory_v1.yaml
+ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True map:=~/home/student~/ros2_industrial_ws/src/ROS2_industrial/3_navigation/navigation/maps/map_factory_v1.yaml
 ```
 
 [Back](../README.md)

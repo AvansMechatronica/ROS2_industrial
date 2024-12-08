@@ -24,7 +24,7 @@ git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 
 ## Install nessery packages etc.
 ```bash
-cd install
+cd ROS2_industrial/install
 .install
 ```
 
