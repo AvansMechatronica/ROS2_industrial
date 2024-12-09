@@ -9,7 +9,7 @@ def generate_launch_description():
     # Paths
     package_share_directory = get_package_share_directory('urdf_basics')
     xacro_file = os.path.join(package_share_directory, 'urdf', 'assignment2.urdf.xacro')
-    rviz_config_file = os.path.join(package_share_directory, 'config', 'assignment2.rviz')
+    rviz_config_file = os.path.join(package_share_directory, 'rviz', 'assignment2.rviz')
 
     return LaunchDescription([
         # Robot State Publisher

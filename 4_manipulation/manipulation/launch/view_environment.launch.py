@@ -16,7 +16,7 @@ def generate_launch_description():
     # Define the path to the RViz configuration file within the package
     rviz_config_path = os.path.join(
         get_package_share_directory('manipulation'),
-        'config',
+        'rviz',
         'environment.rviz'
     )
 

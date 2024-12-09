@@ -11,7 +11,7 @@ def generate_launch_description():
     hrwros_moveit_config_dir = get_package_share_directory('hrwros_moveit_config')
     urdf_file = os.path.join(ros_industrial_support_dir, 'urdf', 'hrwros.xacro')
     srdf_file = os.path.join(hrwros_moveit_config_dir, 'config', 'hrwros.srdf')
-    rviz_config_file = os.path.join(ros_industrial_support_dir, 'config', 'hrwros.rviz')
+    rviz_config_file = os.path.join(ros_industrial_support_dir, 'rviz', 'hrwros.rviz')
 
     # Declare launch arguments
     gui_arg = DeclareLaunchArgument(

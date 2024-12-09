@@ -96,7 +96,7 @@ def launch_setup(context, *args, **kwargs):
             'show_rviz': 'false',
             'use_sim_time': 'true',
             'moveit_config_dump': moveit_config_dump,
-            'rviz_config': PathJoinSubstitution([FindPackageShare('transferframes'), 'config', 'environment.rviz'])
+            'rviz_config': PathJoinSubstitution([FindPackageShare('transferframes'), 'rviz', 'environment.rviz'])
         }.items(),
     )
 
@@ -110,7 +110,7 @@ def launch_setup(context, *args, **kwargs):
             'prefix': prefix,
             'moveit_config_dump': moveit_config_dump,
             'show_rviz': 'true',
-            'rviz_config': PathJoinSubstitution([FindPackageShare('transferframes'), 'config', 'environment.rviz'])
+            'rviz_config': PathJoinSubstitution([FindPackageShare('transferframes'),'rviz', 'environment.rviz'])
         }.items(),
     )
 

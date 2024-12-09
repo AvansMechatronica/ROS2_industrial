@@ -37,7 +37,7 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
-    data_files=package_files(data_files, ['launch/', 'config/', 'urdf/', 'maps/']),    install_requires=['setuptools'],
+    data_files=package_files(data_files, ['launch/', 'rviz/', 'urdf/', 'maps/','turtlebot_parameters/', 'config/']),    install_requires=['setuptools'],
     zip_safe=True,
     maintainer='student',
     maintainer_email='ga.harkema@avans.nl',

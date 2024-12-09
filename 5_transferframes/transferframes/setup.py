@@ -39,7 +39,7 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
-    data_files=package_files(data_files, ['launch/', 'config/', 'urdf/', 'meshes/', 'worlds/']),
+    data_files=package_files(data_files, ['launch/', 'rviz/', 'urdf/', 'meshes/', 'worlds/']),
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='student',

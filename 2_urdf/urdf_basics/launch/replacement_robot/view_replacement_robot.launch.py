@@ -12,7 +12,7 @@ def generate_launch_description():
         'urdf',
         'robot',
         'lrmate200ic_environment.urdf.xacro')
-    rviz_config_file = os.path.join(package_share_directory, 'config', 'view_robot.rviz')
+    rviz_config_file = os.path.join(package_share_directory, 'rviz', 'view_robot.rviz')
 
     return LaunchDescription([
         # Robot State Publisher

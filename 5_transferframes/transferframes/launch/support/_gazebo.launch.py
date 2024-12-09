@@ -83,7 +83,7 @@ def launch_setup(context, *args, **kwargs):
 
     # rviz with moveit configuration
     if not rviz_config.perform(context):
-        rviz_config_file = PathJoinSubstitution([FindPackageShare(moveit_config_package_name), 'config', 'environment.rviz'])
+        rviz_config_file = PathJoinSubstitution([FindPackageShare(moveit_config_package_name), 'rviz', 'environment.rviz'])
     else:
         rviz_config_file = rviz_config
     rviz2_node = Node(
