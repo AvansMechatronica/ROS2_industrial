@@ -79,7 +79,7 @@ def generate_launch_description():
             '-entity', 'environmet',
             '-timeout', str(50.0),
         ],
-        parameters=[{'use_sim_time': 'true'}],
+        parameters=[{'use_sim_time': True}],
     )
 
     x_pose = LaunchConfiguration('x_pose', default='0.0')
