@@ -12,16 +12,14 @@ from launch.event_handlers import OnProcessExit, OnProcessStart
 
 def generate_launch_description():
     # Paths to xacro and RViz config files
-    package_share_directory = get_package_share_directory('navigation')
-    xacro_file = os.path.join(package_share_directory, 'urdf', 'environmet.urdf.xacro')
-    rviz_config_file = os.path.join(package_share_directory, 'config', 'environment.rviz')
+    navigation_package_share_directory = get_package_share_directory('navigation')
+    xacro_file = os.path.join(navigation_package_share_directory, 'urdf', 'environmet.urdf.xacro')
 
     result = subprocess.run(['xacro', xacro_file], stdout=subprocess.PIPE, text=True)
     
     with open('tmp.urdf', "w") as urdf_file:
         urdf_file.write(result.stdout)
     
-    #print(result.stdout)
 
     # Robot State Publisher Node
     robot_state_node = Node(
@@ -30,7 +28,7 @@ def generate_launch_description():
         name='robot_state_publisher',
         parameters=[{
             'robot_description': Command(['xacro ', xacro_file]),
-            	'use_sim_time': 'true',
+            'use_sim_time': True,
        }]
     )
     # Joint State Publisher Node
@@ -53,23 +51,8 @@ def generate_launch_description():
                     {'zeros.robot2_joint6': 0.0},         
         ],
     )
-    # RViz Node
-    rviz_node = Node(
-        package='rviz2',
-        executable='rviz2',
-        name='rviz',
-        arguments=['-d', rviz_config_file],
-        output='screen',
-    )
 
-
-    world = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
-        'worlds',
-        'turtlebot3_world.world'
-    )
-    world = PathJoinSubstitution([package_share_directory, 'worlds', 'empty.world'])
-
+    world = PathJoinSubstitution([navigation_package_share_directory, 'worlds', 'empty.world'])
     launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
@@ -86,16 +69,6 @@ def generate_launch_description():
         )
     )
 
-    if 0:
-        gazebo_node = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'launch', 'gazebo.launch.py'])),
-            launch_arguments={
-                'world': world,
-                'server_required': 'true',
-                'gui_required': 'true',
-            }.items(),
-        )
-
     # gazebo spawn entity node
     environment_node = Node(
         package="gazebo_ros",
@@ -106,11 +79,9 @@ def generate_launch_description():
             '-entity', 'environmet',
             '-timeout', str(50.0),
         ],
-        parameters=[{'use_sim_time': True}],
+        parameters=[{'use_sim_time': 'true'}],
     )
 
-    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')   
-    use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
     y_pose = LaunchConfiguration('y_pose', default='0.0')
 
@@ -124,15 +95,17 @@ def generate_launch_description():
         }.items()
     )
 
-
+    robot_state_publisher_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, 'robot_state_publisher.launch.py')
+        ),
+        launch_arguments={'use_sim_time': 'true'}.items()
+    )
     return LaunchDescription([
         robot_state_node,
-        joint_state_node,
         gzserver_cmd,
     	gzclient_cmd,
-        
-        #rviz_node,
-        #gazebo_node,
         environment_node,
         spawn_turtlebot_cmd,
+        robot_state_publisher_cmd,
     ])
