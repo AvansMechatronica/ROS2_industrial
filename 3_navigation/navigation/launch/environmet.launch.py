@@ -29,8 +29,9 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         parameters=[{
-            'robot_description': Command(['xacro ', xacro_file])
-        }]
+            'robot_description': Command(['xacro ', xacro_file]),
+            	'use_sim_time': 'true',
+       }]
     )
     # Joint State Publisher Node
     joint_state_node = Node(
@@ -61,15 +62,39 @@ def generate_launch_description():
         output='screen',
     )
 
-    xarm_gazebo_world = PathJoinSubstitution([package_share_directory, 'worlds', 'empty.world'])
-    gazebo_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'launch', 'gazebo.launch.py'])),
-        launch_arguments={
-            'world': xarm_gazebo_world,
-            'server_required': 'true',
-            'gui_required': 'true',
-        }.items(),
+
+    world = os.path.join(
+        get_package_share_directory('turtlebot3_gazebo'),
+        'worlds',
+        'turtlebot3_world.world'
     )
+    world = PathJoinSubstitution([package_share_directory, 'worlds', 'empty.world'])
+
+    launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
+    pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+
+    gzserver_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
+        ),
+        launch_arguments={'world': world}.items()
+    )
+
+    gzclient_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
+        )
+    )
+
+    if 0:
+        gazebo_node = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'launch', 'gazebo.launch.py'])),
+            launch_arguments={
+                'world': world,
+                'server_required': 'true',
+                'gui_required': 'true',
+            }.items(),
+        )
 
     # gazebo spawn entity node
     environment_node = Node(
@@ -99,42 +124,15 @@ def generate_launch_description():
         }.items()
     )
 
-    if 0:
-        return [
-            RegisterEventHandler(
-                event_handler=OnProcessStart(
-                    target_action=robot_state_node,
-                    on_start=gazebo_node,
-                )
-            ),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=gazebo_node,
-                    on_exit=environment_node,
-                )
-            ),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=environment_node,
-                    on_exit=rviz_node,
-                )
-            ),
 
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=robot_state_node,
-                    on_exit=joint_state_node,
-                )
-            ),
-            joint_state_node,
-        ] 
-    else:
-
-        return LaunchDescription([
-            robot_state_node,
-            joint_state_node,
-            rviz_node,
-            gazebo_node,
-            environment_node,
-            spawn_turtlebot_cmd,
-        ])
+    return LaunchDescription([
+        robot_state_node,
+        joint_state_node,
+        gzserver_cmd,
+    	gzclient_cmd,
+        
+        #rviz_node,
+        #gazebo_node,
+        environment_node,
+        spawn_turtlebot_cmd,
+    ])
