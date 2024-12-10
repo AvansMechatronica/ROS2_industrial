@@ -5,6 +5,7 @@ from rclpy.action import ActionClient
 from nav2_msgs.action import NavigateToPose
 import time
 
+
 class MoveTurtleBotNode(Node):
     def __init__(self):
         super().__init__('assignment2')
@@ -36,13 +37,10 @@ class MoveTurtleBotNode(Node):
         goal_future = self._action_client.send_goal_async(self.goal_msg, feedback_callback=self._feedback_callback)
         goal_future.add_done_callback(self._goal_response_callback)
 
-        if 1:
-            self.done = False
-            #self.rate = self.create_rate(10)
-            while not self.done:
-                self.get_logger().info('.')
-                time.sleep(1)
-                #self.rate.sleep()
+        self.done = False
+        while not self.done:
+            time.sleep(0.2)
+            rclpy.spin_once(self)
 
 
     def _goal_response_callback(self, future):
@@ -66,15 +64,13 @@ class MoveTurtleBotNode(Node):
             self.get_logger().info('Goal reached successfully!')
         self.done = True
 
-
-
 def main(args=None):
     rclpy.init(args=args)
     node = MoveTurtleBotNode()
 
     # Define multiple goals
     goals = [
-#        (0.0, 0.0),  # First goal (x, y) (0.5, 1.0)
+        (0.5, 1.0),  # First goal (x, y) (0.5, 1.0)
         (-7.8, -1.5),  # Second goal (x, y)
     ]
 
@@ -82,9 +78,6 @@ def main(args=None):
     for x, y in goals:
         node.send_goal(x, y)
     
-    rclpy.spin(node)
-
-
     # Shutdown after achieving all goals
     rclpy.shutdown()
 
