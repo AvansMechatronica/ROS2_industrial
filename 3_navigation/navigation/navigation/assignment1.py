@@ -2,19 +2,18 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
-from geometry_msgs.msg import PoseStamped
 from nav2_msgs.action import NavigateToPose
-from rclpy.duration import Duration
 
 class MoveTurtleBotNode(Node):
     def __init__(self):
-        super().__init__('move_turtlebot')
+        super().__init__('assignment1')
 
         # Create an action client for the 'NavigateToPose' action
         self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
 
         self.get_logger().info('Waiting for navigate_to_pose action server...')
         self._action_client.wait_for_server()
+        self.get_logger().info('Action server available!')
 
         # Create a goal
         goal_msg = NavigateToPose.Goal()

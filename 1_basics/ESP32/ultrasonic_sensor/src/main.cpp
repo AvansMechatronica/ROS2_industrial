@@ -111,7 +111,7 @@ void setup() {
   Serial.begin(115200);
   while (!Serial);
   delay(2000);
-  Serial.print("Light-controller started, node: ");
+  Serial.print("Sensor-controller started, node: ");
   Serial.println(NODE_NAME);
 
   //HCSR04.begin(SR04_TRIG_PIN, SR04_ECHO_PIN);

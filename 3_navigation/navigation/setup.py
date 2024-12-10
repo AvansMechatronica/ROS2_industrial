@@ -37,7 +37,7 @@ setup(
     name=package_name,
     version='0.0.0',
     packages=find_packages(exclude=['test']),
-    data_files=package_files(data_files, ['launch/', 'rviz/', 'urdf/', 'maps/','turtlebot_parameters/', 'config/']),    install_requires=['setuptools'],
+    data_files=package_files(data_files, ['launch/', 'rviz/', 'urdf/', 'maps/','turtlebot_parameters/', 'config/', 'worlds/']),    install_requires=['setuptools'],
     zip_safe=True,
     maintainer='student',
     maintainer_email='ga.harkema@avans.nl',
@@ -46,6 +46,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'drive_turtlebot_circle = navigation.drive_turtlebot_circle:main',
+            'assignment1 = navigation.assignment1:main',
+            'assignment2 = navigation.assignment2:main',
         ],
     },
 )
