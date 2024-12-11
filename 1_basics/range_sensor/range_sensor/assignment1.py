@@ -19,9 +19,10 @@ class BoxHeightCalculator(Node):
 
     def __init__(self):
         super().__init__('box_height_calculator')
-
+        #< Assignmet 1.1
         self.box_height_publisher = self.create_publisher(BoxHeightInformation, 'box_height_info', 10)
 
+        #< Assignment 1.1, creeër hier de subscriber op het topic /sensor_info >
         self.sensor_info_subscription = self.create_subscription(
             SensorInformation,
             'sensor_info',

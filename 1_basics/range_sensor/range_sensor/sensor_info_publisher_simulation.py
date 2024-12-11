@@ -24,6 +24,7 @@ class SensorInformationPublisher(Node):
         self.sensor_info.sensor_data.field_of_view = 0.5 # Field of view of the sensor in rad.
         self.sensor_info.sensor_data.min_range = MIN_RANGE # Minimum distance range of the sensor in m.
         self.sensor_info.sensor_data.max_range = MAX_RANGE # Maximum distance range of the sensor in m.
+        self.get_logger().info('Simulated range-sensor started')
 
 
     def timer_callback(self):
