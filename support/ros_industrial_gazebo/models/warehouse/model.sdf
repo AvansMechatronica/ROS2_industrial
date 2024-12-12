@@ -5,7 +5,7 @@
         <self_collide>false</self_collide>
         <!-- BASE_LINK FRAME -->
         <link name="warehouse_base">
-            <pose>0 0 0 0 0 0</pose>
+            <pose>0 0 -0.1 0 0 0</pose>
             <collision name="warehouse_collision">
                 <pose>0 0 0 0 0 0</pose>
                 <geometry>

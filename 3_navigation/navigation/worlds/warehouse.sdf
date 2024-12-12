@@ -43,7 +43,8 @@
         model://warehouse
       </uri>
       <name>warehouse</name>
-      <pose>0 0 -0.1 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
+      <static>true</static>
     </include>
 
     <!-- Pallet Box Mobile -->
