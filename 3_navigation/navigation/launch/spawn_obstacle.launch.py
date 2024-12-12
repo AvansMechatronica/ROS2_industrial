@@ -29,7 +29,7 @@ def generate_launch_description():
     
     chair1 = spawn_object('chair', 14.3, -5.5, 3)
     chair2 = spawn_object('chair', 14.3, -4, -3)
-    chair3 = spawn_object('foldable_chair', -11.6, 6.4, -1.8)
+    chair3 = spawn_object('foldable_chair', -11.5, 6.4, -1.8)
     chair4 = spawn_object('foldable_chair', -14, 6.5, 1.9)
     table = spawn_object('table', -12.6, 6.5, 1.9)
     #malevisitoronphone = spawn_object('malevisitoronphone', 14.64, -10, -1.57)
