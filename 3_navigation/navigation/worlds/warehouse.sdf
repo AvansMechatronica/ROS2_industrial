@@ -2,9 +2,10 @@
 <sdf version="1.6">
   <world name="warehouse_world">
 
+
     <!-- Include the warehouse model from Gazebo Fuel -->
     <include>
-      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Warehouse</uri>
+      <uri>model://warehouse</uri>
       <name>warehouse</name>
       <pose>0 0 -0.1 0 0 0</pose>
     </include>

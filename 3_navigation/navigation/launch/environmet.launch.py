@@ -52,9 +52,9 @@ def generate_launch_description():
         ],
     )
 
-    world = PathJoinSubstitution([navigation_package_share_directory, 'worlds', 'empty.world'])
+    #world = PathJoinSubstitution([navigation_package_share_directory, 'worlds', 'empty.world'])
 
-    #world = PathJoinSubstitution([navigation_package_share_directory, 'worlds', 'warehouse.sdf'])
+    world = PathJoinSubstitution([navigation_package_share_directory, 'worlds', 'warehouse.sdf'])
     launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
@@ -107,7 +107,7 @@ def generate_launch_description():
         #robot_state_node,
         gzserver_cmd,
     	gzclient_cmd,
-        environment_node,
-        spawn_turtlebot_cmd,
+        #environment_node,
+        #spawn_turtlebot_cmd,
         robot_state_publisher_cmd,
     ])
