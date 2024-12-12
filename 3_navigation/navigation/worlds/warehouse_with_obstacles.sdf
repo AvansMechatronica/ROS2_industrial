@@ -184,6 +184,73 @@
       <pose>-12.85 4.85 0 0 0 0</pose>
     </include>
 
+    <!-- chairs -->
+
+    <include>
+      <uri>
+        model://chair
+      </uri>
+      <name>chair_0</name>
+      <pose>14.3 -5.5 0 0 -0 3</pose>
+    </include>
+    <include>
+      <uri>
+        model://chair
+      </uri>
+      <name>chair_1</name>
+      <pose>14.3 -4 0 0 -0 -3</pose>
+    </include>
+    <include>
+      <uri>
+        model://foldable_chair
+      </uri>
+      <name>fchair_0</name>
+      <pose>-11.5 6.4 0 0 -0 -1.8</pose>
+    </include>
+    <include>
+      <uri>
+        model://foldable_chair
+      </uri>
+      <name>fchair1</name>
+      <pose>-14 6.5 0 0 -0 1.9</pose>
+    </include>
+    
+    <!-- Table -->
+
+    <include>
+      <uri>
+        model://table
+      </uri>
+      <name>table0</name>
+      <pose>-12.7 6.5 0 0 0 0</pose>
+    </include>
+
+    <!-- People -->
+
+    <!--
+    <include>
+      <uri>
+      model://Rescue Randy Sitting
+      </uri>
+      <name>Person 0 - Sitting</name>
+      <pose>14.65 -10 0 0 0 -1.57</pose>
+    </include> -->
+
+    <include>
+      <uri>
+      model://malevisitoronphone
+      </uri>
+      <name>Person 1 - Standing</name>
+      <pose>1 -1 0 0 0 1.57</pose>
+    </include>
+
+    <include>
+      <uri>
+      model://casual_female
+      </uri>
+      <name>Person 2 - Walking</name>
+      <pose>-12 15 0 0 0 0</pose>
+    </include>
 
   </world>
 </sdf>

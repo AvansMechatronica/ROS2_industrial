@@ -108,6 +108,6 @@ def generate_launch_description():
         gzserver_cmd,
     	gzclient_cmd,
         #environment_node,
-        #spawn_turtlebot_cmd,
+        spawn_turtlebot_cmd,
         robot_state_publisher_cmd,
     ])
