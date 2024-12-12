@@ -1,0 +1,206 @@
+(2024-12-08T14:06:07.892574786) (2024-12-08T14:06:07.892609143) [Dbg] [gz.cc:161] Subscribing to [/ga(2024-12-08T14:06:07.956235856) (2024-12-08T14:06:07.956253602) [Dbg] [Gui.cc:253] Waiting for subscribers to [/gazebo/starting_world]...
+(2024-12-08T14:06:13.121422389) (2024-12-08T14:06:13.121437655) [Dbg] [Application.cc:92] Initializing application.
+(2024-12-08T14:06:13.189905493) (2024-12-08T14:06:13.189919738) [GUI] [Dbg] [Application.cc:555] Create main window
+(2024-12-08T14:06:23.843653969) (2024-12-08T14:06:23.843671497) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/StyleDialog.qml:112:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:23.843770825) (2024-12-08T14:06:23.843784258) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/StyleDialog.qml:105:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:23.843854625) (2024-12-08T14:06:23.843866318) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/StyleDialog.qml:98:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:23.973268905) (2024-12-08T14:06:23.973287638) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:102:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:24.26746051) (2024-12-08T14:06:24.26764111) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/PluginMenu.qml:27:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:24.425264595) (2024-12-08T14:06:24.425304811) [GUI] [Dbg] [PathManager.cc:66] Requesting resource paths through [/gazebo/resource_paths/get]
+(2024-12-08T14:06:24.807315602) (2024-12-08T14:06:24.807350662) [GUI] [Wrn] [Application.cc:797] [QT] file::/Gazebo/GazeboDrawer.qml:242:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:25.230285762) (2024-12-08T14:06:25.230304747) [GUI] [Dbg] [Gui.cc:333] GUI requesting list of world names. The server may be busy downloading resources. Please be patient.
+(2024-12-08T14:06:27.430674195) (2024-12-08T14:06:27.430692200) [GUI] [Dbg] [GuiRunner.cc:145] Requesting initial state from [/world/warehouse/state]...
+(2024-12-08T14:06:27.456185627) (2024-12-08T14:06:27.456203665) [GUI] [Msg] Loading config [/home/gerard/turtlebot_ws/install/turtlebot4_ignition_bringup/share/turtlebot4_ignition_bringup/gui/standard/gui.config]
+(2024-12-08T14:06:27.456288700) (2024-12-08T14:06:27.456299908) [GUI] [Dbg] [Application.cc:426] Loading plugin [GzScene3D]
+(2024-12-08T14:06:27.542604591) (2024-12-08T14:06:27.542621810) [GUI] [Dbg] [PathManager.cc:55] Received resource paths.
+(2024-12-08T14:06:27.938243231) (2024-12-08T14:06:27.938258430) [GUI] [Wrn] [Scene3D.cc:2941] The GzScene3D plugin is deprecated on v6 and will be removed on v7. Use MinimalScene together with other plugins as needed.
+(2024-12-08T14:06:27.947196191) (2024-12-08T14:06:27.947211299) [GUI] [Msg] Video recorder stats topic advertised on [/gui/record_video/stats]
+(2024-12-08T14:06:27.954938744) (2024-12-08T14:06:27.954953155) [GUI] [Wrn] [Application.cc:797] [QT] file::/GzScene3D/GzScene3D.qml:108:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:27.983512566) (2024-12-08T14:06:27.983527175) [GUI] [Wrn] [Application.cc:797] [QT] file::/GzScene3D/GzScene3D.qml:63:5: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:27.985871333) (2024-12-08T14:06:27.985886781) [GUI] [Msg] Transform mode service on [/gui/transform_mode]
+(2024-12-08T14:06:27.986206922) (2024-12-08T14:06:27.986220198) [GUI] [Msg] Record video service on [/gui/record_video]
+(2024-12-08T14:06:27.988222175) (2024-12-08T14:06:27.988235588) [GUI] [Msg] Move to service on [/gui/move_to]
+(2024-12-08T14:06:27.988364183) (2024-12-08T14:06:27.988383362) [GUI] [Msg] Follow service on [/gui/follow]
+(2024-12-08T14:06:27.988578949) (2024-12-08T14:06:27.988587970) [GUI] [Msg] Follow offset service on [/gui/follow/offset]
+(2024-12-08T14:06:27.988673321) (2024-12-08T14:06:27.988680640) [GUI] [Msg] View angle service on [/gui/view_angle]
+(2024-12-08T14:06:27.988831178) (2024-12-08T14:06:27.988839362) [GUI] [Msg] Move to pose service on [/gui/move_to/pose]
+(2024-12-08T14:06:27.989048707) (2024-12-08T14:06:27.989056736) [GUI] [Msg] Camera pose topic advertised on [/gui/camera/pose]
+(2024-12-08T14:06:27.989149546) (2024-12-08T14:06:27.989156785) [GUI] [Msg] View as transparent service on [/gui/view/transparent]
+(2024-12-08T14:06:27.989985586) (2024-12-08T14:06:27.989996071) [GUI] [Msg] View center of mass service on [/gui/view/com]
+(2024-12-08T14:06:27.990475223) (2024-12-08T14:06:27.990485084) [GUI] [Msg] View inertia service on [/gui/view/inertia]
+(2024-12-08T14:06:27.991021528) (2024-12-08T14:06:27.991032539) [GUI] [Msg] View joints service on [/gui/view/joints]
+(2024-12-08T14:06:27.991187517) (2024-12-08T14:06:27.991195160) [GUI] [Msg] View wireframes service on [/gui/view/wireframes]
+(2024-12-08T14:06:27.991305663) (2024-12-08T14:06:27.991313375) [GUI] [Msg] View collisions service on [/gui/view/collisions]
+(2024-12-08T14:06:27.991469723) (2024-12-08T14:06:27.991477397) [GUI] [Msg] Camera view controller topic advertised on [/gui/camera/view_control]
+(2024-12-08T14:06:28.95295525) (2024-12-08T14:06:28.95307151) [GUI] [Msg] Added plugin [3D View] to main window
+(2024-12-08T14:06:28.95719348) (2024-12-08T14:06:28.95732263) [GUI] [Msg] Loaded plugin [GzScene3D] from path [/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libGzScene3D.so]
+(2024-12-08T14:06:28.97422305) (2024-12-08T14:06:28.97434181) [GUI] [Dbg] [Application.cc:426] Loading plugin [WorldControl]
+(2024-12-08T14:06:28.123419370) (2024-12-08T14:06:28.123432422) [GUI] [Wrn] [Application.cc:797] [QT] file::/WorldControl/WorldControl.qml:30:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.124043808) (2024-12-08T14:06:28.124052429) [GUI] [Msg] Using world control service [/world/warehouse/control]
+(2024-12-08T14:06:28.125403051) (2024-12-08T14:06:28.125414315) [GUI] [Msg] Listening to stats on [/world/warehouse/stats]
+(2024-12-08T14:06:28.125453767) (2024-12-08T14:06:28.125459691) [GUI] [Dbg] [WorldControl.cc:248] Using a service to share WorldControl msgs with the server
+(2024-12-08T14:06:28.207541267) (2024-12-08T14:06:28.207553331) [GUI] [Msg] Added plugin [World control] to main window
+(2024-12-08T14:06:28.207706737) (2024-12-08T14:06:28.207713850) [GUI] [Msg] Loaded plugin [WorldControl] from path [/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldControl.so]
+(2024-12-08T14:06:28.207764289) (2024-12-08T14:06:28.207770692) [GUI] [Dbg] [Application.cc:426] Loading plugin [WorldStats]
+(2024-12-08T14:06:28.220059502) (2024-12-08T14:06:28.220070890) [GUI] [Msg] Listening to stats on [/world/warehouse/stats]
+(2024-12-08T14:06:28.363543724) (2024-12-08T14:06:28.363565218) [GUI] [Msg] Added plugin [World stats] to main window
+(2024-12-08T14:06:28.363684757) (2024-12-08T14:06:28.363693174) [GUI] [Msg] Loaded plugin [WorldStats] from path [/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libWorldStats.so]
+(2024-12-08T14:06:28.363751567) (2024-12-08T14:06:28.363760915) [GUI] [Dbg] [Application.cc:426] Loading plugin [TransformControl]
+(2024-12-08T14:06:28.462242810) (2024-12-08T14:06:28.462255219) [GUI] [Wrn] [Application.cc:797] [QT] file::/TransformControl/TransformControl.qml:104:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.462339243) (2024-12-08T14:06:28.462348386) [GUI] [Wrn] [Application.cc:797] [QT] file::/TransformControl/TransformControl.qml:99:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.462401407) (2024-12-08T14:06:28.462409401) [GUI] [Wrn] [Application.cc:797] [QT] file::/TransformControl/TransformControl.qml:94:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.462447841) (2024-12-08T14:06:28.462455277) [GUI] [Wrn] [Application.cc:797] [QT] file::/TransformControl/TransformControl.qml:89:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.466870423) (2024-12-08T14:06:28.466884275) [GUI] [Dbg] [TransformControl.cc:222] Legacy mode is disabled; this plugin must be used with MinimalScene.
+(2024-12-08T14:06:28.600214782) (2024-12-08T14:06:28.600229290) [GUI] [Msg] Added plugin [Transform control] to main window
+(2024-12-08T14:06:28.600388988) (2024-12-08T14:06:28.600513392) [GUI] [Msg] Loaded plugin [TransformControl] from path [/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libTransformControl.so]
+(2024-12-08T14:06:28.601273435) (2024-12-08T14:06:28.601284772) [GUI] [Dbg] [Application.cc:426] Loading plugin [Shapes]
+(2024-12-08T14:06:28.763539243) (2024-12-08T14:06:28.763552477) [GUI] [Msg] Added plugin [Shapes] to main window
+(2024-12-08T14:06:28.763628267) (2024-12-08T14:06:28.763636529) [GUI] [Msg] Loaded plugin [Shapes] from path [/usr/lib/x86_64-linux-gnu/ign-gazebo-6/plugins/gui/libShapes.so]
+(2024-12-08T14:06:28.763692377) (2024-12-08T14:06:28.763700258) [GUI] [Dbg] [Application.cc:426] Loading plugin [Turtlebot4Hmi]
+(2024-12-08T14:06:28.887202074) (2024-12-08T14:06:28.887215441) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:36:3: QML Connections: Implicitly defined onFoo properties in Connections are deprecated. Use this syntax instead: function onFoo(<arguments>) { ... }
+(2024-12-08T14:06:28.887318316) (2024-12-08T14:06:28.887326824) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:388: ReferenceError: control is not defined
+(2024-12-08T14:06:28.887367199) (2024-12-08T14:06:28.894903063) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:410: ReferenceError: control is not defined
+(2024-12-08T14:06:28.894989170) (2024-12-08T14:06:28.894998397) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:432: ReferenceError: control is not defined
+(2024-12-08T14:06:28.895035720) (2024-12-08T14:06:28.895043297) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:454: ReferenceError: control is not defined
+(2024-12-08T14:06:28.895191878) (2024-12-08T14:06:28.895200105) [GUI] [Wrn] [Application.cc:797] [QT] file::/Turtlebot4Hmi/Turtlebot4Hmi.qml:102:7: Unable to assign [undefined] to QString
+(2024-12-08T14:06:29.34105930) (2024-12-08T14:06:29.34119803) [GUI] [Msg] Added plugin [Turtlebot4 HMI] to main window
+(2024-12-08T14:06:29.34192967) (2024-12-08T14:06:29.34200870) [GUI] [Msg] Loaded plugin [Turtlebot4Hmi] from path [/home/gerard/turtlebot_ws/install/turtlebot4_ignition_gui_plugins/share/turtlebot4_ignition_gui_plugins/lib/libTurtlebot4Hmi.so]
+(2024-12-08T14:06:29.34260771) (2024-12-08T14:06:29.34268324) [GUI] [Dbg] [Application.cc:426] Loading plugin [Teleop]
+(2024-12-08T14:06:29.162000700) (2024-12-08T14:06:29.162021990) [GUI] [Msg] A new topic has been entered: '/cmd_vel ' 
+(2024-12-08T14:06:29.385723901) (2024-12-08T14:06:29.385739138) [GUI] [Msg] Added plugin [Teleop] to main window
+(2024-12-08T14:06:29.385821871) (2024-12-08T14:06:29.385830997) [GUI] [Msg] Loaded plugin [Teleop] from path [/usr/lib/x86_64-linux-gnu/ign-gui-6/plugins/libTeleop.so]
+(2024-12-08T14:06:29.385895780) (2024-12-08T14:06:29.385916815) [GUI] [Dbg] [Application.cc:569] Applying config
+(2024-12-08T14:06:29.721961406) (2024-12-08T14:06:29.721975076) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:29.861935309) (2024-12-08T14:06:29.861947840) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:29.976460218) (2024-12-08T14:06:29.976474958) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.154311825) (2024-12-08T14:06:30.154344142) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.365998547) (2024-12-08T14:06:30.366011071) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.479709965) (2024-12-08T14:06:30.479724703) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.621135265) (2024-12-08T14:06:30.621147357) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.637919427) (2024-12-08T14:06:30.637933410) [GUI] [Wrn] [Component.hh:189] Trying to deserialize component with data type [N3sdf3v125WorldE], which doesn't have `operator>>`. Component will not be deserialized.
+(2024-12-08T14:06:30.776574021) (2024-12-08T14:06:30.776596328) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.875390481) (2024-12-08T14:06:30.875405953) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:30.988162942) (2024-12-08T14:06:30.988176870) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.114862042) (2024-12-08T14:06:31.114882135) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.348446767) (2024-12-08T14:06:31.348467414) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.526705743) (2024-12-08T14:06:31.526792469) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.630173212) (2024-12-08T14:06:31.630185665) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.732781235) (2024-12-08T14:06:31.732794280) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:31.889095063) (2024-12-08T14:06:31.889108495) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.77810807) (2024-12-08T14:06:32.77822379) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.178560171) (2024-12-08T14:06:32.178571919) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.285005823) (2024-12-08T14:06:32.285019356) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.473812798) (2024-12-08T14:06:32.473826198) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.695282495) (2024-12-08T14:06:32.695295279) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:32.909681940) (2024-12-08T14:06:32.909695895) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:33.220565341) (2024-12-08T14:06:33.220608751) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:33.468223242) (2024-12-08T14:06:33.468235186) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:33.638129938) (2024-12-08T14:06:33.638142528) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:33.821177806) (2024-12-08T14:06:33.821191247) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:33.847640373) (2024-12-08T14:06:33.847652518) [GUI] [Dbg] [Scene3D.cc:3310] RenderEngineGuiPlugin component not found, render engine won't be set from the ECM 
+(2024-12-08T14:06:34.35043835) (2024-12-08T14:06:34.35057912) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.135240635) (2024-12-08T14:06:34.135253713) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.218334127) (2024-12-08T14:06:34.218347014) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.306150916) (2024-12-08T14:06:34.306180933) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.398553784) (2024-12-08T14:06:34.398572321) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.486164391) (2024-12-08T14:06:34.486176738) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.581235175) (2024-12-08T14:06:34.581247935) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.694611752) (2024-12-08T14:06:34.694680705) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:34.906478226) (2024-12-08T14:06:34.910435705) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.39683720) (2024-12-08T14:06:35.39698409) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.166717345) (2024-12-08T14:06:35.166732066) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.304061306) (2024-12-08T14:06:35.304159583) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.427758899) (2024-12-08T14:06:35.427771532) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.588198281) (2024-12-08T14:06:35.588211727) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.752053525) (2024-12-08T14:06:35.752065637) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:35.914670656) (2024-12-08T14:06:35.914690854) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.58129307) (2024-12-08T14:06:36.58143738) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.205583413) (2024-12-08T14:06:36.205596487) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.406878548) (2024-12-08T14:06:36.406892288) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.575809292) (2024-12-08T14:06:36.575822961) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.758798149) (2024-12-08T14:06:36.758812699) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:36.980736365) (2024-12-08T14:06:36.980749479) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:37.332614514) (2024-12-08T14:06:37.332627609) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:37.480270490) (2024-12-08T14:06:37.480283080) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:37.714755403) (2024-12-08T14:06:37.714768606) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:37.895098961) (2024-12-08T14:06:37.895123912) [GUI] [Wrn] [Model.hh:98] Unable to deserialize sdf::Model
+(2024-12-08T14:06:38.246680790) (2024-12-08T14:06:38.246695376) [GUI] [Wrn] [Application.cc:797] [QT] file::/WorldStats/WorldStats.qml:53:3: QML RowLayout: Binding loop detected for property "x"
+(2024-12-08T14:06:38.700702319) (2024-12-08T14:06:38.700716681) [GUI] [Msg] Loading plugin [ignition-rendering-ogre2]
+(2024-12-08T14:06:39.701229620) (2024-12-08T14:06:39.701240933) [GUI] [Dbg] [RenderUtil.cc:2591] Create scene [scene]
+(2024-12-08T14:06:39.762917581) (2024-12-08T14:06:39.762932041) [GUI] [Wrn] [Ogre2Camera.cc:390] Ogre2Camera::SetVisibilityMask: Mask bits c0000000 are set but will be ignored as they conflict with the reserved bits used internally by the ogre2 backend.
+(2024-12-08T14:06:40.593291244) (2024-12-08T14:06:40.593302139) [GUI] [Wrn] [OBJLoader.cc:91] Both `d` and `Tr` parameters defined for "Chair". Use the value of `d` for dissolve (line 8 in .mtl.)
+
+(2024-12-08T14:06:43.985199892) (2024-12-08T14:06:43.985213177) [GUI] [Err] [SystemPaths.cc:378] Unable to find file with URI [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985348223) (2024-12-08T14:06:43.985360012) [GUI] [Err] [SystemPaths.cc:473] Could not resolve file [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985433553) (2024-12-08T14:06:43.985453008) [GUI] [Err] [MeshManager.cc:173] Unable to find file[model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985501021) (2024-12-08T14:06:43.985509127) [GUI] [Err] [MeshDescriptor.cc:56] Mesh manager can't find mesh named [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985563467) (2024-12-08T14:06:43.985572603) [GUI] [Err] [Ogre2MeshFactory.cc:562] Cannot load null mesh [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985629330) (2024-12-08T14:06:43.985672982) [GUI] [Err] [Ogre2MeshFactory.cc:125] Failed to get Ogre item for [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_pi_base.dae]
+(2024-12-08T14:06:43.985741430) (2024-12-08T14:06:43.985750352) [GUI] [Err] [SceneManager.cc:404] Failed to load geometry for visual: base_footprint_fixed_joint_lump__base_link_visual
+(2024-12-08T14:06:43.997338816) (2024-12-08T14:06:43.997350915) [GUI] [Err] [SystemPaths.cc:378] Unable to find file with URI [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.998821023) (2024-12-08T14:06:43.998836712) [GUI] [Err] [SystemPaths.cc:473] Could not resolve file [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.998928825) (2024-12-08T14:06:43.998939215) [GUI] [Err] [MeshManager.cc:173] Unable to find file[model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.998995358) (2024-12-08T14:06:43.999005543) [GUI] [Err] [MeshDescriptor.cc:56] Mesh manager can't find mesh named [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.999063808) (2024-12-08T14:06:43.999074223) [GUI] [Err] [Ogre2MeshFactory.cc:562] Cannot load null mesh [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.999130067) (2024-12-08T14:06:43.999140211) [GUI] [Err] [Ogre2MeshFactory.cc:125] Failed to get Ogre item for [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae]
+(2024-12-08T14:06:43.999191277) (2024-12-08T14:06:43.999198326) [GUI] [Err] [SceneManager.cc:404] Failed to load geometry for visual: base_footprint_fixed_joint_lump__base_scan_visual_1
+(2024-12-08T14:06:44.13520071) (2024-12-08T14:06:44.13533330) [GUI] [Err] [SystemPaths.cc:378] Unable to find file with URI [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13632670) (2024-12-08T14:06:44.13645254) [GUI] [Err] [SystemPaths.cc:473] Could not resolve file [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13715872) (2024-12-08T14:06:44.13724702) [GUI] [Err] [MeshManager.cc:173] Unable to find file[model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13775390) (2024-12-08T14:06:44.13786202) [GUI] [Err] [MeshDescriptor.cc:56] Mesh manager can't find mesh named [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13837415) (2024-12-08T14:06:44.13844727) [GUI] [Err] [Ogre2MeshFactory.cc:562] Cannot load null mesh [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13921637) (2024-12-08T14:06:44.13931386) [GUI] [Err] [Ogre2MeshFactory.cc:125] Failed to get Ogre item for [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.13980420) (2024-12-08T14:06:44.13988143) [GUI] [Err] [SceneManager.cc:404] Failed to load geometry for visual: wheel_left_link_visual
+(2024-12-08T14:06:44.21557995) (2024-12-08T14:06:44.21571673) [GUI] [Err] [SystemPaths.cc:378] Unable to find file with URI [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.21670851) (2024-12-08T14:06:44.21680258) [GUI] [Err] [SystemPaths.cc:473] Could not resolve file [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.21724675) (2024-12-08T14:06:44.21732957) [GUI] [Err] [MeshManager.cc:173] Unable to find file[model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.21792050) (2024-12-08T14:06:44.21800420) [GUI] [Err] [MeshDescriptor.cc:56] Mesh manager can't find mesh named [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.21843024) (2024-12-08T14:06:44.21850883) [GUI] [Err] [Ogre2MeshFactory.cc:562] Cannot load null mesh [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.21893207) (2024-12-08T14:06:44.21900940) [GUI] [Err] [Ogre2MeshFactory.cc:125] Failed to get Ogre item for [model://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae]
+(2024-12-08T14:06:44.22202452) (2024-12-08T14:06:44.22211693) [GUI] [Err] [SceneManager.cc:404] Failed to load geometry for visual: wheel_right_link_visual
+(2024-12-08T14:06:44.221510997) (2024-12-08T14:06:44.221524216) [GUI] [Wrn] [ColladaLoader.cc:2394] Triangle input semantic: 'COLOR' is currently not supported
+(2024-12-08T14:06:44.430721709) (2024-12-08T14:06:44.430735783) [GUI] [Wrn] [ColladaLoader.cc:2394] Triangle input semantic: 'COLOR' is currently not supported
+(2024-12-08T14:06:44.777286549) (2024-12-08T14:06:44.777319856) [GUI] [Msg] Loading plugin [ignition-rendering-ogre2]
+(2024-12-08T14:06:44.777832079) (2024-12-08T14:06:44.777845811) [GUI] [Dbg] [TransformControl.cc:531] TransformControl plugin is using camera [scene::Camera(65527)]
+(2024-12-08T14:11:40.714347933) (2024-12-08T14:11:40.714362456) [GUI] [Wrn] [Application.cc:797] [QT] Model size of -95 is less than 0
+(2024-12-08T14:12:25.413381725) (2024-12-08T14:12:25.413401599) [GUI] [Dbg] [Gui.cc:472] Shutting down ign-gazebo-gui
+(2024-12-08T14:12:25.413470131) (2024-12-08T14:12:25.413482005) [GUI] [Dbg] [Application.cc:140] Terminating application.
+(2024-12-08T14:12:25.455619387) (2024-12-08T14:12:25.455638320) [GUI] [Msg] Loading plugin [ignition-rendering-ogre2]
+(2024-12-08T14:12:25.457005632) (2024-12-08T14:12:25.457031223) [GUI] [Dbg] [Scene3D.cc:2165] Destroy scene [scene]
+(2024-12-08T14:12:25.560926953) (2024-12-08T14:12:25.560944135) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:52: TypeError: Cannot read property 'dialogOnExitText' of null
+(2024-12-08T14:12:25.563521301) (2024-12-08T14:12:25.563537895) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:54: TypeError: Cannot read property 'exitDialogShowCloseGui' of null
+(2024-12-08T14:12:25.563605232) (2024-12-08T14:12:25.563617997) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:53: TypeError: Cannot read property 'exitDialogShowShutdown' of null
+(2024-12-08T14:12:25.563702424) (2024-12-08T14:12:25.563714220) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:251: TypeError: Cannot read property 'showDrawer' of null
+(2024-12-08T14:12:25.563776452) (2024-12-08T14:12:25.563788139) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/SideDrawer.qml:93: TypeError: Cannot read property 'showDefaultDrawerOpts' of null
+(2024-12-08T14:12:25.563849025) (2024-12-08T14:12:25.563861262) [GUI] [Wrn] [Application.cc:797] [QT] qrc:/qml/IgnSplit.qml:56: TypeError: Cannot read property 'pluginCount' of null
+(2024-12-08T14:12:25.563921525) (2024-12-08T14:12:25.563932943) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:41: TypeError: Cannot read property 'toolBarColorLight' of null
+(2024-12-08T14:12:25.563985365) (2024-12-08T14:12:25.563996993) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:42: TypeError: Cannot read property 'toolBarTextColorLight' of null
+(2024-12-08T14:12:25.564050753) (2024-12-08T14:12:25.564062763) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:43: TypeError: Cannot read property 'toolBarColorDark' of null
+(2024-12-08T14:12:25.564115859) (2024-12-08T14:12:25.564127238) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:44: TypeError: Cannot read property 'toolBarTextColorDark' of null
+(2024-12-08T14:12:25.564179764) (2024-12-08T14:12:25.564194384) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:45: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.564271712) (2024-12-08T14:12:25.564280352) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:46: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.564325041) (2024-12-08T14:12:25.564332899) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:47: TypeError: Cannot read property 'pluginToolBarColorDark' of null
+(2024-12-08T14:12:25.564395979) (2024-12-08T14:12:25.564404544) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:48: TypeError: Cannot read property 'pluginToolBarTextColorDark' of null
+(2024-12-08T14:12:25.564457000) (2024-12-08T14:12:25.564466009) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:50: TypeError: Cannot read property 'defaultExitAction' of null
+(2024-12-08T14:12:25.564512311) (2024-12-08T14:12:25.564520544) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:51: TypeError: Cannot read property 'showDialogOnExit' of null
+(2024-12-08T14:12:25.564565450) (2024-12-08T14:12:25.564573405) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:55: TypeError: Cannot read property 'exitDialogShutdownText' of null
+(2024-12-08T14:12:25.564618736) (2024-12-08T14:12:25.564627236) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:56: TypeError: Cannot read property 'exitDialogCloseGuiText' of null
+(2024-12-08T14:12:25.566458916) (2024-12-08T14:12:25.566473709) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:66: TypeError: Cannot read property 'toolBarColorLight' of null
+(2024-12-08T14:12:25.566559285) (2024-12-08T14:12:25.566568014) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:76: TypeError: Cannot read property 'toolBarTextColorLight' of null
+(2024-12-08T14:12:25.566639187) (2024-12-08T14:12:25.566647731) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:219: TypeError: Cannot read property 'showPluginMenu' of null
+(2024-12-08T14:12:25.566695726) (2024-12-08T14:12:25.566711071) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:202: TypeError: Cannot read property 'showDrawer' of null
+(2024-12-08T14:12:25.566772818) (2024-12-08T14:12:25.566781076) [GUI] [Wrn] [Application.cc:797] [QT] qrc:qml/Main.qml:188: TypeError: Cannot read property 'showDrawer' of null
+(2024-12-08T14:12:25.566862231) (2024-12-08T14:12:25.566873349) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.566946160) (2024-12-08T14:12:25.566957331) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.567034107) (2024-12-08T14:12:25.567043913) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.567107557) (2024-12-08T14:12:25.567116968) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.567175111) (2024-12-08T14:12:25.567183711) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.567249658) (2024-12-08T14:12:25.567259220) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.567329322) (2024-12-08T14:12:25.567338395) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.572041146) (2024-12-08T14:12:25.572053644) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.572134605) (2024-12-08T14:12:25.572142922) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.572205548) (2024-12-08T14:12:25.572216412) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.572287457) (2024-12-08T14:12:25.572295552) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.572347842) (2024-12-08T14:12:25.572356343) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
+(2024-12-08T14:12:25.573676739) (2024-12-08T14:12:25.573688957) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:128: TypeError: Cannot read property 'pluginToolBarColorLight' of null
+(2024-12-08T14:12:25.573764868) (2024-12-08T14:12:25.573773327) [GUI] [Wrn] [Application.cc:797] [QT] file::qml/IgnCard.qml:139: TypeError: Cannot read property 'pluginToolBarTextColorLight' of null
