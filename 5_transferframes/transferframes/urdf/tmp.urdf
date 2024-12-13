@@ -247,14 +247,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -267,14 +267,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -295,14 +295,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -323,14 +323,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -351,14 +351,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -379,14 +379,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="White"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -407,14 +407,14 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link6.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link6.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <material name="Silver"/>
     </visual>
     <collision>
       <geometry>
-        <mesh filename="file:///home/student/lite6_ws/install/xarm_description/share/xarm_description/meshes/end_tool/collision/end_tool.stl"/>
+        <mesh filename="file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/end_tool/collision/end_tool.stl"/>
       </geometry>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
@@ -523,7 +523,7 @@
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
       <robot_sim_type>gazebo_ros2_control/GazeboSystem</robot_sim_type>
-      <parameters>/home/student/lite6_ws/install/xarm_controller/share/xarm_controller/config/xarm6_controllers.yaml</parameters>
+      <parameters>/home/student/xarm_ws/install/xarm_controller/share/xarm_controller/config/xarm6_controllers.yaml</parameters>
     </plugin>
   </gazebo>
   <!-- Insert at the end of xarm_device_macro.xacro -->
@@ -534,6 +534,16 @@
     <parent link="link_eef"/>
     <child link="tool_link"/>
   </joint>
+  <!-- dit werkt ook niet -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="tool_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="link_eef">
+    <material>Gazebo/Black</material>
+  </gazebo>
   <!-- link list -->
   <link name="vacuum_gripper1_base_link">
     <visual>
@@ -545,17 +555,32 @@
         <color rgba="1 0 0 1"/>
       </material>
     </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+    <collision name="vacuum_gripper1_base_link_collision">
+      <!--
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${mesh_path}/meshes/vacuum_gripper/collision/vacuum_gripper.dae"/>
+        </geometry>
+        <material name="red"/>
+        -->
       <geometry>
-        <mesh filename="file:///home/student/ros2_industrial_ws/install/ros_industrial_support/share/ros_industrial_support/meshes/vacuum_gripper/collision/vacuum_gripper.dae"/>
+        <!-- <mesh filename="file://$(find ariac_description)/meshes/vacuum_gripper/vacuum_gripper.stl" scale="1 1 1"/> -->
+        <cylinder length="0.01" radius="0.05"/>
       </geometry>
-      <material name="red"/>
     </collision>
+    <!--
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="1.0" ixy="0" ixz="0"
+                 iyy="1.0" iyz="0"
+                 izz="1.0" />
+        <mass value="1.0" />
+      </inertial>
+      -->
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
-      <mass value="1.0"/>
+      <mass value="0.01"/>
+      <inertia ixx="0.0000063" ixy="0.0" ixz="0.0" iyy="0.0000063" iyz="0.0" izz="0.000025"/>
     </inertial>
   </link>
   <link name="vacuum_gripper1_suction_cup">
@@ -565,6 +590,17 @@
         <box size="0.001 0.001 0.001"/>
       </geometry>
     </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+      <mass value="0.001"/>
+    </inertial>
   </link>
   <!-- joint list -->
   <joint name="vacuum_gripper1_joint" type="fixed">
@@ -572,15 +608,31 @@
     <parent link="vacuum_gripper1_base_link"/>
     <child link="vacuum_gripper1_suction_cup"/>
   </joint>
+  <gazebo reference="vacuum_gripper1_suction_cup">
+    <sensor name="bumper" type="contact">
+      <update_rate>10</update_rate>
+      <contact>
+        <collision>vacuum_gripper1__gripper_collision_collision</collision>
+      </contact>
+    </sensor>
+  </gazebo>
+  <gazebo reference="vacuum_gripper1_base_link">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="vacuum_gripper1_suction_cup">
+    <material>Gazebo/Black</material>
+  </gazebo>
   <gazebo>
-    <!--<plugin name="vacuum_gripper" filename="my_libgazebo_ros_vacuum_gripper.so">-->
+    <!--<plugin name="vacuum_gripper" filename="libgazebo_ros_vacuum_gripper.so">-->
     <plugin filename="libMyVacuumGripperPlugin.so" name="vacuum_gripper">
       <ros>
-        <namespace>/my</namespace>
+        <!--<namespace>/gazebo_plugins</namespace>-->
+        <namespace>/ros_industrial_actuators</namespace>
         <remapping>switch:=custom_switch</remapping>
         <remapping>grasping:=custom_grasping</remapping>
       </ros>
       <link_name>vacuum_gripper1_suction_cup</link_name>
+      <!--<link_name>vacuum_gripper1_suction_cup</link_name>-->
       <!-- Max distance to attract entities -->
       <max_distance>10.0</max_distance>
     </plugin>

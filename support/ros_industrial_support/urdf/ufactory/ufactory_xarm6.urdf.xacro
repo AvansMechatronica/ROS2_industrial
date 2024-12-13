@@ -84,6 +84,18 @@
     <parent link="${prefix}link_eef" />
     <child link="${prefix}tool_link" />
   </joint>
+  <!-- dit werkt ook niet -->
+  <gazebo reference="${prefix}base_link">
+      <material>Gazebo/Black</material>      
+  </gazebo>
+
+  <gazebo reference="${prefix}tool_link">
+      <material>Gazebo/Black</material>      
+  </gazebo>
+
+  <gazebo reference="${prefix}link_eef">
+      <material>Gazebo/Black</material>      
+  </gazebo>
 
 
   </xacro:macro>
