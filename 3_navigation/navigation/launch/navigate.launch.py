@@ -35,6 +35,13 @@ def generate_launch_description():
             'maps',
             'map_factory_v1.yaml'))
 
+    map_dir = LaunchConfiguration(
+        'map',
+        default=os.path.join(
+            get_package_share_directory('navigation'),
+            'maps',
+            'map_warehouse_v1.yaml'))
+
 
     param_dir = LaunchConfiguration(
         'params_file',

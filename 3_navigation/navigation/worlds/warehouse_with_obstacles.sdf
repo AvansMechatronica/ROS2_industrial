@@ -115,7 +115,6 @@
       <pose>0.4 -2 0 0 -0 0</pose>
     </include>
 
-    <!-- Navigation Challenge section -->
 
     <include>
       <uri>
@@ -153,6 +152,7 @@
       <pose>-4 21.5 0 0 -0 1.57</pose>
     </include>
 
+    <!-- Navigation Challenge section -->
     <!-- Barriers -->
 
     <include>
