@@ -16,10 +16,9 @@
 #error This example is only avaliable for Arduino framework with serial transport.
 #endif
 
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
   #include <WS2812FX.h>
-  WS2812FX ws2812fxStatus = WS2812FX(1, RGB_BUILTIN, NEO_GRB + NEO_KHZ800);
-  #define RGB_BUILTIN STATUS_LED_PIN
+  WS2812FX ws2812fxStatus = WS2812FX(1, STATUS_LED_PIN, NEO_GRB + NEO_KHZ800);
   #define RGB_BRIGHTNESS 10 // Change white brightness (max 255)
 #endif
 
@@ -50,11 +49,11 @@ void error_loop(){
   while(1){
       
 
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
         ws2812fxStatus.service();
 #endif
         if(errorLedState){
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
             ws2812fxStatus.setColor(0,0,0);
 #else
 #if defined(STATUS_LED_PIN)
@@ -65,7 +64,7 @@ void error_loop(){
         }
         else{
             //neopixelWrite(RGB_BUILTIN,RGB_BRIGHTNESS,0, 0);
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
             ws2812fxStatus.setColor(RGB_BRIGHTNESS,0,0);
 #else
 #if defined(STATUS_LED_PIN)
@@ -97,16 +96,14 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
 
 void setup() {
   // Configure serial transport
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
   ws2812fxStatus.init();
   ws2812fxStatus.setMode(FX_MODE_STATIC);
   ws2812fxStatus.setColor(RGB_BRIGHTNESS,0,0);
-#if 0
   ws2812fxStatus.setBrightness(100);
   ws2812fxStatus.setSpeed(200);
   ws2812fxStatus.start();
   ws2812fxStatus.service();
-#endif
 #else
 #if defined(STATUS_LED_PIN)
   pinMode(STATUS_LED_PIN, OUTPUT); 
@@ -119,7 +116,7 @@ void setup() {
   set_microros_serial_transports(Serial);
   delay(2000);
 
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
   ws2812fxStatus.setColor(0, 0, RGB_BRIGHTNESS);
   ws2812fxStatus.service();
 #endif
@@ -167,7 +164,7 @@ void setup() {
   RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
 
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
   ws2812fxStatus.setColor(0, RGB_BRIGHTNESS,0);
 #else
 #if defined(STATUS_LED_PIN)
@@ -181,7 +178,7 @@ void loop() {
   delay(100);
   RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(100)));
 
-#if defined(MULTY_COLOR_LED)
+#if defined(MULTI_COLOR_LED)
     ws2812fxStatus.service();
 #endif
 }

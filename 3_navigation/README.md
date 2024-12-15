@@ -4,7 +4,11 @@
 
 Starten van de omgeving
 ```bash
-ros2 launch navigation environment.launch.py
+ros2 launch navigation environmet.launch.py
+```
+
+```bash
+ros2 launch navigation environmet.launch.py without_obstacles:=True
 ```
 
 ```bash

@@ -8,6 +8,7 @@ We gaan in deze en volgende workshops aan de slag met een hoogte meting van doze
 
 ![Image](../images/conveyor_with_packges.jpg)
 
+
 In de workshop wordt de range-sensor gesimuleerd door een node met een topic welke de afstand van een voorwerp tot de range-sensor weergeeft.
 p.s. Je kunt ook van een fysieke range-sensor gebruik maken, dit staat beschreven in [ESP32 ultatrasonic-sensor](../ESP32/ultrasonic_sensor/README.md)
 
