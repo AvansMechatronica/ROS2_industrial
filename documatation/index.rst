@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Example's documentation!
-===================================
+Welcome to Avans ROS2 Industial Workshop
+========================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   some-feature.md
-   another-feature.md
+   install.md
+   ../licence.md
