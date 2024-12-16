@@ -43,18 +43,18 @@ You can use the WSL Ubuntu-22.04 distribution form the Microsoft Store. Use as d
 
 ## Workshops:
 
-[ROS2 Basics](1_basics/README.md)
+[ROS2 Basics](../1_basics/README.md)
 
 
-[ROS2 Urdf](2_urdf/README.md)
+[ROS2 Urdf](../2_urdf/README.md)
 
-[ROS2 Navigation](3_navigation/README.md)
+[ROS2 Navigation](../3_navigation/README.md)
 
-[ROS2 Manipulation](4_manipulation/README.md)
+[ROS2 Manipulation](../4_manipulation/README.md)
 
-[ROS2 Transferframes](5_transferframes/README.md)
+[ROS2 Transferframes](../5_transferframes/README.md)
 
-[ROS2 Project](6_project/README.md)
+[ROS2 Project](../6_project/README.md)
 ## Verantwoording:
 
 Deze workshop is geinspireerd op [hello real world ros robot operating system](https://ocw.tudelft.nl/courses/hello-real-world-ros-robot-operating-system/) van de Technische Universiteit Delft/Nederland(TUD)
