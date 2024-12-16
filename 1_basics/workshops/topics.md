@@ -1,5 +1,3 @@
-## Under construction
-
 ## ROS Topics: Publishers and Subscribers
 
 In deze workshop leer je de basis van ROS2 topics. De theorie hiervan wordt gedoceerd, maar kun je ook vinden op deze [website van ROS](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html)
@@ -87,14 +85,96 @@ ros2 run range_sensor assignment1
 ```
 
 ## Opdracht 1.2 Bereken de hoogte van de doos en druk deze af
+In deze opdracht ga je de hoogte van het object op de conveyor berekenen. De sensor is op 2 meter hoogt t.o.v. de conveyor gemonteerd.
+Maak een berekning voor de hoogte van het object onder de sensor door schuift. Druk deze hoogte af met het "self.get_logger().info()"statement in de "sensor_info_callback()'member-functie.
+
+Voer de code in onder onderstaande regel in het assignment1.py bestand
+
+*<Assignment 1.2, bereken hier de hoogte van het object>*
+
+Let op: Volgens het gegevensblad van de sensor meet de sensor tot 2.0 meter, echer metingen groter dan 1.9 meter zijn zeer onderheving aan ruis en kunnen z.g.n. false-positive metingen opleveren. Houd hiermee rekening in je berekening.
+
+Test de werking van het programma
+```
+ros2 run range_sensor assignment1 
+```
 
 ## Opdracht 1.3 Creeër een nieuw message type
+In deze opdracht ga je een nieuw message type maken waarin later, via een topic, de hoogte van het object onder de sensor wordt gepubliceerd. 
+Naam message type: BoxHeightInformation
+Infomatie in message type: box_height (type float32)
 
+Volg daar toe de volgende handelingen
+* Navigeer naar de directory *msgs*  in de package 
+*range_sensors_interfaces*
+* Maak een nieuw bestand *BoxHeightInformation.msg*
+* Open het bestand en voeg de volgende regel toe: 
+    * float32 box_height   # Height of box
+* Sla het bestand op
+
+Om dit nieuwe type in de *Colcon build* op te nemen dien je het *CMakeLists.txt* bestand kenbaar te maken dat er een message type wordt toegevoegd.
+* Navigeer naar de **root**-directory van de package package 
+*range_sensors_interfaces*
+* Open het bestand *CMakeLists.txt* (dit is *bestaand* bestand)
+* Zoek de regel met *rosidl_generate_interfaces(${PROJECT_NAME}* op.
+* Plaats onder de regel de volgende regel:
+    * "msg/BoxHeightInformation.msg"
+* Sla het bestand op
+
+Vervolgens dient je workspace gebouwd te worden:
+* Navigeer naar de **root**-directory van je workspace
+```bash
+cd ~/ros2_industrial_ws/
+```
+* Bouw het de workspace:
+```bash
+colcon build --symlink-install
+```
+--> Beter nog bouw alleen de package die je hebt gewijzigd
+```bash
+colcon build --symlink-install --packages-select range_sensors_interfaces
+```
+* Activeer je nieuw geboude environment
+```bash
+source install/setup.bash
+```
+--> Of
+```bash
+source ~/ros2_industrial_ws/install/setup.bash 
+```
+
+Let op: Dit laatste dien je te doen in alle geopende terminals
+
+Controleren van je gemaakte message
+* Gebruik onderstaand commando om een lijst met alle messages, services en actions op te vragen
+```bash
+ros2 interface list
+```
+Je kunt ook een filter maken door midel van een gepijpt grep commando waar in een deel van de message naam is opgenomen (in dit geval **Box**)
+```bash
+ros2 interface list | grep Box
+```
+Bekijk of je message goed is gefineerd
+```bash
+ros2 interface show range_sensors_interfaces/msg/BoxHeightInformation
+```
+
+
+
+
+
+
+
+
+
+
+
+## Under construction
 ## Opdracht 1.4 Creeër een Python publisher
 
 ## Opdracht 1.5 Publiceer de hoogte van de doos
 
-## Opdrcaht 1.6 Gebruik rgt-graph
+## Opdracht 1.6 Gebruik rgt-graph
 
 
 ## Deze opdracht moet nog uitgeschreven worden in het nederlands

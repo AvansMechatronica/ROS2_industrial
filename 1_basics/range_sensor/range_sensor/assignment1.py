@@ -31,8 +31,10 @@ class BoxHeightCalculator(Node):
         self.sensor_info_subscription  # prevent unused variable warning
 
     def sensor_info_callback(self, sensor_info):
-        #self.get_logger().info('I heard: "%s"' % sensor_info)
+        self.get_logger().info('I heard: "%s"' % sensor_info)
         box_distance = sensor_info.sensor_data.range
+        
+        #<Assignment 1.2, bereken hier de hoogte van het object>
 
         # Compute the height of the box.
         # Boxes that are detected to be shorter than 10cm are due to sensor noise.
