@@ -6,7 +6,7 @@
 Welcome to Avans ROS2 Industrial Workshop
 =========================================
 
-**ROS2 Industrial Worksh** is een workshop voor Avans studenten die aan de slag willen met ROS2.
+**ROS2 Industrial Workshop** is een workshop voor Avans studenten die aan de slag willen met ROS2.
 
 .. note::
    This project is under active development.
@@ -17,6 +17,5 @@ Welcome to Avans ROS2 Industrial Workshop
    :caption: Contents:
 
    install.md
-   basics/README.md
    basics/packages_and_nodes.md
-   basics/basics.rst
+   basics/basics
