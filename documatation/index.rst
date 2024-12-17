@@ -19,3 +19,4 @@ Welcome to Avans ROS2 Industrial Workshop
    install.md
    basics/README.md
    basics/packages_and_nodes.md
+   basics/basics.rst
