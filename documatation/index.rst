@@ -16,6 +16,9 @@ Welcome to Avans ROS2 Industrial Workshop
    :maxdepth: 2
    :caption: Contents:
 
-   install.md
-   basics/packages_and_nodes.md
-   basics/basics
+   general.md
+   1_basics/basics
+   2_urdf/urdf
+   3_manipulation/manipulation
+   4_navigation/navigation
+   5_transferframes/transferframes
