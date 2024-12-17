@@ -1,5 +1,7 @@
 # ROS2 industrial (Humble-version)
 
+[New documentation](https://avansmechatronica.github.io/ROS2_industrial/)
+
 
 ## Pre-requistions ROS2-Humble:
 Following instructions for [Installing ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
