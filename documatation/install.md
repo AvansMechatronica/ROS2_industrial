@@ -59,4 +59,4 @@ You can use the WSL Ubuntu-22.04 distribution form the Microsoft Store. Use as d
 
 Deze workshop is geinspireerd op [hello real world ros robot operating system](https://ocw.tudelft.nl/courses/hello-real-world-ros-robot-operating-system/) van de Technische Universiteit Delft/Nederland(TUD)
 
-## [Licentie](licence.md)
+## [Licentie](../licence.md)

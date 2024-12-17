@@ -11,4 +11,4 @@ Welcome to Avans ROS2 Industrial Workshop
    :caption: Contents:
 
    install.md
-   test/test.md
+   mijn tekst <test/test.md>
