@@ -23,4 +23,8 @@ Welcome to Avans ROS2 Industrial Workshop
    4_manipulation/manipulation
    5_transferframes/transferframes
 
-Nog wat test tekst
+Deze workshop is ontwikkeld door:
+Avans Academie voor Technologie en Innovatie (ATIx)
+Avans Centre Of Expertises, lectoraat Robotisering en Sensoring
+# License
+[License CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
