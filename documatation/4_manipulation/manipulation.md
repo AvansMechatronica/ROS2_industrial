@@ -1,4 +1,6 @@
 # ROS2 industrial manipulation
+## Commando's
+Under contruction
 
 Bekijken van de omgeving
 ```bash
@@ -25,5 +27,3 @@ starten opdracht1
 ros2 run manipulation assignment1 
 ```
 
-
-[Back](../README.md)
