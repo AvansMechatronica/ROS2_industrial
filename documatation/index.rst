@@ -16,9 +16,11 @@ Welcome to Avans ROS2 Industrial Workshop
    :maxdepth: 2
    :caption: Contents:
 
-   general.md
+   general/general.md
    1_basics/basics
    2_urdf/urdf
-   3_manipulation/manipulation
-   4_navigation/navigation
+   3_navigation/navigation
+   4_manipulation/manipulation
    5_transferframes/transferframes
+
+Nog wat test tekst
