@@ -11,6 +11,11 @@ ROS2 Industrial Basics Workshop
    :maxdepth: 2
    :caption: Contents:
 
-   install.md
-   README.md
    packages_and_nodes.md
+   topics.md
+   services.md
+   actions.md
+   parameters.md
+   launch_files.md
+   creating_packages_for_python.md
+
