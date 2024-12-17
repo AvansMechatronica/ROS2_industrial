@@ -1,5 +1,6 @@
 # ROS2_industrial_transferframes
-## Under development
+## Commando's
+Under contruction
 
 Bekijken van de omgeving
 ```bash
@@ -23,8 +24,3 @@ starten opdracht 1
 ```bash
 ros2 run transferframes assignment1 
 ```
-
-
-
-
-[Back](../README.md)

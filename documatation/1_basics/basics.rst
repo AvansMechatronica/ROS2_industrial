@@ -1,5 +1,5 @@
-ROS2 Industrial Basics Workshop
-===============================
+ROS2 Basics Workshop
+====================
 
 
 .. toctree::

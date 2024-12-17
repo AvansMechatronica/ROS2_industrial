@@ -1,10 +1,10 @@
-ROS2 Industrial Transferframes Workshop
-=======================================
+ROS2 Transferframes Workshop
+============================
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   README.md
+   transferframes.md
 

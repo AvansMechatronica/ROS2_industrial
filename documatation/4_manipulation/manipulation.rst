@@ -1,10 +1,10 @@
-ROS2 Industrial Manipulation Workshop
-=====================================
+ROS2 Manipulation Workshop
+==========================
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   README.md
+   manipulation.md
 

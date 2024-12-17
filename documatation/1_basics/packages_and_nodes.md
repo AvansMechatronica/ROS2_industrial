@@ -1,4 +1,6 @@
 # ROS2 Packages and Nodes
+## Commando's
+Under contruction
 
 In deze workshop leer je een aantal basis ROS2 commando's die je in alle volgende workshops zult toepassen. Nu zullen de commando's nog volledig uigetyped zijn, later zul je ze zelf moeten kunnen toepassen. Let dus goed op wat er bebeurt(scherm-output) bij het uitvoeren van een commando.
 
@@ -79,4 +81,4 @@ n.b. als tree als commando niet wordt geaccepteerd, dan kun dit commando als vol
 sudo apt install tree
 ```
 
-[Back](../README.md)
+

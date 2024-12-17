@@ -1,10 +1,10 @@
-ROS2 Industrial Navigation Workshop
-===================================
+ROS2 Navigation Workshop
+========================
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   README.md
+   navigation.md
 
