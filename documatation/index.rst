@@ -11,4 +11,4 @@ Welcome to Avans ROS2 Industrial Workshop
    :caption: Contents:
 
    install.md
-   ../licence.md
+   licence.md
