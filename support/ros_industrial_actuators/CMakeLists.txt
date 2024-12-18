@@ -65,7 +65,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Python installation
 install(PROGRAMS
   #ros_industrial_actuators/custom_logical_camera.py
-  #ros_industrial_actuators/take_photo.py
+  ros_industrial_actuators/vacuum_gripper.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

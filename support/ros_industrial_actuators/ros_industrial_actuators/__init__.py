@@ -1,1 +1,1 @@
-from .custom_logical_camera import Camera
+from .vacuum_gripper import VacuumGripper

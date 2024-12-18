@@ -16,6 +16,7 @@ from my_moveit_python import MovegroupHelper
 from ros_industrial_sensors.custom_logical_camera import Camera
 from rclpy.executors import MultiThreadedExecutor
 import time
+from ros_industrial_actuators import VacuumGripper
 
 prefix = ''
 joint_names = [
@@ -43,6 +44,9 @@ class PickAndDrop(Node):
 
         # Create node for this example
         self.node = node
+
+        self.vacuum_gripper = VacuumGripper()
+        self.vacuum_gripper.open()
 
         # Initialize the TransformListener and buffer
         self.node.tf_buffer = Buffer()
@@ -79,7 +83,7 @@ class PickAndDrop(Node):
 
             #self.node.get_logger().info("Move to published fransfer frame")
             ## goto pre-grasp
-            self.move_to_object(part, 0.01)
+            self.move_to_object(part, 0.015)
             ## goto grasp
             self.move_to_object(part)
             time.sleep(1.0)
@@ -87,7 +91,7 @@ class PickAndDrop(Node):
             self.gripper_pull()
             time.sleep(1.0)
             ## goto post-grasp
-            self.move_to_object(part, 0.01)
+            self.move_to_object(part, 0.015)
         
 
             # Move to joint configuration
@@ -151,9 +155,11 @@ class PickAndDrop(Node):
                 f'Could not transform {from_frame_rel} to {to_frame_rel}: {ex}')
 
     def gripper_pull(self):
+        self.vacuum_gripper.close()
         self.node.get_logger().info("Gripper pull")
         pass
     def gripper_release(self):
+        self.vacuum_gripper.open()
         self.node.get_logger().info("Gripper release")
         pass
     def __del__(self):
