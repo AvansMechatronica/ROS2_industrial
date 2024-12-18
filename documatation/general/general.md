@@ -2,9 +2,9 @@
 
 
 ## Pre-requistions ROS2-Humble
-Following instructions for [Installing ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
+Volg de instructies voor het [installeren ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 
-Choose: ros-humble-desktop
+Kies: ros-humble-desktop
 
 -- Of --
 
@@ -22,7 +22,7 @@ cd ~/ros2_industrial_ws/src
 git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 ```
 
-## Installern van de benodigde ROS2 packages en software
+## Installeren van de benodigde ROS2 packages en software
 ```bash
 cd ~/ros2_industrial_ws/src/ROS2_industrial/install
 .install
