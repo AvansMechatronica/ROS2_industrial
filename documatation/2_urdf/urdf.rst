@@ -6,5 +6,6 @@ ROS2 URDF Workshop
    :maxdepth: 2
    :caption: Contents:
 
-   urdf_tst
+   urdf.md
+   
 
