@@ -23,7 +23,7 @@
         -->
         <geometry>
           <!-- <mesh filename="file://$(find ariac_description)/meshes/vacuum_gripper/vacuum_gripper.stl" scale="1 1 1"/> -->
-          <cylinder radius="0.05" length="0.01" />
+          <cylinder radius="0.045" length="0.01" />
         </geometry>
       </collision>
       <!--
@@ -105,7 +105,6 @@
         <link_name>xarm::link6</link_name>
         <!--<link_name>vacuum_gripper1_suction_cup</link_name>-->
         <!-- Max distance to attract entities -->
-        <max_distance>55.0</max_distance>
 
       </plugin>
     </gazebo>

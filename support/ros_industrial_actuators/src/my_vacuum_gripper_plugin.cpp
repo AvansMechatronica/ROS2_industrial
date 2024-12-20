@@ -23,7 +23,14 @@
 #include <gazebo/physics/Link.hh>
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/World.hh>
+#include <gazebo/physics/PhysicsEngine.hh>
 #include <ros_industrial_actuators/my_vacuum_gripper_plugin.hpp>
+#include <gazebo/physics/ContactManager.hh>
+#include <gazebo/physics/Collision.hh>
+#include <gazebo/transport/Subscriber.hh>
+#include <gazebo/transport/Node.hh>
+
+
 #include <gazebo_ros/node.hpp>
 #ifdef IGN_PROFILER_ENABLE
 #include <ignition/common/Profiler.hh>
@@ -67,20 +74,29 @@ public:
   /// Pointer to world.
   gazebo::physics::WorldPtr world_;
 
+  /// Pointer to model.
+  gazebo::physics::ModelPtr model_;
+
   /// Pointer to link.
-  gazebo::physics::LinkPtr link_;
+  gazebo::physics::LinkPtr gripper_link_;
 
   /// Protect variables accessed on callbacks.
   std::mutex lock_;
 
   /// True if gripper is on.
-  bool status_;
+  bool enabled_;
+  bool model_attached_;
 
   /// Entities not affected by gripper.
   std::unordered_set<std::string> fixed_;
 
   /// Max distance to apply force.
   double max_distance_;
+
+  /// List of models that the should pick up
+  std::vector<std::string> parts_to_pick_;
+
+  gazebo::physics::JointPtr picked_part_joint_;
 };
 
 GazeboRosVacuumGripper::GazeboRosVacuumGripper()
@@ -94,8 +110,12 @@ GazeboRosVacuumGripper::~GazeboRosVacuumGripper()
 
 void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::ElementPtr _sdf)
 {
-  RCLCPP_INFO(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry");
+  RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry");
+  impl_->model_ = _model;
   impl_->world_ = _model->GetWorld();
+
+  impl_->picked_part_joint_ = impl_->world_->Physics()->CreateJoint("fixed", impl_->model_);
+  impl_->picked_part_joint_->SetName("picked_part_fixed_joints");
 
   // Initialize ROS node
   impl_->ros_node_ = gazebo_ros::Node::Get(_sdf);
@@ -104,16 +124,11 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
   const gazebo_ros::QoS & qos = impl_->ros_node_->get_qos();
 
     // Get gripper link
-#if 0
-
-    auto link = _sdf->Get<std::string>("link_name");
-    impl_->link_ = _model->GetLink(link);
-#else
   if (_sdf->HasElement("link_name")) {
     auto link = _sdf->Get<std::string>("link_name");
-    impl_->link_ = _model->GetLink(link);
+    impl_->gripper_link_ = _model->GetLink(link);
 
-    if (!impl_->link_) {
+    if (!impl_->gripper_link_) {
       RCLCPP_ERROR(rclcpp::get_logger("vacuum-gripper-plugin"), "Link [%s] not found. Aborting", link.c_str());
       impl_->ros_node_.reset();
       return;
@@ -121,8 +136,8 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("vacuum-gripper-plugin"), "Please specify <link_name>. Aborting.");
   }
-#endif
-  impl_->max_distance_ = _sdf->Get<double>("max_distance", 0.05).first;
+
+  impl_->max_distance_ = 0.085;
 
   if (_sdf->HasElement("fixed")) {
     for (auto fixed = _sdf->GetElement("fixed"); fixed != nullptr;
@@ -130,19 +145,22 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
     {
       auto name = fixed->Get<std::string>();
       impl_->fixed_.insert(name);
-      RCLCPP_INFO(
+      RCLCPP_WARN(
         rclcpp::get_logger("vacuum-gripper-plugin"),
         "Model/Link [%s] exempted from gripper force", name.c_str());
     }
   }
   impl_->fixed_.insert(_model->GetName());
-  impl_->fixed_.insert(impl_->link_->GetName());
+  impl_->fixed_.insert(impl_->gripper_link_->GetName());
+
+   // Set list of models to pickup
+  impl_->parts_to_pick_ = {"pump", "battery", "regulator", "sensor"};
 
   // Initialize publisher
   impl_->pub_ = impl_->ros_node_->create_publisher<std_msgs::msg::Bool>(
     "grasping", qos.get_publisher_qos("grasping", rclcpp::QoS(1)));
 
-  RCLCPP_INFO(
+  RCLCPP_WARN(
     rclcpp::get_logger("vacuum-gripper-plugin"),
     "Advertise gripper status on [%s]", impl_->pub_->get_topic_name());
 
@@ -153,14 +171,15 @@ void GazeboRosVacuumGripper::Load(gazebo::physics::ModelPtr _model, sdf::Element
       &GazeboRosVacuumGripperPrivate::OnSwitch, impl_.get(),
       std::placeholders::_1, std::placeholders::_2));
 
-  RCLCPP_INFO(
+  RCLCPP_WARN(
     rclcpp::get_logger("vacuum-gripper-plugin"),
     "Advertise gripper switch service on [%s]", impl_->service_->get_service_name());
 
   // Listen to the update event (broadcast every simulation iteration)
   impl_->update_connection_ = gazebo::event::Events::ConnectWorldUpdateBegin(
     std::bind(&GazeboRosVacuumGripperPrivate::OnUpdate, impl_.get()));
-  RCLCPP_INFO(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry<exit>");
+
+  RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "GazeboRosVacuumGripper::Load entry<exit>");
 }
 
 void GazeboRosVacuumGripperPrivate::OnUpdate()
@@ -169,44 +188,67 @@ void GazeboRosVacuumGripperPrivate::OnUpdate()
   IGN_PROFILE("GazeboRosVacuumGripper::OnUpdate");
 #endif
   std_msgs::msg::Bool grasping_msg;
-  if (!status_) {
-#ifdef IGN_PROFILER_ENABLE
-    IGN_PROFILE_BEGIN("publish");
-#endif
-    pub_->publish(grasping_msg);
-#ifdef IGN_PROFILER_ENABLE
-    IGN_PROFILE_END();
-#endif
-    return;
-  }
 
-  std::lock_guard<std::mutex> lock(lock_);
+  if(enabled_ && !model_attached_){
 
-  ignition::math::Pose3d parent_pose = link_->WorldPose();
-  gazebo::physics::Model_V models = world_->Models();
+    std::lock_guard<std::mutex> lock(lock_);
 
-  for (auto & model : models) {
-    if (fixed_.find(model->GetName()) != fixed_.end()) {
-      continue;
+    ignition::math::Pose3d gripper_pose = gripper_link_->WorldPose();
+    gazebo::physics::Model_V models = world_->Models();
+    bool found = false;
+    for (auto & model : models) {
+        std::string model_name = model->GetName();
+        std::string name = model_name.c_str();
+        for(std::string part_type : parts_to_pick_){
+          if (name.find(part_type) != std::string::npos) found = true;
+        }
+        if (!found) continue;
+
+        //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Processing model: %s", model_name.c_str());
+        
+        if (fixed_.find(model_name) != fixed_.end()) {
+            //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Model %s is fixed, skipping.", model_name.c_str());
+            continue;
+        }
+        
+        gazebo::physics::Link_V object_links = model->GetLinks();
+        //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Model %s has %zu links.", model_name.c_str(), links.size());
+        
+        for (auto & object_link : object_links) {
+            std::string link_name = object_link->GetName();
+            ignition::math::Pose3d object_link_pose = object_link->WorldPose();
+            ignition::math::Pose3d diff = gripper_pose - object_link_pose;
+            
+            //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), 
+            //             "Link %s of model %s has position (%.2f, %.2f, %.2f). Distance to gripper_pose: %.2f", 
+            //             link_name.c_str(), model_name.c_str(), 
+            //             link_pose.Pos().X(), link_pose.Pos().Y(), link_pose.Pos().Z(), diff.Pos().Length());
+            
+            if (diff.Pos().Length() > max_distance_) {
+                //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), 
+                //            "Gripper failed: link %s of model %s is too far (distance %.2f > max_distance %.2f).", 
+                //            link_name.c_str(), model_name.c_str(), diff.Pos().Length(), max_distance_);
+                continue;
+            }
+            picked_part_joint_->Load(gripper_link_, object_link, ignition::math::Pose3d());
+            picked_part_joint_->Init();
+            RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper attach");
+
+            model_attached_ = true;
+            grasping_msg.data = true;
+        }
     }
-    gazebo::physics::Link_V links = model->GetLinks();
-    for (auto & link : links) {
-      ignition::math::Pose3d link_pose = link->WorldPose();
-      ignition::math::Pose3d diff = parent_pose - link_pose;
-      if (diff.Pos().Length() > max_distance_) {
-        continue;
-      }
-      link->AddForce(link_pose.Rot().RotateVector((parent_pose - link_pose).Pos()).Normalize());
-      grasping_msg.data = true;
-    }
   }
-#ifdef IGN_PROFILER_ENABLE
-  IGN_PROFILE_BEGIN("publish grasping_msg");
-#endif
+  else if(!enabled_ && model_attached_){
+    picked_part_joint_->Detach();
+    RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper de-attach");
+    model_attached_ = false;
+  }
+  else if(!enabled_ && model_attached_){
+    grasping_msg.data = true;
+  }
   pub_->publish(grasping_msg);
-#ifdef IGN_PROFILER_ENABLE
-  IGN_PROFILE_END();
-#endif
+
 }
 
 void GazeboRosVacuumGripperPrivate::OnSwitch(
@@ -215,16 +257,18 @@ void GazeboRosVacuumGripperPrivate::OnSwitch(
 {
   res->success = false;
   if (req->data) {
-    if (!status_) {
-      status_ = true;
+    if (!enabled_) {
+      enabled_ = true;
       res->success = true;
+      RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper on");
     } else {
       RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper is already on");
     }
   } else {
-    if (status_) {
-      status_ = false;
+    if (enabled_) {
+      enabled_ = false;
       res->success = true;
+      RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper off");
     } else {
       RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper is already off");
     }

@@ -46,7 +46,7 @@ class PickAndDrop(Node):
         self.node = node
 
         self.vacuum_gripper = VacuumGripper()
-        self.vacuum_gripper.open()
+        self.vacuum_gripper.close()
 
         # Initialize the TransformListener and buffer
         self.node.tf_buffer = Buffer()
@@ -90,6 +90,7 @@ class PickAndDrop(Node):
             ## gripper enable
             self.gripper_pull()
             time.sleep(1.0)
+            #self.gripper_release() 
             ## goto post-grasp
             self.move_to_object(part, 0.015)
         
@@ -155,11 +156,11 @@ class PickAndDrop(Node):
                 f'Could not transform {from_frame_rel} to {to_frame_rel}: {ex}')
 
     def gripper_pull(self):
-        self.vacuum_gripper.close()
+        self.vacuum_gripper.open()
         self.node.get_logger().info("Gripper pull")
         pass
     def gripper_release(self):
-        self.vacuum_gripper.open()
+        self.vacuum_gripper.close()
         self.node.get_logger().info("Gripper release")
         pass
     def __del__(self):
