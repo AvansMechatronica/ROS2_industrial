@@ -204,30 +204,18 @@ void GazeboRosVacuumGripperPrivate::OnUpdate()
         }
         if (!found) continue;
 
-        //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Processing model: %s", model_name.c_str());
-        
         if (fixed_.find(model_name) != fixed_.end()) {
             //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Model %s is fixed, skipping.", model_name.c_str());
             continue;
         }
         
         gazebo::physics::Link_V object_links = model->GetLinks();
-        //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Model %s has %zu links.", model_name.c_str(), links.size());
-        
         for (auto & object_link : object_links) {
             std::string link_name = object_link->GetName();
             ignition::math::Pose3d object_link_pose = object_link->WorldPose();
             ignition::math::Pose3d diff = gripper_pose - object_link_pose;
             
-            //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), 
-            //             "Link %s of model %s has position (%.2f, %.2f, %.2f). Distance to gripper_pose: %.2f", 
-            //             link_name.c_str(), model_name.c_str(), 
-            //             link_pose.Pos().X(), link_pose.Pos().Y(), link_pose.Pos().Z(), diff.Pos().Length());
-            
             if (diff.Pos().Length() > max_distance_) {
-                //RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), 
-                //            "Gripper failed: link %s of model %s is too far (distance %.2f > max_distance %.2f).", 
-                //            link_name.c_str(), model_name.c_str(), diff.Pos().Length(), max_distance_);
                 continue;
             }
             picked_part_joint_->Load(gripper_link_, object_link, ignition::math::Pose3d());
@@ -244,11 +232,10 @@ void GazeboRosVacuumGripperPrivate::OnUpdate()
     RCLCPP_WARN(rclcpp::get_logger("vacuum-gripper-plugin"), "Gripper de-attach");
     model_attached_ = false;
   }
-  else if(!enabled_ && model_attached_){
+  else if(enabled_ && model_attached_){
     grasping_msg.data = true;
   }
   pub_->publish(grasping_msg);
-
 }
 
 void GazeboRosVacuumGripperPrivate::OnSwitch(
