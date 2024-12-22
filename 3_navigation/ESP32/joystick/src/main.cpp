@@ -11,10 +11,6 @@
 
 #include <cmath>
 
-#if !defined(MICRO_ROS_TRANSPORT_ARDUINO_SERIAL)
-#error This example is only avaliable for Arduino framework with serial transport.
-#endif
-
 #if defined(MULTI_COLOR_LED)
   #include <WS2812FX.h>
   WS2812FX ws2812fxStatus = WS2812FX(1, STATUS_LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -103,6 +99,8 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   }
 }
 
+
+
 void setup() {
   // Configure serial transport
 #if defined(MULTI_COLOR_LED)
@@ -120,10 +118,17 @@ void setup() {
 #endif
 #endif
 
+#if defined(WIFI)
+  WiFi.setHostname("JoystickController");
+//  set_microros_wifi_transports(SSID, SSID_PASSWORD, AGENT_IP_ADDRESS, (size_t)PORT);
+  //set_microros_wifi_transports("Wifi_ssid", "ssid_password", "192.168.1.100", (size_t)PORT);
+  set_microros_wifi_transports("WIFI SSID", "WIFI PASS", "192.168.1.57", 8888);
 
+#else
   Serial.begin(115200);
   set_microros_serial_transports(Serial);
   delay(2000);
+#endif
 
 #if defined(MULTI_COLOR_LED)
   ws2812fxStatus.setColor(0, 0, RGB_BRIGHTNESS);

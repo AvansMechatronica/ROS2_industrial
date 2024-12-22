@@ -39,6 +39,8 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 html_logo = "_static/avans-hogeschool.png"
 
+myst_enable_extensions = ["html_admonition", "html_image"]
+
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
