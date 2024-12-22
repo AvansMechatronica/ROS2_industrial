@@ -31,17 +31,17 @@ find_package(std_msgs REQUIRED)
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 # Custom Logical Camera Plugin
-add_library(MyVacuumGripperPlugin SHARED
-  src/my_vacuum_gripper_plugin.cpp
+add_library(CustomVacuumGripperPlugin SHARED
+  src/custom_vacuum_gripper_plugin.cpp
 )
-target_include_directories(MyVacuumGripperPlugin PUBLIC include)
-ament_target_dependencies(MyVacuumGripperPlugin
+target_include_directories(CustomVacuumGripperPlugin PUBLIC include)
+ament_target_dependencies(CustomVacuumGripperPlugin
   "gazebo_ros"
   "ros_industrial_msgs"
   "std_msgs"
   "std_srvs"
 )
-ament_export_libraries(MyVacuumGripperPlugin)
+ament_export_libraries(CustomVacuumGripperPlugin)
 
 
 # Install C++ components
@@ -49,7 +49,7 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-    MyVacuumGripperPlugin
+    CustomVacuumGripperPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)

@@ -4,9 +4,10 @@ from rclpy.node import Node
 from std_srvs.srv import SetBool
 
 class VacuumGripper(Node):
-    def __init__(self):
+    def __init__(self, namespace):
         super().__init__('vacuum_gripper')
-        self.client = self.create_client(SetBool, '/ros_industrial_actuators/custom_switch')
+        self.client_name = namespace + '/custom_switch'
+        self.client = self.create_client(SetBool, self.client_name)
         while not self.client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('Service not available, waiting...')
         self.get_logger().info('Service is available.')

@@ -24,7 +24,7 @@
 #include <gazebo/physics/Model.hh>
 #include <gazebo/physics/World.hh>
 #include <gazebo/physics/PhysicsEngine.hh>
-#include <ros_industrial_actuators/my_vacuum_gripper_plugin.hpp>
+#include <ros_industrial_actuators/custom_vacuum_gripper_plugin.hpp>
 #include <gazebo/physics/ContactManager.hh>
 #include <gazebo/physics/Collision.hh>
 #include <gazebo/transport/Subscriber.hh>
