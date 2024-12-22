@@ -45,7 +45,7 @@ class PickAndDrop(Node):
         # Create node for this example
         self.node = node
 
-        self.vacuum_gripper = VacuumGripper()
+        self.vacuum_gripper = VacuumGripper("/gripper")
         self.vacuum_gripper.close()
 
         # Initialize the TransformListener and buffer
