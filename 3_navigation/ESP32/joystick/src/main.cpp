@@ -17,9 +17,29 @@
   #define RGB_BRIGHTNESS 10 // Change white brightness (max 255)
 #endif
 
+
+#define TURTLEBOT3_BURGER_MAX_LIN_VEL  0.22
+#define TURTLEBOT3_BURGER_MAX_ANG_VEL  2.84
+
+#define TURTLEBOT3_WAFFLE_MAX_LIN_VEL  0.26
+#define TURTLEBOT3_WAFFLE_MAX_ANG_VEL  1.82
+#define MAX_INPUT_VOLTAGE              2.8
+
+#if defined(TURTLEBOT3_BURGER)
+#define MAX_LIN_VEL TURTLEBOT3_BURGER_MAX_LIN_VEL
+#define MAX_ANG_VEL TURTLEBOT3_BURGER_MAX_ANG_VEL
+#elif defined(TURTLEBOT3_WAFFLE)
+#define MAX_LIN_VEL TURTLEBOT3_WAFFLE_MAX_LIN_VEL
+#define MAX_ANG_VEL TURTLEBOT3_WAFFLE_MAX_ANG_VEL
+#else
+#error
+#endif
+
+#define LINEAR_RESOLUTION (MAX_LIN_VEL/MAX_INPUT_VOLTAGE*2.0)// Half scale
+#define ANGULAR_RESOLUTION (-MAX_ANG_VEL/MAX_INPUT_VOLTAGE*2.0)// Half scale
+
 rcl_publisher_t twist_publisher;
 geometry_msgs__msg__Twist twist;
-
 
 rclc_executor_t executor;
 rclc_support_t support;
@@ -38,7 +58,6 @@ bool errorLedState = false;
 void error_loop(){
   Serial.printf("Ultrasonic Sensor\nError\nSystem halted");
   while(1){
-      
 
 #if defined(MULTI_COLOR_LED)
         ws2812fxStatus.service();
@@ -67,16 +86,11 @@ void error_loop(){
     delay(100);
   }
 }
-#define SPEED_FACTOR      0.5
-//#define ANGULAR_PIN 35
-//#define LINEAR_PIN  34
-#define RESOLUTION        pow(2, ADC_NUBER_OF_BITS)
-#define LINEAR_RESOLUTION (0.26/RESOLUTION*2.0)// Half scale
-#define LINEAR_OFFSET     (RESOLUTION/2)
-#define ANGULAR_RESOLUTION (-1.28/RESOLUTION*2.0)// Half scale
-#define ANGULAR_OFFSET     (RESOLUTION/2)
 
-float angular_offset, linear_offset;
+
+
+
+int angular_offset, linear_offset;
 
 float round(float waarde, int decimalen) {
     float factor = std::pow(10, decimalen);
@@ -87,15 +101,13 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   RCLC_UNUSED(last_call_time);
   float angular, linear;
   if (timer != NULL) {
-    float angular, linear;
+    int linear, angular;
 
-    angular = (analogRead(ANGULAR_PIN) - ANGULAR_OFFSET) * ANGULAR_RESOLUTION;
-    angular = round(angular, 2) - angular_offset;
-    linear = (analogRead(LINEAR_PIN) - LINEAR_OFFSET) * LINEAR_RESOLUTION;
-    linear = round(linear, 2) - linear_offset;
+    linear = analogReadMilliVolts(LINEAR_PIN)- linear_offset;
+    angular = analogReadMilliVolts(ANGULAR_PIN) - angular_offset;
     //Serial.printf("Linear = %02f, Angular = %02f\n", linear, angular);
-    twist.linear.x = linear  * SPEED_FACTOR;
-    twist.angular.z = angular * SPEED_FACTOR;
+    twist.linear.x = linear  * LINEAR_RESOLUTION * SPEED_FACTOR /1000.0;
+    twist.angular.z = angular * ANGULAR_RESOLUTION * SPEED_FACTOR /1000.0;
     RCSOFTCHECK(rcl_publish(&twist_publisher, &twist, NULL));
   }
 }
@@ -119,12 +131,11 @@ void setup() {
 #endif
 #endif
 
+  Serial.begin(115200);
+
 #if defined(WIFI)
   WiFi.setHostname("JoystickController");
-//  set_microros_wifi_transports(SSID, SSID_PASSWORD, AGENT_IP_ADDRESS, (size_t)PORT);
-  //set_microros_wifi_transports("Wifi_ssid", "ssid_password", "192.168.1.100", (size_t)PORT);
-  set_microros_wifi_transports("WIFI SSID", "WIFI PASS", "192.168.1.57", 8888);
-
+  set_microros_wifi_transports(SSID, SSID_PASSWORD, AGENT_IP_ADDRESS, (size_t)PORT);
 #else
   Serial.begin(115200);
   set_microros_serial_transports(Serial);
@@ -173,14 +184,10 @@ void setup() {
 #endif
 
   // Callibrate zerro offset
-  angular_offset = (analogRead(ANGULAR_PIN) - ANGULAR_OFFSET) * ANGULAR_RESOLUTION;
-  angular_offset = round(angular_offset, 2);
-  linear_offset = (analogRead(LINEAR_PIN) - LINEAR_OFFSET) * LINEAR_RESOLUTION;
-  linear_offset = round(linear_offset, 2);
+  delay(2000);
+  linear_offset = analogReadMilliVolts(LINEAR_PIN);
+  angular_offset = analogReadMilliVolts(ANGULAR_PIN);
 }
-
-
-
 
 void loop() {
   delay(100);
