@@ -17,7 +17,7 @@ Starten bestaande moveit-configuratie met setup assistant
 ros2 launch manipulation_moveit_config setup_assistant.launch.py 
 ```
 
-Starten van de environment
+## Opdracht 1
 ```bash
 ros2 launch manipulation environment.launch.py
 ```
@@ -26,7 +26,7 @@ starten opdracht1
 ```bash
 ros2 run manipulation assignment1 
 ```
-
+## Opdracht 2
 ```bash
 ros2 launch manipulation environment_w_gazebo.launch.py
 ```

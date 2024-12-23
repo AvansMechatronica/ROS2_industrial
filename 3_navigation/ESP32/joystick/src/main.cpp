@@ -70,10 +70,11 @@ void error_loop(){
 #define SPEED_FACTOR      0.5
 //#define ANGULAR_PIN 35
 //#define LINEAR_PIN  34
-#define LINEAR_RESOLUTION (0.26/4096.0*2.0)// Half scale
-#define LINEAR_OFFSET     (4096/2)
-#define ANGULAR_RESOLUTION (-1.28/4096.0*2.0)// Half scale
-#define ANGULAR_OFFSET     (4096/2)
+#define RESOLUTION        pow(2, ADC_NUBER_OF_BITS)
+#define LINEAR_RESOLUTION (0.26/RESOLUTION*2.0)// Half scale
+#define LINEAR_OFFSET     (RESOLUTION/2)
+#define ANGULAR_RESOLUTION (-1.28/RESOLUTION*2.0)// Half scale
+#define ANGULAR_OFFSET     (RESOLUTION/2)
 
 float angular_offset, linear_offset;
 
