@@ -10,7 +10,7 @@ def generate_launch_description():
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
-            name='gear_part_0_spawner',
+            name='battery_part_0_spawner',
             output='screen',
             arguments=[
                 '-x', '0.5', '-y', '-0.5', '-z', '1.5', '-P', str(math.radians(180)),
@@ -21,7 +21,7 @@ def generate_launch_description():
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
-            name='gear_part_0_spawner',
+            name='regulator_part_0_spawner',
             output='screen',
             arguments=[
                 '-x', '0.5', '-y', '-0.3', '-z', '1.5', '-P', str(math.radians(180)),  
@@ -32,7 +32,7 @@ def generate_launch_description():
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
-            name='gear_part_0_spawner',
+            name='pump_part_0_spawner',
             output='screen',
             arguments=[
                 '-x', '0.3', '-y', '-0.5', '-z', '1.5', '-P', str(math.radians(180)),
@@ -43,7 +43,7 @@ def generate_launch_description():
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
-            name='gear_part_0_spawner',
+            name='sensor_part_0_spawner',
             output='screen',
             arguments=[
                 '-x', '0.3', '-y', '-0.3', '-z', '1.5', '-P', str(math.radians(180)),  

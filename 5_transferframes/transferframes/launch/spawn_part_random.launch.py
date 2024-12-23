@@ -25,7 +25,7 @@ def generate_launch_description():
         Node(
             package='gazebo_ros',
             executable='spawn_entity.py',
-            name='gear_part_0_spawner',
+            name='part_0_spawner',
             output='screen',
             arguments=[
                 '-x', str(x_pos), '-y', str(y_pos), '-z', '1.5', '-P', str(math.radians(180)),

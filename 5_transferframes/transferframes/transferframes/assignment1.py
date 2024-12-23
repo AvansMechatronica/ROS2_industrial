@@ -46,7 +46,7 @@ class PickAndDrop(Node):
         self.node = node
 
         self.vacuum_gripper = VacuumGripper("/gripper")
-        self.vacuum_gripper.close()
+        self.vacuum_gripper.release()
 
         # Initialize the TransformListener and buffer
         self.node.tf_buffer = Buffer()
@@ -88,7 +88,7 @@ class PickAndDrop(Node):
             self.move_to_object(part)
             time.sleep(1.0)
             ## gripper enable
-            self.gripper_pull()
+            self.vacuum_gripper.pull()
             time.sleep(1.0)
             #self.gripper_release() 
             ## goto post-grasp
@@ -113,7 +113,7 @@ class PickAndDrop(Node):
                 self.node.get_logger().error( "Failed to get joint_values of " + 'drop')
 
             ## gripper release
-            self.gripper_release()
+            self.vacuum_gripper.release()
 
             # Move to joint configuration
             result, joint_values = self.lite6_groupstates.get_joint_values('home')
@@ -155,14 +155,6 @@ class PickAndDrop(Node):
             self.node.get_logger().error(
                 f'Could not transform {from_frame_rel} to {to_frame_rel}: {ex}')
 
-    def gripper_pull(self):
-        self.vacuum_gripper.open()
-        self.node.get_logger().info("Gripper pull")
-        pass
-    def gripper_release(self):
-        self.vacuum_gripper.close()
-        self.node.get_logger().info("Gripper release")
-        pass
     def __del__(self):
         # Safe cleanup of executor and thread
         #self.camera.destroy_node()

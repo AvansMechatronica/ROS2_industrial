@@ -18,7 +18,7 @@ class VacuumGripper(Node):
         self.future = self.client.call_async(request)
         return self.future
     
-    def open(self):
+    def pull(self):
         self.send_request(True)
-    def close(self):
+    def release(self):
         self.send_request(False)

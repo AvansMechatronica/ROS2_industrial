@@ -51,7 +51,7 @@ set(msg_files
   #"msg/SubmissionCondition.msg"
   #"msg/TimeCondition.msg"
   #"msg/Trial.msg"
-  "msg/VacuumGripperState.msg"
+  #"msg/VacuumGripperState.msg"
 )
 
 set(srv_files
@@ -61,7 +61,7 @@ set(srv_files
   #"srv/MoveAGV.srv"
   #"srv/ScoreTask.srv"
   #"srv/SubmitOrder.srv"
-  "srv/VacuumGripperControl.srv"
+  #"srv/VacuumGripperControl.srv"
   #"srv/PerformQualityCheck.srv"
   #"srv/GetPreAssemblyPoses.srv"
 )

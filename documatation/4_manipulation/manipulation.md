@@ -19,7 +19,7 @@ ros2 launch manipulation_moveit_config setup_assistant.launch.py
 
 Starten van de environment
 ```bash
-ros2 launch manipulation bringup_fake_robot.launch.py
+ros2 launch manipulation environment.launch.py
 ```
 
 starten opdracht1
@@ -27,3 +27,12 @@ starten opdracht1
 ros2 run manipulation assignment1 
 ```
 
+```bash
+ros2 launch manipulation environment_w_gazebo.launch.py
+```
+```bash
+ros2 launch manipulation spawn_battery.launch.py
+```
+```bash
+ros2 run manipulation assignment2
+```
