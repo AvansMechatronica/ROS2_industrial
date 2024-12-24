@@ -133,6 +133,9 @@ void setup() {
 
   Serial.begin(115200);
 
+//#define SSID "Wifi_ssid"
+//#define SSID_PASSWORD "Wifi_Password"
+
 #if defined(WIFI)
   WiFi.setHostname("JoystickController");
   set_microros_wifi_transports(SSID, SSID_PASSWORD, AGENT_IP_ADDRESS, (size_t)PORT);
