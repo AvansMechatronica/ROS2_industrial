@@ -36,7 +36,32 @@
 #endif
 
 #define LINEAR_RESOLUTION (MAX_LIN_VEL/MAX_INPUT_VOLTAGE*2.0)// Half scale
-#define ANGULAR_RESOLUTION (-MAX_ANG_VEL/MAX_INPUT_VOLTAGE*2.0)// Half scale
+#define ANGULAR_RESOLUTION (MAX_ANG_VEL/MAX_INPUT_VOLTAGE*2.0)// Half scale
+
+
+#if ORIENTATION == 0
+  int linear_pin = LINEAR_PIN;
+  int angular_pin = ANGULAR_PIN;
+  float linear_resolution = -LINEAR_RESOLUTION;
+  float angular_resolution = -ANGULAR_RESOLUTION;
+#elif ORIENTATION == 1
+  int linear_pin = ANGULAR_PIN;
+  int angular_pin = LINEAR_PIN;
+  float linear_resolution = -LINEAR_RESOLUTION;
+  float angular_resolution = ANGULAR_RESOLUTION;
+#elif ORIENTATION == 2
+  int linear_pin = LINEAR_PIN;
+  int angular_pin = ANGULAR_PIN;
+  float linear_resolution = LINEAR_RESOLUTION;
+  float angular_resolution = ANGULAR_RESOLUTION;
+#elif ORIENTATION == 3
+  int linear_pin = ANGULAR_PIN;
+  int angular_pin = LINEAR_PIN;
+  float linear_resolution = LINEAR_RESOLUTION;
+  float angular_resolution = -ANGULAR_RESOLUTION;
+#else
+#error invalid orientation
+#endif
 
 rcl_publisher_t twist_publisher;
 geometry_msgs__msg__Twist twist;
@@ -103,17 +128,19 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   if (timer != NULL) {
     int linear, angular;
 
-    linear = analogReadMilliVolts(LINEAR_PIN)- linear_offset;
-    angular = analogReadMilliVolts(ANGULAR_PIN) - angular_offset;
+    linear = analogReadMilliVolts(linear_pin) - linear_offset;
+    angular = analogReadMilliVolts(angular_pin) - angular_offset;
     //Serial.printf("Linear = %02f, Angular = %02f\n", linear, angular);
-    twist.linear.x = linear  * LINEAR_RESOLUTION * SPEED_FACTOR /1000.0;
-    twist.angular.z = angular * ANGULAR_RESOLUTION * SPEED_FACTOR /1000.0;
+    twist.linear.x = linear  * linear_resolution * SPEED_FACTOR /1000.0;
+    twist.angular.z = angular * angular_resolution * SPEED_FACTOR /1000.0;
     RCSOFTCHECK(rcl_publish(&twist_publisher, &twist, NULL));
   }
 }
 
-String wifiSSID = SSID;
-String wifiPass = SSID_PASSWORD;
+#if defined(WIFI)
+  String wifiSSID = SSID;
+  String wifiPass = SSID_PASSWORD;
+#endif
 
 void setup() {
   // Configure serial transport
@@ -189,10 +216,17 @@ void setup() {
 #endif
 #endif
 
+#define NUMBER_OF_AVERAGE  10
   // Callibrate zerro offset
-  delay(2000);
-  linear_offset = analogReadMilliVolts(LINEAR_PIN);
-  angular_offset = analogReadMilliVolts(ANGULAR_PIN);
+  delay(1000);
+  int linear_offset_sum =0, angular_offset_sum = 0;
+  for(int i = 0; i < NUMBER_OF_AVERAGE; i++){
+    linear_offset_sum += analogReadMilliVolts(linear_pin);
+    angular_offset_sum += analogReadMilliVolts(angular_pin);
+    delay(100);
+  }
+  linear_offset = linear_offset_sum / NUMBER_OF_AVERAGE;
+  angular_offset = angular_offset_sum / NUMBER_OF_AVERAGE;
 }
 
 void loop() {
