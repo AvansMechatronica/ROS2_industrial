@@ -8,9 +8,8 @@ import os
 def generate_launch_description():
     # Path to the xacro file
     xacro_file = os.path.join(
-        get_package_share_directory('urdf_basics'),
+        get_package_share_directory('fanuc_robots'),
         'urdf',
-        'robot',
         'lrmate200ic_environment.urdf.xacro'
     )
 

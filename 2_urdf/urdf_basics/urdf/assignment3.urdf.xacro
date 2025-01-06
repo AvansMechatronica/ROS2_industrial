@@ -90,12 +90,12 @@
 
   <!-- Update the below block for assignment 3 here -->
 
-  <!--
-  <xacro:include filename="$(find urdf_basics)/urdf/robot/lrmate200ic.urdf.xacro"/>
+  <xacro:include filename="$(find fanuc_robots)/urdf/lrmate200ic.urdf.xacro"/>
   <xacro:fanuc_lrmate200ic prefix="robot2_"/>
-  -->
 
+  <!--
   <xacro:ufactory_xarm6 prefix="robot2_" joint_limited="true"/>
+  -->
 
 
   <!-- robot2 to pedestal. -->

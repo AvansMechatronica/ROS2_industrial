@@ -1,20 +1,20 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro">
-  <xacro:include filename="$(find urdf_basics)/urdf/include/common_materials.xacro"/>
+  <xacro:include filename="$(find fanuc_robots)/urdf/include/common_materials.xacro"/>
   <!-- NOTE: joint_limited is not used in this file -->
   <xacro:macro name="fanuc_lrmate200ic" params="prefix joint_limited:=false">
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/base_link.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/base_link.stl"/>
         </geometry>
         <xacro:material_fanuc_gray24 />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/base_link.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/base_link.stl"/>
         </geometry>
       </collision>
     </link>
@@ -22,14 +22,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_1.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_1.stl"/>
         </geometry>
         <xacro:material_fanuc_yellow />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_1.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_1.stl"/>
         </geometry>
       </collision>
     </link>
@@ -37,14 +37,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_2.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_2.stl"/>
         </geometry>
         <xacro:material_fanuc_yellow />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_2.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_2.stl"/>
         </geometry>
       </collision>
     </link>
@@ -52,14 +52,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_3.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_3.stl"/>
         </geometry>
         <xacro:material_fanuc_yellow />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_3.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_3.stl"/>
         </geometry>
       </collision>
     </link>
@@ -67,14 +67,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_4.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_4.stl"/>
         </geometry>
         <xacro:material_fanuc_yellow />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_4.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_4.stl"/>
         </geometry>
       </collision>
     </link>
@@ -82,14 +82,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_5.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_5.stl"/>
         </geometry>
         <xacro:material_fanuc_yellow />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_5.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_5.stl"/>
         </geometry>
       </collision>
     </link>
@@ -97,14 +97,14 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_6.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_6.stl"/>
         </geometry>
         <xacro:material_fanuc_black />
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://urdf_basics/meshes/lrmate200ic/collision/link_6.stl"/>
+          <mesh filename="package://fanuc_robots/meshes/lrmate200ic/collision/link_6.stl"/>
         </geometry>
       </collision>
     </link>

@@ -40,19 +40,21 @@ Start assignment 2
 ros2 launch urdf_basics visualize_assignment2.launch.py
 ```
 ## Opdracht 3
-In deze opdracht dien je Robot 2 (de *uFactory xArm6*) te vervangen door een *LR Mate 200iC* robot.
+In deze opdracht dien je Robot 2 (de *uFactory xArm6*) te vervangen door een *Fanuc LR Mate 200iC* robot.
 
-In de onderstaande figuren staat de (al geplaatste) *uFactory xArm6* robot aan de linkerkant. Daaronder staat de nieuwe robot, de *LR Mate 200iC* (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).
+[Fanuc LR Mate-serie](https://www.fanuc.eu/be/nl/robots/robot-filter-pagina/lrmate-serie)
+
+In de onderstaande figuren staat de (al geplaatste) *uFactory xArm6* robot aan de linkerkant. Daaronder staat de nieuwe robot, de *Fanuc LR Mate 200iC* (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).
 
 ![Image](./images/assignment3_original_robot.jpg)
 ![Image](./images/assignment3_replacement_robot.jpg)
 
 Bewerk daartoe het *"assignment3.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
 
-Het xacro bestand van de *LR Mate 200iC* robot bevindt zich in de volgende directory:
-```
-$(find urdf_basics)/urdf/robot/lrmate200ic.urdf.xacro
-``` 
+Het xacro bestand van de *Fanuc LR Mate 200iC* robot bevindt zich in de volgende plaats:
+* Package: fanuc_robots
+* Directory: urdf
+* Bestandsnaam: lrmate200ic.urdf.xacro
 
 Voeg je urdf-xml code toe achter de regel:
 ```

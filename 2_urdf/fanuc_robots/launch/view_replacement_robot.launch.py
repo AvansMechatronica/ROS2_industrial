@@ -7,10 +7,9 @@ import os
 
 def generate_launch_description():
     # Paths
-    package_share_directory = get_package_share_directory('urdf_basics')
+    package_share_directory = get_package_share_directory('fanuc_robots')
     xacro_file = os.path.join(package_share_directory,
         'urdf',
-        'robot',
         'lrmate200ic_environment.urdf.xacro')
     rviz_config_file = os.path.join(package_share_directory, 'rviz', 'view_robot.rviz')
 
