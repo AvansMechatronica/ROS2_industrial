@@ -1,7 +1,7 @@
-# ROS urdf
+# ROS2 urdf
 
 
-In deze workshop leer je een aantal technieken om zelf realistische simulatie omgeving te maken.
+In deze workshop leer je een aantal technieken om zelf realistische simulatie omgeving te bouwen.
 
 ## Opdracht 1
 Plaats een bin(bak) op de hieronder aangegeven plaats.
@@ -42,7 +42,7 @@ ros2 launch urdf_basics visualize_assignment2.launch.py
 ## Opdracht 3
 In deze opdracht dien je Robot 2 (de *uFactory xArm6*) te vervangen door een *Fanuc LR Mate 200iC* robot.
 
-[Fanuc LR Mate-serie](https://www.fanuc.eu/be/nl/robots/robot-filter-pagina/lrmate-serie)
+Website: [Fanuc LR Mate-serie](https://www.fanuc.eu/be/nl/robots/robot-filter-pagina/lrmate-serie)
 
 In de onderstaande figuren staat de (al geplaatste) *uFactory xArm6* robot aan de linkerkant. Daaronder staat de nieuwe robot, de *Fanuc LR Mate 200iC* (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).
 
