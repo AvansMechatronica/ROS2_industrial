@@ -9,7 +9,9 @@ from rclpy.node import Node
 
 from std_msgs.msg import String
 from sensor_msgs.msg import Range
-from range_sensors_interfaces.msg import SensorInformation, BoxHeightInformation
+from range_sensors_interfaces.msg import SensorInformation
+#< Assignment 1.4, importeer hier de message type die je hebt aangemaakt voor de box hoogte>  
+from range_sensors_interfaces.msg import BoxHeightInformation
 
 _SENSOR_CONVEYOR_BELT_DISTANCE = 1.0 # Metres -> assume that the sensor is placed 1.0 above the conveyor belt
 _SENSOR_USABLE_RANGE = 0.9 # Metres -> Usable sensor range, accordingly datasheet
@@ -19,10 +21,10 @@ class BoxHeightCalculator(Node):
 
     def __init__(self):
         super().__init__('box_height_calculator')
-        #< Assignmet 1.1
+        #<Assignment 1.4, Creëer hier de publisher voor het publiceren van de box hoogte>
         self.box_height_publisher = self.create_publisher(BoxHeightInformation, 'box_height_info', 10)
 
-        #< Assignment 1.1, creeër hier de subscriber op het topic /sensor_info >
+        #< Assignment 1.4, creëer hier de subscriber op het topic /sensor_info >
         self.sensor_info_subscription = self.create_subscription(
             SensorInformation,
             'sensor_info',
@@ -34,8 +36,7 @@ class BoxHeightCalculator(Node):
         self.get_logger().info('I heard: "%s"' % sensor_info)
         box_distance = sensor_info.sensor_data.range
         
-        #<Assignment 1.2, bereken hier de hoogte van het object>
-
+        #<Assignment 1.2, bereken hier de hoogte van de box>
         # Compute the height of the box.
         # Boxes that are detected to be shorter than 10cm are due to sensor noise.
         # Do not publish information about them.
@@ -52,7 +53,6 @@ class BoxHeightCalculator(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    
 
     box_height_calculator = BoxHeightCalculator()
 

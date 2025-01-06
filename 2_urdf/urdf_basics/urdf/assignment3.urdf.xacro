@@ -17,7 +17,6 @@
   <!-- Robot1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/ufactory/ufactory_xarm6.urdf.xacro"/>
   <xacro:ufactory_xarm6 prefix="robot1_" joint_limited="true"/>
-
   
   <!-- Vacuum Gripper1 -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/vacuum_gripper/vacuum_gripper.urdf.xacro"/>
@@ -91,8 +90,13 @@
 
   <!-- Update the below block for assignment 3 here -->
 
+  <!--
   <xacro:include filename="$(find urdf_basics)/urdf/robot/lrmate200ic.urdf.xacro"/>
   <xacro:fanuc_lrmate200ic prefix="robot2_"/>
+  -->
+
+  <xacro:ufactory_xarm6 prefix="robot2_" joint_limited="true"/>
+
 
   <!-- robot2 to pedestal. -->
   <joint name="robot2_to_pedestal" type="fixed">

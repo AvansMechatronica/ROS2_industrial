@@ -1,19 +1,19 @@
 # ROS urdf
 
-Under contruction\
+
 In deze workshop leer je een aantal technieken om zelf realistische simulatie omgeving te maken.
 
 ## Opdracht 1
 Plaats een bin(bak) op de hieronder aangegeven plaats.
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-    <img src="./images/assignment1_arrow_perspective.jpg" alt="Perspective View" style="width: 45%;">
-    <img src="./images/assignment1_arrow_top_view.jpg" alt="Top View" style="width: 45%;">
-</div>
-Bewerk daartoe het "assignment1.urdf.xacro" bestand in de package urdf_basics van 2_urdf directory.
+![Image](./images/assignment1_arrow_perspective.jpg)
+![Image](./images/assignment1_arrow_top_view.jpg)
+
+Bewerk daartoe het *"assignment1.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
 Voeg je urdf-xml code toe achter de regel:
 
-&lt;!-- Add your solution to assignment 1 here --&gt;
-
+```
+<!-- Add your solution to assignment 1 here -->
+```
 
 Start assignment 1
 ```bash
@@ -21,23 +21,44 @@ ros2 launch urdf_basics visualize_assignment1.launch.py
 ```
 
 ## Opdracht 2
-.. raw:: html
-    <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-        <img src="./images/assignment2_arrow_perspective.jpg" alt="Perspective View" style="width: 45%;">
-        <img src="./images/assignment2_arrow_top_view.jpg" alt="Top View" style="width: 45%;">
-    </div>
+In deze opdracht ga je een nieuw object toevoegen aan de fabriek: een groene bol.
+
+De bol moet aan de andere kant van de transportband worden geplaatst, onder de trap aan het uiteinde van de fabriek.
+
+Raadpleeg de volgende illustraties. De rode pijl geeft aan waar je de bol moet plaatsen.
+![Image](./images/assignment2_arrow_perspective.jpg)
+![Image](./images/assignment2_arrow_top_view.jpg)
+
+Bewerk daartoe het *"assignment2.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
+Voeg je urdf-xml code toe achter de regel:
+```
+<!-- Add your solution to assignment 2 here -->
+```
 
 Start assignment 2
 ```bash
 ros2 launch urdf_basics visualize_assignment2.launch.py
 ```
 ## Opdracht 3
-.. raw:: html
+In deze opdracht dien je Robot 2 (de *uFactory xArm6*) te vervangen door een *LR Mate 200iC* robot.
 
-    <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-        <img src="./images/assignment3_original_robot.jpg" alt="Perspective View" style="width: 45px;">
-        <img src="./images/assignment3_replacement_robot.jpg" alt="Top View" style="width: 45px;">
-    </div>
+In de onderstaande figuren staat de (al geplaatste) *uFactory xArm6* robot aan de linkerkant. Daaronder staat de nieuwe robot, de *LR Mate 200iC* (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).
+
+![Image](./images/assignment3_original_robot.jpg)
+![Image](./images/assignment3_replacement_robot.jpg)
+
+Bewerk daartoe het *"assignment3.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
+
+Het xacro bestand van de *LR Mate 200iC* robot bevindt zich in de volgende directory:
+```
+$(find urdf_basics)/urdf/robot/lrmate200ic.urdf.xacro
+``` 
+
+Voeg je urdf-xml code toe achter de regel:
+```
+<!-- Update the below block for assignment 3 here -->
+```
+
 Start assignment 3
 ```bash
 ros2 launch urdf_basics visualize_assignment3.launch.py
