@@ -9,7 +9,7 @@ METERS_TO_INCHES = 39.3700787
 class MetresToInchesService(Node):
 
     def __init__(self):
-        super().__init__('metres_to_inch_service')
+        super().__init__('metres_to_inches_service')
         self.metrest_to_inches_service = self.create_service(ConvertMetresToInches, 'metres_to_inches', self.metres_to_inches_callback)
 
     def metres_to_inches_callback(self, request, response):
