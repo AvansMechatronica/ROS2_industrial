@@ -4,6 +4,9 @@
 # publishes information on the box height in metres and use the metres_to_feet
 # service to convert this height in metres to height in feet.
 
+# Naam Student:
+# Studentnummer:
+# Datum:
 
 import rclpy
 from rclpy.node import Node

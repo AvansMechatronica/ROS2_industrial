@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
+
+# Naam Student:
+# Studentnummer:
+# Datum:
+
+
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from nav2_msgs.action import NavigateToPose
+
 
 class MoveTurtleBotNode(Node):
     def __init__(self):
