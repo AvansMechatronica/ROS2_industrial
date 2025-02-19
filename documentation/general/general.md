@@ -59,7 +59,10 @@ Als je een opdracht dient in te leveren voor je opleiding dan vind je dat terug 
 
 Je gaat dan akkoord met onderstaande verklaring:
 ~~~
-Door het inleveren van dit bestand verklaar ik dit ik deze opdracht zelfstandig heb uitgevoerd en dat ik geen code van anderen heb gebruikt. Tevens ga ik akkoord met de beoordeling van deze opdracht.
+Door het inleveren van dit bestand verklaar ik dat 
+ik deze opdracht zelfstandig heb uitgevoerd en
+dat ik geen code van anderen heb gebruikt.
+Tevens ga ik akkoord met de beoordeling van deze opdracht.
 ~~~
 
 

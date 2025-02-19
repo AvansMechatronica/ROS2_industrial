@@ -3,7 +3,7 @@
 # Naam Student:
 # Studentnummer:
 # Datum:
-# Verklaring: Door het inleveren van dit bestand verklaar ik dit ik deze opdracht zelfstandig heb uitgevoerd en 
+# Verklaring: Door het inleveren van dit bestand verklaar ik dat ik deze opdracht zelfstandig heb uitgevoerd en 
 # dat ik geen code van anderen heb gebruikt. Tevens ga ik akkoord met de beoordeling van deze opdracht.
 
 from threading import Thread
