@@ -1,3 +1,4 @@
+#if 0
 #include <memory>
 #include <iostream>
 
@@ -71,3 +72,8 @@ int main(int argc, char * argv[]) {
     rclcpp::shutdown();
     return 0;
 }
+
+#else
+int main(int argc, char * argv[]) {
+}
+#endif

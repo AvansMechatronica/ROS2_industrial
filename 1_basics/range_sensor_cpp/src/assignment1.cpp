@@ -1,3 +1,4 @@
+#if 0
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/range.hpp"
@@ -59,3 +60,7 @@ int main(int argc, char * argv[]) {
     rclcpp::shutdown();
     return 0;
 }
+#else
+int main(int argc, char * argv[]) {
+}
+#endif
