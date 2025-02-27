@@ -36,7 +36,7 @@ git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 ## Installeren van de benodigde ROS2 packages en software
 ```bash
 cd ~/ros2_industrial_ws/src/ROS2_industrial/install
-.install
+./install.bash
 ```
 
 ## Bouwen van de ROS2 Industrial workspace
