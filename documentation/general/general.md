@@ -28,7 +28,7 @@ cd ~/ros2_industrial_ws/src/install
 
 ## Cloning de ROS2 Industrial workspace
 ```bash
-mkdir -p /ros2_industrial_ws/src
+mkdir -p ~/ros2_industrial_ws/src
 cd ~/ros2_industrial_ws/src
 git clone https://github.com/AvansMechatronica/ROS2_industrial.git
 ```
