@@ -5,8 +5,16 @@ In deze workshop leer je een aantal technieken om zelf realistische simulatie om
 
 ## Opdracht 1
 Plaats een bin(bak) op de hieronder aangegeven plaats.
+
+::::{grid} 2
+:::{grid-item-card} 
 ![Image](./images/assignment1_arrow_perspective.jpg)
+:::
+:::{grid-item-card}
 ![Image](./images/assignment1_arrow_top_view.jpg)
+:::
+::::
+
 
 Bewerk daartoe het *"assignment1.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
 Voeg je urdf-xml code toe achter de regel:
@@ -26,8 +34,16 @@ In deze opdracht ga je een nieuw object toevoegen aan de fabriek: een groene bol
 De bol moet aan de andere kant van de transportband worden geplaatst, onder de trap aan het uiteinde van de fabriek.
 
 Raadpleeg de volgende illustraties. De rode pijl geeft aan waar je de bol moet plaatsen.
+::::{grid} 2
+:::{grid-item-card} 
 ![Image](./images/assignment2_arrow_perspective.jpg)
+:::
+:::{grid-item-card}
 ![Image](./images/assignment2_arrow_top_view.jpg)
+:::
+::::
+
+
 
 Bewerk daartoe het *"assignment2.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
 Voeg je urdf-xml code toe achter de regel:
@@ -46,8 +62,15 @@ Website: [Fanuc LR Mate-serie](https://www.fanuc.eu/be/nl/robots/robot-filter-pa
 
 In de onderstaande figuren staat de (al geplaatste) *uFactory xArm6* robot aan de linkerkant. Daaronder staat de nieuwe robot, de *Fanuc LR Mate 200iC* (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).
 
+::::{grid} 2
+:::{grid-item-card} 
 ![Image](./images/assignment3_original_robot.jpg)
+:::
+:::{grid-item-card}
 ![Image](./images/assignment3_replacement_robot.jpg)
+:::
+::::
+
 
 Bewerk daartoe het *"assignment3.urdf.xacro"* bestand in de package urdf_basics van 2_urdf directory.
 
