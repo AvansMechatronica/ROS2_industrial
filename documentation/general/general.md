@@ -5,27 +5,22 @@ Installeer ROS Humble, kies uit 1 van de twee volgende mogelijkheden:
 * WSL Distributie onder Windows(voorkeur voor studenten M)
 * Native Ubuntu
 
+::::{tab-set}
 
-````{tab-set}
-
-```{tab-item} WSL Distributie
-:sync: tabgroup
-
+:::{tab-item} WSL Distributie
 Zie voor installatie: [Windows Subsystem for Linux Handleiding](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/)
 * Volg instrucies voor ROS2 Humble
-```
+:::
 
-```{tab-item} Native Ubuntu
-:sync: tabgroup
-
+:::{tab-item} Native Ubuntu
 *Opmerking: je dient eerst Ubuntu 22 geinstallerd te hebben!!!*
 
 Volg de instructies voor het [installeren ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
 
 Kies: ros-humble-desktop
+:::
 
-```
-````
+::::
 
 
 ## Cloning de ROS2 Industrial workspace
