@@ -1,6 +1,6 @@
 # ROS2 Actions
-## Commando's
-On request
+
+**On request** 
 
 ![Image](https://docs.ros.org/en/humble/_images/Action-SingleActionClient.gif)
 
