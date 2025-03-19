@@ -9,15 +9,33 @@ We gaan in deze en volgende workshops aan de slag met een hoogte meting van doze
 ![Image](../images/conveyor_with_packges.jpg)
 
 
-In de workshop wordt de range-sensor gesimuleerd door een node met een topic welke de afstand van een voorwerp tot de range-sensor weergeeft.
-p.s. Je kunt ook van een fysieke range-sensor gebruik maken, dit staat beschreven in [ESP32 ultatrasonic-sensor](../ESP32/ultrasonic_sensor/README.md)
+In de workshop wordt de meetwaarde van de range-sensor gepresenteerd door het topic **/sensor_info**. Er zijn twee methodes om deze sensorwaardes te genereren:
 
+
+:::::{card} 
+::::{tab-set}
+
+:::{tab-item} Simulatie
 Start de node die de range-sensor simuleert.
 
 ```bash
 ros2 run range_sensor sensor_info_publisher_simulation 
 ```
-n.b. In de terminal zal slechts 1 regel output worden gegenereerd
+{octicon}`alert;2em;sd-text-info` In de terminal zal slechts 1 regel output worden gegenereerd
+
+:::
+
+:::{tab-item} Realworld
+De sensor waardes worden genereert met een ultrasoonsensor die aangesloten is op een ESP32-board(Embedded System). Dit staat beschreven in: [ESP32 ultatrasonic-sensor](./ESP32/ultrasonic_sensor.md)
+
+:::
+
+::::
+
+:::::
+
+
+
 
 Controleer of de range-sensor node ook daadwerkelijk gestart is(doe dit in een nieuwe terminal)
 ```bash

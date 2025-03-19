@@ -22,6 +22,7 @@ Welcome to Avans ROS2 Industrial Workshop
    3_navigation/navigation
    4_manipulation/manipulation
    5_transferframes/transferframes
+   references/references
 
 Deze workshop is ontwikkeld door:
 
