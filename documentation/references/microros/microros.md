@@ -140,7 +140,7 @@ Tip: *Tijdens het uploaden zal getoond worden welke USB-device hiervoor gebruikt
 ## Voorbeelden
 Er zijn in het kader van deze modules al twee microROS implementaties gerealiseerd voor de volgende workshops:
 
-* ROS2 Basics: [ranges-sensor](../../1_basics/ESP32/ultrasonic_sensor.md)
+* ROS2 Basics: [range-sensor](../../1_basics/ESP32/ultrasonic_sensor.md)
 
 * Manipulation: [joystick](../../3_navigation/ESP32/joystick.md)
 
