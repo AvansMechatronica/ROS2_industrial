@@ -163,6 +163,8 @@ Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je 
 
 {octicon}`alert;2em;sd-text-info` Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie [Koppelen USB-devices aan WSL-Distributie](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie)
 
+{octicon}`bell;2em;sd-text-info` Het device wordt getoond bij het uploaden/programmeren van het embedded systeem in Visual Code met de Platform IO plugin
+
 :::
 
 :::{tab-item} Wifi
@@ -179,5 +181,5 @@ ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
 :::::
 
 
- {octicon}`bell;2em;sd-text-info` Het device wordt getoond bij het uploaden/programmeren van het embedded systeem in Visual Code met de Platform IO plugin
+
 
