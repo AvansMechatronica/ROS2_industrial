@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS2 Services &mdash; Avans: ROS2 Industrial 0.1 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a57088fb"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Zoeken" href="../search.html" />
+    <link rel="next" title="ROS2 Actions" href="actions.html" />
+    <link rel="prev" title="ROS Topics: Publishers and Subscribers" href="topics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Avans: ROS2 Industrial
+              <img src="../_static/avans-hogeschool.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../general/general.html">Algemene informatie</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="basics.html">ROS2 Basics Workshop</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="packages_and_nodes.html">ROS2 Packages and Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="topics.html">ROS Topics: Publishers and Subscribers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ROS2 Services</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opdracht">Opdracht</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opdracht-entry-point-toevoegen">Opdracht(Entry point toevoegen)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opdracht-programmeren">Opdracht(programmeren)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opdracht-testen">Opdracht(testen)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parameters.html">ROS2 Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="launch_files.html">ROS2 Launch files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages_for_python.html">ROS2 Creating packages for Python applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ESP32/ultrasonic_sensor.html">MicroROS ESP32 implementatie van range-sensor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../2_urdf/urdf.html">ROS2 urdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3_navigation/navigation.html">ROS2 navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_manipulation/manipulation.html">ROS2 industrial manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_transferframes/transferframes.html">ROS2_industrial_transferframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">Referenties</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Avans: ROS2 Industrial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="basics.html">ROS2 Basics Workshop</a></li>
+      <li class="breadcrumb-item active">ROS2 Services</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/1_basics/services.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros2-services">
+<h1>ROS2 Services<a class="headerlink" href="#ros2-services" title="Link to this heading"></a></h1>
+<p><img alt="Image" src="https://docs.ros.org/en/humble/_images/Service-SingleServiceClient.gif" /></p>
+<p>In deze workshop leer je de basis van ROS2 services. De theorie hiervan wordt gedoceerd, maar kun je ook vinden op deze <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html">website van ROS</a></p>
+<p>In deze workshop ga je de gemeten hoogte van de doos uit de topics workshop omrekenen van meters naar inches. We gebruiken hiervoor het ROS services mechanisme. Deze service is al voorbereid.
+je kunt de service starten met het volgende commando:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>range_sensor<span class="w"> </span>metres_to_inches_server
+</pre></div>
+</div>
+<p>Om een lijst te verkrijgen van services die actief zijn gebruik je het commando</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Je krijgt nu een list met alle services die actief zijn. Voor deze opdrachten is allen de service <strong>/metres_to_inches</strong> van belang. Er zijn nog een aan services aanwezig die beginnen met <strong>/metres_to_inches</strong> en gevolgd door worden door <strong>service/….</strong>, deze zijn voor ROS2 intern gebruik.</p>
+<p>Elke service wordt gedefineerd door een type, Dit type kun je als volgt opvragen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span><span class="nb">type</span><span class="w"> </span>/metres_to_inches
+</pre></div>
+</div>
+<p>Ook van de service kun je het protoptype opvragen:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>interface<span class="w"> </span>proto<span class="w"> </span>&lt;service_type&gt;
+</pre></div>
+</div>
+<p>Dit prototype is gedefineerd in een servicebeschrijving welke je kunt vinden in het volgende bestand:
+<strong>~/ros2_industrial_ws/src/ROS2_industrial/1_basics/range_sensors_interfaces/srv/ConvertMetresToInches.srv</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gedit<span class="w"> </span>~/ros2_industrial_ws/src/ROS2_industrial/1_basics/range_sensors_interfaces/srv/ConvertMetresToInches.srv<span class="w"> </span>
+</pre></div>
+</div>
+<p>In deze service beschrijving vind je een opdeling in twee delen gescheiden door <strong>“—”</strong>_:</p>
+<ul class="simple">
+<li><p>1e deel: Alle parameters waarmee je de service kunt aanvragen,<strong>request</strong> genoemd:</p>
+<ul>
+<li><p>float64 distance_metres</p></li>
+</ul>
+</li>
+<li><p>2e deel: Parameters die de service na behandeling terug geeft, <strong>response</strong> genoemd:</p>
+<ul>
+<li><p>float64 distance_inches</p></li>
+<li><p>bool success (deze wordt gebruikt om aan te merken dat in de service afhandeling geen fouten zijn opgetren en is optioneel)</p></li>
+</ul>
+</li>
+</ul>
+<p>Je kunt de service met een shell-commando testen, zie voorbeeld hieronder</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>service<span class="w"> </span>call<span class="w"> </span>/metres_to_inches<span class="w"> </span>range_sensors_interfaces/srv/ConvertMetresToInches<span class="w"> </span><span class="s2">&quot;{distance_metres : 1.0}&quot;</span>
+</pre></div>
+</div>
+<section id="opdracht">
+<h2>Opdracht<a class="headerlink" href="#opdracht" title="Link to this heading"></a></h2>
+<p>In deze opdracht ga je een service-aanvraag naar de ConvertMetresToInches-service programmeren.</p>
+<p>Je gaat daartoe het Python programma <strong>assignment2.py</strong> bewerken op bepaalde aangeven plaatsen.</p>
+<p>In dit programma gebeurt er het volgende:</p>
+<ul class="simple">
+<li><p>Er wordt een subscriber aangemaakt op het topic <em>/box_height_info</em></p></li>
+<li><p>Als er een bericht op het topic wordt ontvangen dan wordt de <em>self.box_height_callback</em> geactiveerd</p></li>
+<li><p>In de callback wordt een service-aanvraag gemaakt naar de <em>ConvertMetresToInches</em>-service door de <em>send_request(self, metres)</em> member-fuctie aan te roepen</p></li>
+<li><p>In de response van de service-aanvraag is de hoogte in inches verwerkt. Deze wordt vervolgens afgedruct in een terminal</p></li>
+</ul>
+</section>
+<section id="opdracht-entry-point-toevoegen">
+<h2>Opdracht(Entry point toevoegen)<a class="headerlink" href="#opdracht-entry-point-toevoegen" title="Link to this heading"></a></h2>
+<p>Om een python programma met het <strong>ros2 run</strong> commando te starten dient het python programma in ros2 geregistreerd te worden. Deze registratie wordt opgenomen in de <strong>setup.py</strong> van een ros package.</p>
+<p>Open daartoe het setup.py bestand in de package vn de <strong>range_sensor</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gedit<span class="w"> </span>~/ros2_industrial_ws/src/ROS2_industrial/1_basics/range_sensor/setup.py<span class="w"> </span>
+</pre></div>
+</div>
+<p>Voeg het entry point van assigment2.py toe aan de <strong>entry_points–&gt;console_scripts</strong> sectie.
+<em>Tip: Gebruik als voorbeeld assignment1</em></p>
+<p>Referentie:<a class="reference external" href="https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html#python-packages">Python Packages</a></p>
+<p>Nadat setup.py gewijzigd is moet je de package opnieuw bouwen met <strong>colcon build</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_industrial_ws/
+colcon<span class="w"> </span>build<span class="w"> </span>--symlink-install
+<span class="nb">source</span><span class="w"> </span>install/setup.bash
+</pre></div>
+</div>
+<p>*Let op: De laatste regel dien je daarna in ieder opestaand terminal uit te voeren.</p>
+</section>
+<section id="opdracht-programmeren">
+<h2>Opdracht(programmeren)<a class="headerlink" href="#opdracht-programmeren" title="Link to this heading"></a></h2>
+<p>In het bestand <strong>assignment2.py</strong> vind je op een aantal plaatsen een <strong>Todo x</strong>. Vul onder deze regels de code in  die in de Todo beschreven is.</p>
+<ul class="simple">
+<li><p>Laat je inspireren door <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Writing-A-Simple-Py-Service-And-Client.html">Writing a simple service and client Python</a></p></li>
+</ul>
+</section>
+<section id="opdracht-testen">
+<h2>Opdracht(testen)<a class="headerlink" href="#opdracht-testen" title="Link to this heading"></a></h2>
+<p>Om het programma te testen dien je achtereenvolgends de volgende node’s te starten</p>
+<ul class="simple">
+<li><p>Uit opdracht over topics</p>
+<ul>
+<li><p>Sensor info publisher</p></li>
+<li><p>Box hoogte berekeningen (assignment1.py)</p></li>
+</ul>
+</li>
+<li><p>Deze opdracht (assignment2.py)</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="topics.html" class="btn btn-neutral float-left" title="ROS Topics: Publishers and Subscribers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="actions.html" class="btn btn-neutral float-right" title="ROS2 Actions" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

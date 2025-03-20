@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS2 urdf &mdash; Avans: ROS2 Industrial 0.1 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=a57088fb"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+      <script src="../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Zoeken" href="../search.html" />
+    <link rel="next" title="ROS2 navigation" href="../3_navigation/navigation.html" />
+    <link rel="prev" title="MicroROS ESP32 implementatie van range-sensor" href="../1_basics/ESP32/ultrasonic_sensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Avans: ROS2 Industrial
+              <img src="../_static/avans-hogeschool.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../general/general.html">Algemene informatie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../1_basics/basics.html">ROS2 Basics Workshop</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS2 urdf</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#opdracht-1">Opdracht 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opdracht-2">Opdracht 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opdracht-3">Opdracht 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../3_navigation/navigation.html">ROS2 navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../4_manipulation/manipulation.html">ROS2 industrial manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../5_transferframes/transferframes.html">ROS2_industrial_transferframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references/references.html">Referenties</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Avans: ROS2 Industrial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS2 urdf</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/2_urdf/urdf.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros2-urdf">
+<h1>ROS2 urdf<a class="headerlink" href="#ros2-urdf" title="Link to this heading"></a></h1>
+<p>In deze workshop leer je een aantal technieken om zelf realistische simulatie omgeving te bouwen.</p>
+<section id="opdracht-1">
+<h2>Opdracht 1<a class="headerlink" href="#opdracht-1" title="Link to this heading"></a></h2>
+<p>Plaats een bin(bak) op de hieronder aangegeven plaats.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment1_arrow_perspective.jpg" /></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment1_arrow_top_view.jpg" /></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Bewerk daartoe het <em>“assignment1.urdf.xacro”</em> bestand in de package urdf_basics van 2_urdf directory.
+Voeg je urdf-xml code toe achter de regel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- Add your solution to assignment 1 here --&gt;
+</pre></div>
+</div>
+<p>Start assignment 1</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>urdf_basics<span class="w"> </span>visualize_assignment1.launch.py
+</pre></div>
+</div>
+</section>
+<section id="opdracht-2">
+<h2>Opdracht 2<a class="headerlink" href="#opdracht-2" title="Link to this heading"></a></h2>
+<p>In deze opdracht ga je een nieuw object toevoegen aan de fabriek: een groene bol.</p>
+<p>De bol moet aan de andere kant van de transportband worden geplaatst, onder de trap aan het uiteinde van de fabriek.</p>
+<p>Raadpleeg de volgende illustraties. De rode pijl geeft aan waar je de bol moet plaatsen.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment2_arrow_perspective.jpg" /></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment2_arrow_top_view.jpg" /></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Bewerk daartoe het <em>“assignment2.urdf.xacro”</em> bestand in de package urdf_basics van 2_urdf directory.
+Voeg je urdf-xml code toe achter de regel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- Add your solution to assignment 2 here --&gt;
+</pre></div>
+</div>
+<p>Start assignment 2</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>urdf_basics<span class="w"> </span>visualize_assignment2.launch.py
+</pre></div>
+</div>
+</section>
+<section id="opdracht-3">
+<h2>Opdracht 3<a class="headerlink" href="#opdracht-3" title="Link to this heading"></a></h2>
+<p>In deze opdracht dien je Robot 2 (de <em>uFactory xArm6</em>) te vervangen door een <em>Fanuc LR Mate 200iC</em> robot.</p>
+<p>Website: <a class="reference external" href="https://www.fanuc.eu/be/nl/robots/robot-filter-pagina/lrmate-serie">Fanuc LR Mate-serie</a></p>
+<p>In de onderstaande figuren staat de (al geplaatste) <em>uFactory xArm6</em> robot aan de linkerkant. Daaronder staat de nieuwe robot, de <em>Fanuc LR Mate 200iC</em> (let op: dit toont alleen de robot, het is geen voorbeeld van de oplossing).</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment3_original_robot.jpg" /></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text"><img alt="Image" src="../_images/assignment3_replacement_robot.jpg" /></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Bewerk daartoe het <em>“assignment3.urdf.xacro”</em> bestand in de package urdf_basics van 2_urdf directory.</p>
+<p>Het xacro bestand van de <em>Fanuc LR Mate 200iC</em> robot bevindt zich in de volgende plaats:</p>
+<ul class="simple">
+<li><p>Package: fanuc_robots</p></li>
+<li><p>Directory: urdf</p></li>
+<li><p>Bestandsnaam: lrmate200ic.urdf.xacro</p></li>
+</ul>
+<p>Voeg je urdf-xml code toe achter de regel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- Update the below block for assignment 3 here --&gt;
+</pre></div>
+</div>
+<p>Start assignment 3</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>launch<span class="w"> </span>urdf_basics<span class="w"> </span>visualize_assignment3.launch.py
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="../1_basics/ESP32/ultrasonic_sensor.html" class="btn btn-neutral float-left" title="MicroROS ESP32 implementatie van range-sensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="../3_navigation/navigation.html" class="btn btn-neutral float-right" title="ROS2 navigation" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

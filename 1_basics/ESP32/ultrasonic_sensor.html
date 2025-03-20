@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MicroROS ESP32 implementatie van range-sensor &mdash; Avans: ROS2 Industrial 0.1 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=a57088fb"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="next" title="ROS2 urdf" href="../../2_urdf/urdf.html" />
+    <link rel="prev" title="ROS2 Creating packages for Python applications" href="../creating_packages_for_python.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Avans: ROS2 Industrial
+              <img src="../../_static/avans-hogeschool.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/general.html">Algemene informatie</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../basics.html">ROS2 Basics Workshop</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../packages_and_nodes.html">ROS2 Packages and Nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../topics.html">ROS Topics: Publishers and Subscribers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../services.html">ROS2 Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../actions.html">ROS2 Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../parameters.html">ROS2 Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../launch_files.html">ROS2 Launch files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating_packages_for_python.html">ROS2 Creating packages for Python applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MicroROS ESP32 implementatie van range-sensor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#algemene-microros-informatie">Algemene microROS informatie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#openen-van-een-microros-project">Openen van een microROS project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#srf-04-aansluiten">SRF-04 aansluiten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testen">Testen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_urdf/urdf.html">ROS2 urdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_navigation/navigation.html">ROS2 navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_manipulation/manipulation.html">ROS2 industrial manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_transferframes/transferframes.html">ROS2_industrial_transferframes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references/references.html">Referenties</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Avans: ROS2 Industrial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../basics.html">ROS2 Basics Workshop</a></li>
+      <li class="breadcrumb-item active">MicroROS ESP32 implementatie van range-sensor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/1_basics/ESP32/ultrasonic_sensor.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="microros-esp32-implementatie-van-range-sensor">
+<h1>MicroROS ESP32 implementatie van range-sensor<a class="headerlink" href="#microros-esp32-implementatie-van-range-sensor" title="Link to this heading"></a></h1>
+<p>In dit voorbeeld wordt een SFR-04 ultrasoon sensor gekoppeld aan den ESP32 device. Nadat deze is geprogrammeerd zal dit device een topic <strong>/sensor_info</strong> publiceren. Met de ultrasoon sensor kun je vervolgens een afstand meten.</p>
+<section id="algemene-microros-informatie">
+<h2>Algemene microROS informatie<a class="headerlink" href="#algemene-microros-informatie" title="Link to this heading"></a></h2>
+<p>Informatie over het installeren van microROS kun je <a class="reference internal" href="../../references/microros/microros.html"><span class="std std-doc">hier</span></a> vinden.</p>
+</section>
+<section id="openen-van-een-microros-project">
+<h2>Openen van een microROS project<a class="headerlink" href="#openen-van-een-microros-project" title="Link to this heading"></a></h2>
+<p>Open met Visual Code project van de range-sensor in de volgende map (alleen map selecteren):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>~/ros2_industrial_ws/src/ROS2_industrial/1_basics/ESP32/ultrasonic_sensor
+</pre></div>
+</div>
+</section>
+<section id="srf-04-aansluiten">
+<h2>SRF-04 aansluiten<a class="headerlink" href="#srf-04-aansluiten" title="Link to this heading"></a></h2>
+<p><img alt="image" src="../../_images/srf-04.jpg" /></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>ESP32 Pin</p></th>
+<th class="head text-center"><p>SFR-04 Pin</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>5V</p></td>
+<td class="text-center"><p>VCC</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>GND</p></td>
+<td class="text-center"><p>GND</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>SR04_TRIG_PIN(*)</p></td>
+<td class="text-center"><p>Trig</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>SR04_ECHO_PIN(*)</p></td>
+<td class="text-center"><p>Echo</p></td>
+</tr>
+</tbody>
+</table>
+<p>(*) Deze pin-aansluitingen (van je gekozen ESP32 device) kun je vinden in het <em>platformio.ini</em> bestand:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gedit<span class="w"> </span>~/ros2_industrial_ws/src/ROS2_industrial/1_basics/ESP32/ultrasonic_sensor/platformio.ini
+</pre></div>
+</div>
+</section>
+<section id="testen">
+<h2>Testen<a class="headerlink" href="#testen" title="Link to this heading"></a></h2>
+<p>Nadat het device is geprogrammeerd kun je de werking controlleren met;</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/sensor_info
+</pre></div>
+</div>
+<p><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg> Je dient wel eertst de microROS-agent te starten.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="../creating_packages_for_python.html" class="btn btn-neutral float-left" title="ROS2 Creating packages for Python applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+        <a href="../../2_urdf/urdf.html" class="btn btn-neutral float-right" title="ROS2 urdf" accesskey="n" rel="next">Volgende <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
