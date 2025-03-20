@@ -146,6 +146,12 @@ Er zijn in het kader van deze modules al twee microROS implementaties gerealisee
 
 De microROS-agent kan worden gestart met het volgende commando:
 
+:::::{card} 
+
+::::{tab-set}
+
+:::{tab-item} USB
+
 ```
 ros2 run micro_ros_agent micro_ros_agent serial --dev <usb-device>
 ```
@@ -156,6 +162,21 @@ Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je 
  * /dev/ttyACM0
 
 {octicon}`alert;2em;sd-text-info` Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie [Koppelen USB-devices aan WSL-Distributie](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie)
+
+:::
+
+:::{tab-item} Wifi
+`
+ {octicon}`bell;2em;sd-text-info` Dit werkt alleen als in *platformio.ini* bestand de parameter *board_microros_transport = wifi* is gezet.
+
+```bash
+ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+``
+:::
+
+::::
+
+:::::
 
 
  {octicon}`bell;2em;sd-text-info` Het device wordt getoond bij het uploaden/programmeren van het embedded systeem in Visual Code met de Platform IO plugin
