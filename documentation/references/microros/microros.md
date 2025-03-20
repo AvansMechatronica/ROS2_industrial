@@ -169,7 +169,7 @@ Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je 
 
 :::{tab-item} Wifi
 
-{octicon}`alert;2em;sd-text-info` Dit werkt alleen als in *platformio.ini* bestand de parameter *board_microros_transport = wifi* is gezet.
+{octicon}`alert;2em;sd-text-info` Dit werkt alleen als in *platformio.ini* bestand de parameter **board_microros_transport = wifi** is gezet.
 
 ```bash
 ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
