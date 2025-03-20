@@ -101,8 +101,41 @@ board = esp32-s3-devkitc-1
 
 :::::
 
+*In het platformio.ini bestand van het project kun je details m.b.t. compileropties voor ieder environment inzien.*
 
-## Programmeren/uploaden van ESP32 devices
+## Uploaden programma naar ESP32 devices
+### Environment selecteren
+Alvorens je een microROS programma kan compileren dien je de juiste environment te selecteren die bij het het gekozen ESP32 board past.
+Activeer de environment slectector:
+
+![image](../../images/PlatformIO/SelectEnvironmentPre.JPG)
+
+Kies daarna de juiste environmet:
+
+![image](../../images/PlatformIO/SelectEnvironment.JPG)
+
+### Software Compileren
+Je kunt het programma voor het device compileren met onderstaande functie:
+
+![image](../../images/PlatformIO/Compile.JPG)
+
+### Uploaden naar ESP32 device
+Nadat je het device hebt aangesloten via USB kun je de software naar het device uploaden:
+
+![image](../../images/PlatformIO/Upload.JPG)
+
+Nadat de software succesvol is geüpload zal het programma automatisch in het device starten.
+
+Tip: *Tijdens het uploaden zal getoond worden welke USB-device hiervoor gebruikt wordt. Maak hiervan een aantekening deze heb je nodig bij het starten van de microROS-agent.*
+
+{octicon}`alert;2em;sd-text-info` Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie [Koppelen USB-devices aan WSL-Distributie](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie)
+
+{octicon}`alert;2em;sd-text-info`Zorg er voor dat bij het uploaden de bijbehorende microROS-agent is afgesloten.
+
+{octicon}`alert;2em;sd-text-info`Start in geen geval de *Serial Monitor*. Deze zal de communicatie over USB naar de microROS-agent blokkeren.
+
+![image](../../images/PlatformIO/NoSerialMonitor.JPG)
+
 
 ## Voorbeelden
 Er zijn in het kader van deze modules al twee microROS implementaties gerealiseerd voor de volgende workshops:
@@ -114,12 +147,11 @@ Er zijn in het kader van deze modules al twee microROS implementaties gerealisee
 De microROS-agent kan worden gestart met het volgende commando:
 
 ```
-ros2 run micro_ros_agent micro_ros_agent serial --dev <device>
+ros2 run micro_ros_agent micro_ros_agent serial --dev <usb-device>
 ```
 
-Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je
-device in te vullen.
- Bijvoorbeeld;
+Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je usb-device in te vullen.
+ Bijvoorbeeld:
  * /dev/ttyUSB0
  * /dev/ttyACM0
 
