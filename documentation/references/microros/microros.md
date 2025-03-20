@@ -87,7 +87,7 @@ board = lolin_c3_mini
 :::
 
 :::{tab-item} ESP32S3-Mini
-![image](../../images/ESP32/ESP32/esp32-S3-mini.jpg)
+![image](../../images/ESP32/esp32-S3-mini.jpg)
 Environment: **esp32-S3** 
 ```text
 platform = espressif32
