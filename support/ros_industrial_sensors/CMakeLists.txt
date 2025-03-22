@@ -8,9 +8,9 @@ endif()
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
-find_package(camera_info_manager REQUIRED)
-find_package(gazebo_msgs REQUIRED)
-find_package(gazebo_ros REQUIRED)
+#find_package(camera_info_manager REQUIRED)
+#find_package(gazebo_msgs REQUIRED)
+#find_package(gazebo_ros REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(cv_bridge REQUIRED)
@@ -30,15 +30,15 @@ find_package(ros_industrial_msgs REQUIRED)
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 # Custom Logical Camera Plugin
-add_library(CustomLogicalCameraPlugin SHARED
-  src/custom_logical_camera_plugin.cpp
-)
-target_include_directories(CustomLogicalCameraPlugin PUBLIC include)
-ament_target_dependencies(CustomLogicalCameraPlugin
-  "gazebo_ros"
-  "ros_industrial_msgs"
-)
-ament_export_libraries(CustomLogicalCameraPlugin)
+#add_library(CustomLogicalCameraPlugin SHARED
+#  src/custom_logical_camera_plugin.cpp
+#)
+#target_include_directories(CustomLogicalCameraPlugin PUBLIC include)
+#ament_target_dependencies(CustomLogicalCameraPlugin
+#  "gazebo_ros"
+#  "ros_industrial_msgs"
+#)
+#ament_export_libraries(CustomLogicalCameraPlugin)
 
 
 # Install C++ components
@@ -46,7 +46,7 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-    CustomLogicalCameraPlugin
+#    CustomLogicalCameraPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)

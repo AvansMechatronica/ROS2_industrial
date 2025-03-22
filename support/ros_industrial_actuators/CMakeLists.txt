@@ -8,9 +8,9 @@ endif()
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
-find_package(camera_info_manager REQUIRED)
-find_package(gazebo_msgs REQUIRED)
-find_package(gazebo_ros REQUIRED)
+#find_package(camera_info_manager REQUIRED)
+#find_package(gazebo_msgs REQUIRED)
+#find_package(gazebo_ros REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(cv_bridge REQUIRED)
@@ -31,17 +31,17 @@ find_package(std_msgs REQUIRED)
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 # Custom Logical Camera Plugin
-add_library(CustomVacuumGripperPlugin SHARED
-  src/custom_vacuum_gripper_plugin.cpp
-)
-target_include_directories(CustomVacuumGripperPlugin PUBLIC include)
-ament_target_dependencies(CustomVacuumGripperPlugin
-  "gazebo_ros"
-  "ros_industrial_msgs"
-  "std_msgs"
-  "std_srvs"
-)
-ament_export_libraries(CustomVacuumGripperPlugin)
+#add_library(CustomVacuumGripperPlugin SHARED
+#  src/custom_vacuum_gripper_plugin.cpp
+#)
+#target_include_directories(CustomVacuumGripperPlugin PUBLIC include)
+#ament_target_dependencies(CustomVacuumGripperPlugin
+#  "gazebo_ros"
+#  "ros_industrial_msgs"
+#  "std_msgs"
+#  "std_srvs"
+#)
+#ament_export_libraries(CustomVacuumGripperPlugin)
 
 
 # Install C++ components
@@ -49,7 +49,7 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-    CustomVacuumGripperPlugin
+#    CustomVacuumGripperPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
