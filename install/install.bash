@@ -17,6 +17,8 @@ rosdep install --from-paths install --ignore-src -r -y
 # Install xArm Packages
 XARM_DIR=~/xarm_ws
 if ! ros2 pkg list | grep -q "xarm_description"; then
+    # Missing in xarm dependencys
+    sudo apt install ros-$ROS_DISTRO-moveit
     echo "Cloning xarm packages"
     mkdir -p "$XARM_DIR/src"
     cd "$XARM_DIR/src"
@@ -25,6 +27,7 @@ if ! ros2 pkg list | grep -q "xarm_description"; then
     git submodule sync
     git submodule update --init --remote
     cd "$XARM_DIR"
+    rosdep install --from-paths install --ignore-src -r -y
     colcon build --symlink-install
     echo "source $XARM_DIR/install/setup.bash" >> ~/.bashrc
     source $XARM_DIR/install/setup.bash
@@ -51,20 +54,20 @@ fi
 
 # Install TurtleBot 3 Packages
 TURTLEBOT_DIR=~/turtlebot_ws
-if ! ros2 pkg list | grep -q "turtlebo3"; then
-    echo "Installing TurtleBot 3 packages"
+if ! ros2 pkg list | grep -q "turtlebot4"; then
+    echo "Installing TurtleBot 4 packages"
     mkdir -p "$TURTLEBOT_DIR/src"
     cd "$TURTLEBOT_DIR/src"
-    git clone https://github.com/ROBOTIS-GIT/turtlebot3.git -b $ROS_DISTRO
-    git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git -b $ROS_DISTRO
+    git clone https://github.com/turtlebot/turtlebot4.git -b $ROS_DISTRO
+    git clone https://github.com/turtlebot/turtlebot4_simulator.git -b $ROS_DISTRO
     cd "$TURTLEBOT_DIR"
     rosdep install --from-paths . --ignore-src -r -y
     colcon build --symlink-install
-    echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
+    #echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
     echo "source $TURTLEBOT_DIR/install/setup.bash" >> ~/.bashrc
     source $TURTLEBOT_DIR/install/setup.bash
 else
-    echo "TurtleBot 3 packages already installed"
+    echo "TurtleBot 4 packages already installed"
 fi
 
 cd "$CURRENT_DIR"
