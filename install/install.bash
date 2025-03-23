@@ -14,7 +14,7 @@ rosdep update
 cd $CURRENT_DIR/..
 rosdep install --from-paths install --ignore-src -r -y
 
-sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui
+#sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui
 
 if ! env | grep -q "QT_QPA_PLATFORM=xcb"; then
     echo "export QT_QPA_PLATFORM=xcb" >> ~/.bashrc

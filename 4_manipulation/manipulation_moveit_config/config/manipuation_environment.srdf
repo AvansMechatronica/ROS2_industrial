@@ -55,12 +55,10 @@
     </group_state>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="assembly_station_origin" link2="bin_1_base_link" reason="Adjacent"/>
-    <disable_collisions link1="assembly_station_origin" link2="camera1_origin_post" reason="Adjacent"/>
     <disable_collisions link1="assembly_station_origin" link2="comp_mobile_origin" reason="Adjacent"/>
     <disable_collisions link1="assembly_station_origin" link2="link1" reason="Never"/>
     <disable_collisions link1="assembly_station_origin" link2="link_base" reason="Never"/>
     <disable_collisions link1="assembly_station_origin" link2="robot1_pedestal_link" reason="Adjacent"/>
-    <disable_collisions link1="bin_1_base_link" link2="camera1_origin_post" reason="Adjacent"/>
     <disable_collisions link1="bin_1_base_link" link2="comp_mobile_origin" reason="Adjacent"/>
     <disable_collisions link1="bin_1_base_link" link2="link1" reason="Never"/>
     <disable_collisions link1="bin_1_base_link" link2="link2" reason="Never"/>
@@ -68,12 +66,6 @@
     <disable_collisions link1="bin_1_base_link" link2="link4" reason="Never"/>
     <disable_collisions link1="bin_1_base_link" link2="link_base" reason="Never"/>
     <disable_collisions link1="bin_1_base_link" link2="robot1_pedestal_link" reason="Adjacent"/>
-    <disable_collisions link1="camera1_origin_post" link2="comp_mobile_origin" reason="Adjacent"/>
-    <disable_collisions link1="camera1_origin_post" link2="link1" reason="Never"/>
-    <disable_collisions link1="camera1_origin_post" link2="link2" reason="Never"/>
-    <disable_collisions link1="camera1_origin_post" link2="link3" reason="Never"/>
-    <disable_collisions link1="camera1_origin_post" link2="link_base" reason="Never"/>
-    <disable_collisions link1="camera1_origin_post" link2="robot1_pedestal_link" reason="Adjacent"/>
     <disable_collisions link1="comp_mobile_origin" link2="link1" reason="Never"/>
     <disable_collisions link1="comp_mobile_origin" link2="link2" reason="Never"/>
     <disable_collisions link1="comp_mobile_origin" link2="link3" reason="Never"/>

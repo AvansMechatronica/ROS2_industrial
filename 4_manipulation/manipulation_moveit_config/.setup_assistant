@@ -7,4 +7,19 @@ moveit_setup_assistant_config:
   package_settings:
     author_name: Gerard Harkema
     author_email: ga.harkema@avans.nl
-    generated_timestamp: 1742720097
+    generated_timestamp: 1742739758
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
