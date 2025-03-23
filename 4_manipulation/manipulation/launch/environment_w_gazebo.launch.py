@@ -1,22 +1,14 @@
 #!/usr/bin/env python3
-# Software License Agreement (BSD License)
-#
-# Copyright (c) 2021, UFACTORY, Inc.
-# All rights reserved.
-#
-# Author: Vinman <vinman.wen@ufactory.cc> <vinman.cub@gmail.com>
-
 import os
 import yaml
 from ament_index_python import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import OpaqueFunction, IncludeLaunchDescription, DeclareLaunchArgument
+from launch.actions import OpaqueFunction, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 from uf_ros_lib.moveit_configs_builder import MoveItConfigsBuilder
 from uf_ros_lib.uf_robot_utils import generate_ros2_control_params_temp_file
-
 
 def launch_setup(context, *args, **kwargs):
     dof = LaunchConfiguration('dof', default=6)
@@ -34,11 +26,11 @@ def launch_setup(context, *args, **kwargs):
 
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
 
-    ros2_control_plugin = 'gazebo_ros2_control/GazeboSystem'
+    ros2_control_plugin = 'ign_ros2_control/IgnitionSystem'
 
     ros2_control_params = generate_ros2_control_params_temp_file(
         os.path.join(get_package_share_directory('manipulation_moveit_config'), 'config', 'ros2_controllers.yaml'),
-        prefix=prefix.perform(context), 
+        prefix=prefix.perform(context),
         add_gripper=add_gripper.perform(context) in ('True', 'true'),
         add_bio_gripper=add_bio_gripper.perform(context) in ('True', 'true'),
         ros_namespace=ros_namespace,
@@ -84,8 +76,6 @@ def launch_setup(context, *args, **kwargs):
 
     moveit_config_dump = yaml.dump(moveit_config.to_dict())
 
-    # robot moveit common launch
-    # xarm_moveit_config/launch/_robot_moveit_common2.launch.py
     robot_moveit_common_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('xarm_moveit_config'), 'launch', '_robot_moveit_common2.launch.py'])),
         launch_arguments={
@@ -100,10 +90,8 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    # robot gazebo launch
-    # mbot_demo/launch/_robot_on_mbot_gazebo.launch.py
     robot_gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('manipulation'), 'launch', 'support', '_gazebo.launch.py'])),
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('manipulation'), 'launch', 'support', '_gazebo_ign.launch.py'])),
         launch_arguments={
             'dof': dof,
             'robot_type': robot_type,
@@ -113,7 +101,6 @@ def launch_setup(context, *args, **kwargs):
             'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'),'rviz', 'environment.rviz'])
         }.items(),
     )
-
 
     return [
         robot_gazebo_launch,
