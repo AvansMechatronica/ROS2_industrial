@@ -12,6 +12,7 @@
   </xacro:hall_urdf>
   -->
 
+
   <xacro:include filename="$(find ros_industrial_support)/urdf/assembly_station/assembly_station.urdf.xacro"/>
   <xacro:assembly_station_urdf assembly_station_prefix="assembly_station_" assembly_station_parent="world">
     <origin xyz="0.5 -0.5 0.0" rpy="0 0 ${radians(90)}"/>
@@ -22,7 +23,7 @@
   <xacro:computer_urdf computer_parent="world" computer_prefix="comp_mobile_" >
   <origin xyz="1.5 -0.5 0.00" rpy="0 0 ${radians(45)}"/>
   </xacro:computer_urdf>
-
+  
   <!-- Robot1 Pedestal -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/robot_pedestal/robot_pedestal.urdf.xacro"/>
   <xacro:robot_pedestal_urdf pedestal_prefix="robot1_" pedestal_parent="world" pedestal_height="1.15">

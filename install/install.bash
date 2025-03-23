@@ -14,6 +14,12 @@ rosdep update
 cd $CURRENT_DIR/..
 rosdep install --from-paths install --ignore-src -r -y
 
+sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui
+
+if ! env | grep -q "QT_QPA_PLATFORM=xcb"; then
+    echo "export QT_QPA_PLATFORM=xcb" >> ~/.bashrc
+fi
+
 # Install xArm Packages
 XARM_DIR=~/xarm_ws
 if ! ros2 pkg list | grep -q "xarm_description"; then
