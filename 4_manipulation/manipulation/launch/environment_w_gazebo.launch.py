@@ -16,6 +16,8 @@ def launch_setup(context, *args, **kwargs):
     prefix = LaunchConfiguration('prefix', default='')
     hw_ns = LaunchConfiguration('hw_ns', default='xarm')
     limited = LaunchConfiguration('limited', default=True)
+
+
     attach_to = LaunchConfiguration('attach_to', default='xarm_link')
     attach_xyz = LaunchConfiguration('attach_xyz', default='"0 0 0.0"')
     attach_rpy = LaunchConfiguration('attach_rpy', default='"0 0 0"')
@@ -26,7 +28,7 @@ def launch_setup(context, *args, **kwargs):
 
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
 
-    ros2_control_plugin = 'ign_ros2_control/IgnitionSystem'
+    ros2_control_plugin = LaunchConfiguration('ros2_control_plugin', default='gz_ros2_control/GazeboSimSystem')
 
     ros2_control_params = generate_ros2_control_params_temp_file(
         os.path.join(get_package_share_directory('manipulation_moveit_config'), 'config', 'ros2_controllers.yaml'),

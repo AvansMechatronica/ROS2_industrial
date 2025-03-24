@@ -33,6 +33,8 @@ def launch_setup(context, *args, **kwargs):
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
     rviz_config = LaunchConfiguration('rviz_config', default='')
     moveit_config_dump = LaunchConfiguration('moveit_config_dump', default='')
+    load_controller = LaunchConfiguration('load_controller', default=True)
+
 
     moveit_config_dump = moveit_config_dump.perform(context)
     moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
@@ -53,14 +55,13 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
 
+ 
     # ignition gazebo launch
     xarm_gazebo_world = PathJoinSubstitution([FindPackageShare('manipulation'), 'worlds', 'casus.world'])
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'])),
         launch_arguments={
-            'world': xarm_gazebo_world,
-            'server_required': 'true',
-            'gui_required': 'true',
+            'gz_args': ' -r -v 3 {}'.format(xarm_gazebo_world.perform(context)),
         }.items(),
     )
 
@@ -76,9 +77,6 @@ def launch_setup(context, *args, **kwargs):
         parameters=[{'use_sim_time': True}],
     )
 
-    static_objects_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', 'spawn_world_objects.launch.py'])),
-    )
 
     # rviz with moveit configuration
     if not rviz_config.perform(context):
@@ -106,8 +104,31 @@ def launch_setup(context, *args, **kwargs):
             ('/tf_static', 'tf_static'),
         ]
     )
+    # Load controllers
+    controllers = [
+        'joint_state_broadcaster',
+        '{}{}_traj_controller'.format(prefix.perform(context), xarm_type),
+    ]
+    if robot_type.perform(context) != 'lite' and add_gripper.perform(context) in ('True', 'true'):
+        controllers.append('{}{}_gripper_traj_controller'.format(prefix.perform(context), robot_type.perform(context)))
+    elif robot_type.perform(context) != 'lite' and add_bio_gripper.perform(context) in ('True', 'true'):
+        controllers.append('{}bio_gripper_traj_controller'.format(prefix.perform(context)))
+    
+    controller_nodes = []
+    if load_controller.perform(context) in ('True', 'true'):
+        for controller in controllers:
+            controller_nodes.append(Node(
+                package='controller_manager',
+                executable='spawner',
+                output='screen',
+                arguments=[
+                    controller,
+                    '--controller-manager', '{}/controller_manager'.format(ros_namespace)
+                ],
+                parameters=[{'use_sim_time': True}],
+            ))
 
-    if len([gazebo_spawn_entity_node]) > 0:
+    if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
                 event_handler=OnProcessStart(
@@ -122,13 +143,20 @@ def launch_setup(context, *args, **kwargs):
                 )
             ),
             RegisterEventHandler(
+                condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=rviz2_node,
                 )
             ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=gazebo_spawn_entity_node,
+                    on_exit=controller_nodes,
+                )
+            ),
             robot_state_publisher_node,
-        ] 
+        ]
     else:
         return [
             RegisterEventHandler(

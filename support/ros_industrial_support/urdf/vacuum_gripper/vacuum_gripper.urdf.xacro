@@ -52,10 +52,13 @@
       <material>Gazebo/Black</material>      
     </gazebo>
 
+<!--
     <gazebo>
       <plugin filename="libCustomVacuumGripperPlugin.so" name="vacuum_gripper">
           <ros>
+-->
             <!--<namespace>/gazebo_plugins</namespace>-->
+<!--
             <namespace>/gripper</namespace>
 
             <remapping>switch:=custom_switch</remapping>
@@ -64,5 +67,6 @@
         <link_name>xarm::link6</link_name>
       </plugin>
     </gazebo>
+-->
   </xacro:macro>
 </robot>
