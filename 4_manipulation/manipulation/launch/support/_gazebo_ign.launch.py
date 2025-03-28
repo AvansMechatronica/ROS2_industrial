@@ -38,7 +38,7 @@ def launch_setup(context, *args, **kwargs):
 
     moveit_config_dump = moveit_config_dump.perform(context)
     moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
-    moveit_config_package_name = 'xarm_moveit_config'
+    moveit_config_package_name = 'manipulation'
     xarm_type = '{}{}'.format(robot_type.perform(context), dof.perform(context) if robot_type.perform(context) in ('xarm', 'lite') else '')
     
     robot_description = {'robot_description': moveit_config_dict['robot_description']}
