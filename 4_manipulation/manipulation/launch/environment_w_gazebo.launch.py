@@ -44,9 +44,10 @@ def launch_setup(context, *args, **kwargs):
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
     xarm_type = '{}{}'.format(robot_type.perform(context), dof.perform(context) if robot_type.perform(context) in ('xarm', 'lite') else '')
     
+    pkg_path = os.path.join(get_package_share_directory('manipulation_moveit_config'))
 
     ros2_control_params = generate_ros2_control_params_temp_file(
-        os.path.join(get_package_share_directory('manipulation_moveit_config'), 'config', 'ros2_controllers.yaml'),
+        os.path.join(pkg_path, 'config', 'ros2_controllers.yaml'),
         prefix=prefix.perform(context),
         add_gripper=add_gripper.perform(context) in ('True', 'true'),
         add_bio_gripper=add_bio_gripper.perform(context) in ('True', 'true'),
@@ -57,7 +58,6 @@ def launch_setup(context, *args, **kwargs):
     )
 
 
-    pkg_path = os.path.join(get_package_share_directory('manipulation_moveit_config'))
     urdf_file = os.path.join(pkg_path, 'config', 'manipuation_environment.urdf.xacro')
     srdf_file = os.path.join(pkg_path, 'config', 'manipuation_environment.srdf')
 
@@ -110,6 +110,13 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
+    move_group_node = Node(
+        package='manipulation_moveit_config',
+        executable='move_group',
+        output='screen',
+        name='move_group',
+
+    )
 
 
     # robot state publisher node
@@ -223,6 +230,7 @@ def launch_setup(context, *args, **kwargs):
                 )
             ),
             robot_state_publisher_node,
+            #move_group_node,
             robot_moveit_common_launch,
         ]
     else:

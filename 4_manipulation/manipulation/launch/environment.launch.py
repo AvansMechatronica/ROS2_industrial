@@ -45,6 +45,8 @@ def launch_setup(context, *args, **kwargs):
         add_gripper=add_gripper.perform(context) in ('True', 'true'),
         add_bio_gripper=add_bio_gripper.perform(context) in ('True', 'true'),
         ros_namespace=ros_namespace,
+        update_rate=1000,
+        use_sim_time=True,
         robot_type=robot_type.perform(context)
     )
 
@@ -63,6 +65,7 @@ def launch_setup(context, *args, **kwargs):
             dof=dof,
             robot_type=robot_type,
             prefix=prefix,
+            hw_ns=hw_ns,
             limited=limited,
             attach_to=attach_to,
             attach_xyz=attach_xyz,
@@ -81,15 +84,8 @@ def launch_setup(context, *args, **kwargs):
         .planning_pipelines(config_folder=pipeline_filedir)
         .to_moveit_configs()
     )
-    
-    # robot description launch
-    # xarm_description/launch/_robot_description.launch.py
-    robot_description_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('xarm_description'), 'launch', '_robot_description.launch.py'])),
-        launch_arguments={
-            'robot_description': yaml.dump(moveit_config.robot_description),
-        }.items(),
-    )
+
+    moveit_config_dump = yaml.dump(moveit_config.to_dict())
 
     # robot moveit common launch
     # xarm_moveit_config/launch/_robot_moveit_common2.launch.py
@@ -100,11 +96,13 @@ def launch_setup(context, *args, **kwargs):
             'attach_to': attach_to,
             'attach_xyz': attach_xyz,
             'attach_rpy': attach_rpy,
-            'use_sim_time': 'false',
-            'moveit_config_dump': yaml.dump(moveit_config.to_dict()),
-            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'), 'fake_robot', 'fake_robot.rviz'])
+            'show_rviz': 'false',
+            'use_sim_time': 'true',
+            'moveit_config_dump': moveit_config_dump,
+            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'), 'rviz', 'environment.rviz'])
         }.items(),
     )
+
 
     controllers = [
         '{}{}_traj_controller'.format(prefix.perform(context), xarm_type),
