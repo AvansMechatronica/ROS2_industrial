@@ -90,13 +90,14 @@ def generate_launch_description():
                 '.sdf',
                 ' -r',
                 ' -v 4',
-                #' --gui-config ',
-                #PathJoinSubstitution([
-                #    pkg_navigation,
-                #    'gui',
-                #    LaunchConfiguration('model'),
-                #    'gui.config'
-                #])
+                ' --gui-config ',
+                PathJoinSubstitution([
+                    pkg_navigation,
+                    'launch'
+                    'support'
+                    'gui',
+                    'gui.config'
+                ])
             ])
         ]
     )
