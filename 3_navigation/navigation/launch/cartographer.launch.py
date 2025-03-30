@@ -1,4 +1,4 @@
-# Copyright 2019 Open Source Robotics Foundation, Inc.
+# Copyright 2022 Clearpath Robotics, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,77 +12,117 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Author: Darby Lim
+# @author Roni Kreinin (rkreinin@clearpathrobotics.com)
 
-import os
+
 from ament_index_python.packages import get_package_share_directory
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch_ros.actions import Node
-from launch.substitutions import LaunchConfiguration
-from launch.actions import IncludeLaunchDescription
+from launch.actions import (
+    DeclareLaunchArgument,
+    GroupAction,
+    IncludeLaunchDescription,
+    OpaqueFunction
+)
+import os
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import ThisLaunchFileDir
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import PushRosNamespace, SetRemap
+from launch_ros.actions import Node
+
+pkg_navigation = get_package_share_directory('navigation')
+pkg_slam_toolbox = get_package_share_directory('slam_toolbox')
+
+ARGUMENTS = [
+    DeclareLaunchArgument('use_sim_time', default_value='false',
+                          choices=['true', 'false'],
+                          description='Use sim time'),
+    DeclareLaunchArgument('sync', default_value='true',
+                          choices=['true', 'false'],
+                          description='Use synchronous SLAM'),
+    DeclareLaunchArgument('namespace', default_value='',
+                          description='Robot namespace'),
+    DeclareLaunchArgument('autostart', default_value='true',
+                          choices=['true', 'false'],
+                          description='Automatically startup the slamtoolbox. Ignored when use_lifecycle_manager is true.'),  # noqa: E501
+    DeclareLaunchArgument('use_lifecycle_manager', default_value='false',
+                          choices=['true', 'false'],
+                          description='Enable bond connection during node activation'),
+    DeclareLaunchArgument('params',
+                          default_value=PathJoinSubstitution([pkg_navigation, 'config', 'slam.yaml']),  # noqa: E501
+                          description='Path to the SLAM Toolbox configuration file')
+]
+
+
+def launch_setup(context, *args, **kwargs):
+    namespace = LaunchConfiguration('namespace')
+    sync = LaunchConfiguration('sync')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    autostart = LaunchConfiguration('autostart')
+    use_lifecycle_manager = LaunchConfiguration('use_lifecycle_manager')
+    slam_params = LaunchConfiguration('params')
+
+    namespace_str = namespace.perform(context)
+    if (namespace_str and not namespace_str.startswith('/')):
+        namespace_str = '/' + namespace_str
+
+    launch_slam_sync = PathJoinSubstitution(
+        [pkg_slam_toolbox, 'launch', 'online_sync_launch.py'])
+
+    launch_slam_async = PathJoinSubstitution(
+        [pkg_slam_toolbox, 'launch', 'online_async_launch.py'])
+
+    rviz_config_dir = os.path.join(get_package_share_directory('navigation'),
+                                    'rviz', 'environment.rviz')
+
+    rviz_node = Node(
+                package='rviz2',
+                executable='rviz2',
+                name='rviz2',
+                arguments=['-d', rviz_config_dir],
+                parameters=[{'use_sim_time': use_sim_time}],
+                output='screen')
+
+
+    slam = GroupAction([
+        PushRosNamespace(namespace),
+
+        SetRemap('/tf', namespace_str + '/tf'),
+        SetRemap('/tf_static', namespace_str + '/tf_static'),
+        SetRemap('/scan', namespace_str + '/scan'),
+        SetRemap('/map', namespace_str + '/map'),
+        SetRemap('/map_metadata', namespace_str + '/map_metadata'),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(launch_slam_sync),
+            launch_arguments=[
+                ('use_sim_time', use_sim_time),
+                ('autostart', autostart),
+                ('use_lifecycle_manager', use_lifecycle_manager),
+                ('slam_params_file', slam_params)
+            ],
+            condition=IfCondition(sync)
+        ),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(launch_slam_async),
+            launch_arguments=[
+                ('use_sim_time', use_sim_time),
+                ('autostart', autostart),
+                ('use_lifecycle_manager', use_lifecycle_manager),
+                ('slam_params_file', slam_params)
+            ],
+            condition=UnlessCondition(sync)
+        )
+    ])
+
+    return [slam, rviz_node]
 
 
 def generate_launch_description():
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    navigation_cartographer_prefix = get_package_share_directory('navigation')
-    cartographer_config_dir = LaunchConfiguration('cartographer_config_dir', default=os.path.join(
-                                                  navigation_cartographer_prefix, 'config'))
-    configuration_basename = LaunchConfiguration('config',
-                                                 default='turtlebot3_lds_2d.lua')
+    ld = LaunchDescription(ARGUMENTS)
+    ld.add_action(OpaqueFunction(function=launch_setup))
+    return ld
 
-    resolution = LaunchConfiguration('resolution', default='0.05')
-    publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
 
-    rviz_config_dir = os.path.join(get_package_share_directory('navigation'),
-                                   'rviz', 'environment.rviz')
-
-    return LaunchDescription([
-        DeclareLaunchArgument(
-            'cartographer_config_dir',
-            default_value=cartographer_config_dir,
-            description='Full path to config file to load'),
-        DeclareLaunchArgument(
-            'configuration_basename',
-            default_value=configuration_basename,
-            description='Name of lua file for cartographer'),
-        DeclareLaunchArgument(
-            'use_sim_time',
-            default_value='false',
-            description='Use simulation (Gazebo) clock if true'),
-
-        Node(
-            package='cartographer_ros',
-            executable='cartographer_node',
-            name='cartographer_node',
-            output='screen',
-            parameters=[{'use_sim_time': use_sim_time}],
-            arguments=['-configuration_directory', cartographer_config_dir,
-                       '-configuration_basename', configuration_basename]),
-
-        DeclareLaunchArgument(
-            'resolution',
-            default_value=resolution,
-            description='Resolution of a grid cell in the published occupancy grid'),
-
-        DeclareLaunchArgument(
-            'publish_period_sec',
-            default_value=publish_period_sec,
-            description='OccupancyGrid publishing period'),
-
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/occupancy_grid.launch.py']),
-            launch_arguments={'use_sim_time': use_sim_time, 'resolution': resolution,
-                              'publish_period_sec': publish_period_sec}.items(),
-        ),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            parameters=[{'use_sim_time': use_sim_time}],
-            output='screen'),
-    ])
