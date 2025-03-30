@@ -64,6 +64,7 @@ if ! ros2 pkg list | grep -q "turtlebot4"; then
     echo "Installing TurtleBot 4 packages"
     mkdir -p "$TURTLEBOT_DIR/src"
     cd "$TURTLEBOT_DIR/src"
+    git clone https://github.com/turtlebot/turtlebot4_desktop.git -b $ROS_DISTRO
     git clone https://github.com/turtlebot/turtlebot4.git -b $ROS_DISTRO
     git clone https://github.com/turtlebot/turtlebot4_simulator.git -b $ROS_DISTRO
     cd "$TURTLEBOT_DIR"
