@@ -93,8 +93,8 @@ def generate_launch_description():
                 ' --gui-config ',
                 PathJoinSubstitution([
                     pkg_navigation,
-                    'launch'
-                    'support'
+                    'launch',
+                    'support',
                     'gui',
                     'gui.config'
                 ])
