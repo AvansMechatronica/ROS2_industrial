@@ -7,7 +7,11 @@
 #include "rosidl_runtime_c/string_functions.h"  // Header for string assignment functions
 
 #include <std_msgs/msg/bool.h>
+#if(defined TWIST_STAMPED)
+#include <geometry_msgs/msg/twist_stamped.h>
+#else
 #include <geometry_msgs/msg/twist.h>
+#endif
 
 #include <cmath>
 
@@ -64,7 +68,11 @@
 #endif
 
 rcl_publisher_t twist_publisher;
+#if(defined TWIST_STAMPED)
+geometry_msgs__msg__TwistStamped twist_stamped;
+#else
 geometry_msgs__msg__Twist twist;
+#endif
 
 rclc_executor_t executor;
 rclc_support_t support;
@@ -112,9 +120,6 @@ void error_loop(){
   }
 }
 
-
-
-
 int angular_offset, linear_offset;
 
 float round(float waarde, int decimalen) {
@@ -127,13 +132,22 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
   float angular, linear;
   if (timer != NULL) {
     int linear, angular;
-
     linear = analogReadMilliVolts(linear_pin) - linear_offset;
     angular = analogReadMilliVolts(angular_pin) - angular_offset;
+#if(defined TWIST_STAMPED)
+    //Serial.printf("Linear = %02f, Angular = %02f\n", linear, angular);
+    twist_stamped.twist.linear.x = linear  * linear_resolution * SPEED_FACTOR /1000.0;
+    twist_stamped.twist.angular.z = angular * angular_resolution * SPEED_FACTOR /1000.0;
+    twist_stamped.header.stamp.sec = 0;
+    twist_stamped.header.stamp.nanosec = 0;
+
+    RCSOFTCHECK(rcl_publish(&twist_publisher, &twist_stamped, NULL));
+#else
     //Serial.printf("Linear = %02f, Angular = %02f\n", linear, angular);
     twist.linear.x = linear  * linear_resolution * SPEED_FACTOR /1000.0;
     twist.angular.z = angular * angular_resolution * SPEED_FACTOR /1000.0;
     RCSOFTCHECK(rcl_publish(&twist_publisher, &twist, NULL));
+#endif
   }
 }
 
@@ -188,13 +202,21 @@ void setup() {
   RCCHECK(rclc_node_init_default(&node, NODE_NAME, "", &support));
 
 
+#if(defined TWIST_STAMPED)
+  // create twist_publisher
+  RCCHECK(rclc_publisher_init_default(
+    &twist_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, TwistStamped),
+    "cmd_vel"));
+#else
   // create twist_publisher
   RCCHECK(rclc_publisher_init_default(
     &twist_publisher,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(geometry_msgs, msg, Twist),
     "cmd_vel"));
-
+#endif
 
   // create timer,
   const unsigned int timer_timeout = 1000;
