@@ -32,16 +32,19 @@ ARGUMENTS = [
     DeclareLaunchArgument('use_sim_time', default_value='true',
                           choices=['true', 'false'],
                           description='use_sim_time'),
-    DeclareLaunchArgument('world', default_value='warehouse_without_obstacles',
+    DeclareLaunchArgument('world', default_value='warehouse',
                           description='Simulation World'),
+    DeclareLaunchArgument('model', default_value='lite',
+                          choices=['standard', 'lite'],
+                          description='Turtlebot4 Model'),
 ]
 
 
 def generate_launch_description():
 
     # Directories
-    pkg_navigation = get_package_share_directory(
-        'navigation')
+    pkg_turtlebot4_gz_bringup = get_package_share_directory(
+        'turtlebot4_gz_bringup')
     pkg_turtlebot4_gz_gui_plugins = get_package_share_directory(
         'turtlebot4_gz_gui_plugins')
     pkg_turtlebot4_description = get_package_share_directory(
@@ -59,7 +62,7 @@ def generate_launch_description():
     gz_resource_path = SetEnvironmentVariable(
         name='GZ_SIM_RESOURCE_PATH',
         value=':'.join([
-            os.path.join(pkg_navigation, 'worlds'),
+            os.path.join(pkg_turtlebot4_gz_bringup, 'worlds'),
             os.path.join(pkg_irobot_create_gz_bringup, 'worlds'),
             str(Path(pkg_turtlebot4_description).parent.resolve()),
             str(Path(pkg_irobot_create_description).parent.resolve())
@@ -88,13 +91,6 @@ def generate_launch_description():
                 ' -r',
                 ' -v 4',
                 ' --gui-config ',
-                PathJoinSubstitution([
-                    pkg_navigation,
-                    'launch',
-                    'support',
-                    'gui',
-                    'gui.config'
-                ])
             ])
         ]
     )
