@@ -70,6 +70,9 @@ def launch_setup(context, *args, **kwargs):
     kinematics_file = os.path.join(pkg_path, 'config', 'kinematics.yaml')
     pipeline_filedir = os.path.join(pkg_path, 'config')
 
+    moveit_config = MoveItConfigsBuilder("manipuation_environment", package_name="manipulation_moveit_config").to_moveit_configs()
+    move_group_node = generate_move_group_launch(moveit_config)
+
     if 0:
         moveit_config = (
             MoveItConfigsBuilder(
@@ -96,9 +99,10 @@ def launch_setup(context, *args, **kwargs):
             .planning_pipelines(config_folder=pipeline_filedir)
             .to_moveit_configs()
         )
-        moveit_config_dump = yaml.dump(moveit_config.to_dict())
-        moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
+    moveit_config_dump = yaml.dump(moveit_config.to_dict())
+    moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
 
+    if 0:
         move_group_node = Node(
             package='moveit_ros_move_group',
             executable='move_group',
@@ -109,9 +113,7 @@ def launch_setup(context, *args, **kwargs):
             ],
         )
 
-    moveit_config = MoveItConfigsBuilder("manipuation_environment", package_name="manipulation_moveit_config").to_moveit_configs()
-    move_group_node = generate_move_group_launch(moveit_config)
-
+ 
 
 
     robot_description = {'robot_description': moveit_config_dict['robot_description']}

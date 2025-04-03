@@ -21,6 +21,7 @@ from uf_ros_lib.uf_robot_utils import generate_ros2_control_params_temp_file
 
 def launch_setup(context, *args, **kwargs):
     dof = LaunchConfiguration('dof', default=6)
+    hw_ns = LaunchConfiguration('hw_ns', default='xarm')
     robot_type = LaunchConfiguration('robot_type', default='xarm')
     prefix = LaunchConfiguration('prefix', default='')
     limited = LaunchConfiguration('limited', default=True)
@@ -86,6 +87,15 @@ def launch_setup(context, *args, **kwargs):
     )
 
     moveit_config_dump = yaml.dump(moveit_config.to_dict())
+
+    # robot description launch
+    # xarm_description/launch/_robot_description.launch.py
+    robot_description_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('xarm_description'), 'launch', '_robot_description.launch.py'])),
+        launch_arguments={
+            'robot_description': yaml.dump(moveit_config.robot_description),
+        }.items(),
+    )
 
     # robot moveit common launch
     # xarm_moveit_config/launch/_robot_moveit_common2.launch.py
