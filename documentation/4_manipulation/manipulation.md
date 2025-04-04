@@ -2,6 +2,10 @@
 ## Commando's
 Under contruction
 
+![image](https://control.ros.org/rolling/_images/ros2_control_overview.png)
+
+
+![image](https://control.ros.org/rolling/_images/ros2_control_mobile_manipulator_control_arch_multi_robots_in_one_controller_manager.png)
 Bekijken van de omgeving
 ```bash
 ros2 launch manipulation view_environment.launch.py

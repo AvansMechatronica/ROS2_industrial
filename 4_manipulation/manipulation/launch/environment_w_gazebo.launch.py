@@ -97,7 +97,7 @@ def launch_setup(context, *args, **kwargs):
     robot_description = {'robot_description': moveit_config_dict['robot_description']}
 
     robot_moveit_common_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('xarm_moveit_config'), 'launch', '_robot_moveit_common2.launch.py'])),
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('manipulation'), 'launch', 'support', '_robot_moveit_common2.launch.py'])),
         launch_arguments={
             'prefix': prefix,
             'attach_to': attach_to,
@@ -127,7 +127,7 @@ def launch_setup(context, *args, **kwargs):
         parameters=[{'use_sim_time': True}, robot_description],
         remappings=[
             ('/tf', 'tf'),
-            ('/tf_static', 'tf_static'),
+            #('/tf_static', 'tf_static'),
         ]
     )
 
@@ -173,7 +173,7 @@ def launch_setup(context, *args, **kwargs):
         ],
         remappings=[
             ('/tf', 'tf'),
-            ('/tf_static', 'tf_static'),
+            #('/tf_static', 'tf_static'),
         ]
     )
 

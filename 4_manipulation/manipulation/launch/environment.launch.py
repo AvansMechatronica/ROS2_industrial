@@ -21,7 +21,6 @@ from uf_ros_lib.uf_robot_utils import generate_ros2_control_params_temp_file
 
 def launch_setup(context, *args, **kwargs):
     dof = LaunchConfiguration('dof', default=6)
-    hw_ns = LaunchConfiguration('hw_ns', default='xarm')
     robot_type = LaunchConfiguration('robot_type', default='xarm')
     prefix = LaunchConfiguration('prefix', default='')
     limited = LaunchConfiguration('limited', default=True)
@@ -46,8 +45,6 @@ def launch_setup(context, *args, **kwargs):
         add_gripper=add_gripper.perform(context) in ('True', 'true'),
         add_bio_gripper=add_bio_gripper.perform(context) in ('True', 'true'),
         ros_namespace=ros_namespace,
-        update_rate=1000,
-        use_sim_time=True,
         robot_type=robot_type.perform(context)
     )
 
@@ -66,7 +63,6 @@ def launch_setup(context, *args, **kwargs):
             dof=dof,
             robot_type=robot_type,
             prefix=prefix,
-            hw_ns=hw_ns,
             limited=limited,
             attach_to=attach_to,
             attach_xyz=attach_xyz,
@@ -85,9 +81,7 @@ def launch_setup(context, *args, **kwargs):
         .planning_pipelines(config_folder=pipeline_filedir)
         .to_moveit_configs()
     )
-
-    moveit_config_dump = yaml.dump(moveit_config.to_dict())
-
+    
     # robot description launch
     # xarm_description/launch/_robot_description.launch.py
     robot_description_launch = IncludeLaunchDescription(
@@ -106,13 +100,11 @@ def launch_setup(context, *args, **kwargs):
             'attach_to': attach_to,
             'attach_xyz': attach_xyz,
             'attach_rpy': attach_rpy,
-            'show_rviz': 'false',
-            'use_sim_time': 'true',
-            'moveit_config_dump': moveit_config_dump,
-            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'), 'rviz', 'environment.rviz'])
+            'use_sim_time': 'false',
+            'moveit_config_dump': yaml.dump(moveit_config.to_dict()),
+            'rviz_config': PathJoinSubstitution([FindPackageShare('manipulation'), 'fake_robot', 'fake_robot.rviz'])
         }.items(),
     )
-
 
     controllers = [
         '{}{}_traj_controller'.format(prefix.perform(context), xarm_type),
