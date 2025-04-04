@@ -97,7 +97,7 @@ def launch_setup(context, *args, **kwargs):
             target_action=rviz2_node,
             on_exit=[EmitEvent(event=Shutdown())]
         )),
-        rviz2_node,
+        #rviz2_node,
         #static_tf,
         move_group_node,
         robot_planner_node_launch
