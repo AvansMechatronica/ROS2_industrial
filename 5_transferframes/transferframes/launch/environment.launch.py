@@ -34,7 +34,7 @@ def launch_setup(context, *args, **kwargs):
 
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
 
-    ros2_control_plugin = 'gazebo_ros2_control/GazeboSystem'
+    ros2_control_plugin = LaunchConfiguration('ros2_control_plugin', default='gz_ros2_control/GazeboSimSystem')
 
     ros2_control_params = generate_ros2_control_params_temp_file(
         os.path.join(get_package_share_directory('transferframes_moveit_config'), 'config', 'ros2_controllers.yaml'),
@@ -87,8 +87,8 @@ def launch_setup(context, *args, **kwargs):
     # robot moveit common launch
     # xarm_moveit_config/launch/_robot_moveit_common2.launch.py
     robot_moveit_common_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('xarm_moveit_config'), 'launch', '_robot_moveit_common2.launch.py'])),
-        launch_arguments={
+            PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', '_robot_moveit_common2.launch.py'])),
+    launch_arguments={
             'prefix': prefix,
             'attach_to': attach_to,
             'attach_xyz': attach_xyz,
@@ -103,7 +103,7 @@ def launch_setup(context, *args, **kwargs):
     # robot gazebo launch
     # mbot_demo/launch/_robot_on_mbot_gazebo.launch.py
     robot_gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', '_gazebo.launch.py'])),
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', '_gazebo_ign.launch.py'])),
         launch_arguments={
             'dof': dof,
             'robot_type': robot_type,

@@ -33,10 +33,12 @@ def launch_setup(context, *args, **kwargs):
     ros_namespace = LaunchConfiguration('ros_namespace', default='').perform(context)
     rviz_config = LaunchConfiguration('rviz_config', default='')
     moveit_config_dump = LaunchConfiguration('moveit_config_dump', default='')
+    load_controller = LaunchConfiguration('load_controller', default=True)
+
 
     moveit_config_dump = moveit_config_dump.perform(context)
     moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
-    moveit_config_package_name = 'xarm_moveit_config'
+    moveit_config_package_name = 'manipulation'
     xarm_type = '{}{}'.format(robot_type.perform(context), dof.perform(context) if robot_type.perform(context) in ('xarm', 'lite') else '')
     
     robot_description = {'robot_description': moveit_config_dict['robot_description']}
@@ -53,33 +55,28 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
 
-    # gazebo launch
-    # gazebo_ros/launch/gazebo.launch.py
+ 
+    # ignition gazebo launch
     xarm_gazebo_world = PathJoinSubstitution([FindPackageShare('transferframes'), 'worlds', 'casus.world'])
     gazebo_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'launch', 'gazebo.launch.py'])),
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'])),
         launch_arguments={
-            'world': xarm_gazebo_world,
-            'server_required': 'true',
-            'gui_required': 'true',
+            'gz_args': ' -r -v 3 {}'.format(xarm_gazebo_world.perform(context)),
         }.items(),
     )
 
-    # gazebo spawn entity node
+    # ignition gazebo spawn entity node
     gazebo_spawn_entity_node = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
+        package="ros_gz_sim",
+        executable="create",
         output='screen',
         arguments=[
+            '-name', 'xarm',
             '-topic', 'robot_description',
-            '-entity', 'xarm',
         ],
         parameters=[{'use_sim_time': True}],
     )
 
-    static_objects_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('transferframes'), 'launch', 'support', 'spawn_world_objects.launch.py'])),
-    )
 
     # rviz with moveit configuration
     if not rviz_config.perform(context):
@@ -102,13 +99,11 @@ def launch_setup(context, *args, **kwargs):
                 'use_sim_time': True
             }
         ],
-        # condition=IfCondition(show_rviz),
         remappings=[
             ('/tf', 'tf'),
             ('/tf_static', 'tf_static'),
         ]
     )
-
     # Load controllers
     controllers = [
         'joint_state_broadcaster',
@@ -120,56 +115,19 @@ def launch_setup(context, *args, **kwargs):
         controllers.append('{}bio_gripper_traj_controller'.format(prefix.perform(context)))
     
     controller_nodes = []
-    for controller in controllers:
-        controller_nodes.append(Node(
-            package='controller_manager',
-            executable='spawner',
-            output='screen',
-            arguments=[
-                controller,
-                '--controller-manager', '{}/controller_manager'.format(ros_namespace)
-            ],
-            parameters=[{'use_sim_time': True}],
-        ))
-
-    pkg_path = get_package_share_directory('ros_industrial_sensors')
-    camera_node = Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
-            name='camera_spawner',
-            output='screen',
-            arguments=[
-                '-x', '0.5', '-y', '-0.7', '-z', '2.0', '-P', str(math.radians(90)),
-                '-entity', 'logical_camera_1',
-                '-file', pkg_path+'/models/logical_camera/model.sdf',
-                '-timeout', '50'
-            ],
-    )
-    pkg_path = get_package_share_directory('ros_industrial_actuators')
-    vacuum_gripper_node = Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
-            name='camera_spawner',
-            output='screen',
-            arguments=[
-                '-entity', 'vacuum_gripper_1',
-                '-file', pkg_path+'/models/vacuum_gripper/model.sdf',
-                '-timeout', '50'
-            ],
-    )
-    if 0:
-        pkg_path = get_package_share_directory('transferframes')
-        gripper_node = Node(
-                package='gazebo_ros',
-                executable='spawn_entity.py',
-                name='camera_spawner',
+    if load_controller.perform(context) in ('True', 'true'):
+        for controller in controllers:
+            controller_nodes.append(Node(
+                package='controller_manager',
+                executable='spawner',
                 output='screen',
                 arguments=[
-                    '-entity', 'vacuuam_gripper',
-                    '-file', pkg_path+'/launch/support/vacuum_gripper.xml',
-                    '-timeout', '50'
+                    controller,
+                    '--controller-manager', '{}/controller_manager'.format(ros_namespace)
                 ],
-        )
+                parameters=[{'use_sim_time': True}],
+            ))
+
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -185,6 +143,7 @@ def launch_setup(context, *args, **kwargs):
                 )
             ),
             RegisterEventHandler(
+                condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=rviz2_node,
@@ -193,29 +152,11 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
-                    on_exit=camera_node,
-                )
-            ),
-            #RegisterEventHandler(
-            #    event_handler=OnProcessExit(
-            #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=vacuum_gripper_node,
-            #    )
-            #),
-            RegisterEventHandler(
-                event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
                     on_exit=controller_nodes,
                 )
             ),
-            #RegisterEventHandler(
-            #    event_handler=OnProcessExit(
-            #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=gripper_node,
-            #    )
-            #),
             robot_state_publisher_node,
-        ] #+ controller_nodes
+        ]
     else:
         return [
             RegisterEventHandler(
