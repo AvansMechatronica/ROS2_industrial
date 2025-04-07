@@ -128,6 +128,33 @@ def launch_setup(context, *args, **kwargs):
                 parameters=[{'use_sim_time': True}],
             ))
 
+    pkg_path = get_package_share_directory('ros_industrial_sensors')
+    camera_node = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        name='camera_spawner',
+        arguments=[
+            '-x', '0.5', '-y', '-0.7', '-z', '2.0', '-P', str(math.radians(90)),
+            '-entity', 'logical_camera_1',
+            '-file', pkg_path+'/models/logical_camera/model.sdf',
+            '-timeout', '50'
+        ],
+    )
+    pkg_path = get_package_share_directory('ros_industrial_actuators')
+    vacuum_gripper_node = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        name='vacuum_gripper_spawner',
+        arguments=[
+            '-entity', 'vacuum_gripper_1',
+            '-file', pkg_path+'/models/vacuum_gripper/model.sdf',
+            '-timeout', '50'
+        ],
+    )
+
+
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -153,6 +180,12 @@ def launch_setup(context, *args, **kwargs):
                 event_handler=OnProcessExit(
                     target_action=gazebo_spawn_entity_node,
                     on_exit=controller_nodes,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=gazebo_spawn_entity_node,
+                    on_exit=camera_node,
                 )
             ),
             robot_state_publisher_node,
