@@ -1,7 +1,7 @@
 # Algemene informatie
 
-## Pre-requistions ROS2-Humble
-Installeer ROS Humble, kies uit 1 van de twee volgende mogelijkheden:
+## Pre-requistions ROS2-Jazzy
+Installeer ROS Jazzy, kies uit 1 van de twee volgende mogelijkheden:
 * WSL Distributie onder Windows(voorkeur voor studenten M)
 * Native Ubuntu
 
@@ -10,15 +10,15 @@ Installeer ROS Humble, kies uit 1 van de twee volgende mogelijkheden:
 
 :::{tab-item} WSL Distributie
 Zie voor installatie: [Windows Subsystem for Linux Handleiding](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/)
-* Volg instrucies voor ROS2 Humble
+* Volg instrucies voor ROS2 Jazzy
 :::
 
 :::{tab-item} Native Ubuntu
 *Opmerking: je dient eerst Ubuntu 22 geinstallerd te hebben!!!*
 
-Volg de instructies voor het [installeren ROS-Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
+Volg de instructies voor het [installeren ROS-Jazzy](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
 
-Kies: ros-humble-desktop
+Kies: ros-jazzy-desktop
 :::
 
 ::::
@@ -87,9 +87,9 @@ echo "source ~/ros2_industrial_ws/install/setup.bash" >> ~/.bashrc
 Opmerking: *Gebruik de laatse regel slechts 1 maal.*
 
 ## Aantekening voor windows gebruikers
-Opmerking: *Alleen als je geen gebruik maakt van de door Avans gemaakte WSL-Humble distributie*
+Opmerking: *Alleen als je geen gebruik maakt van de door Avans gemaakte WSL-Jazzy distributie*
 
-Je kunt de WSL Ubuntu-22.04 distributie uit de Microsoft Store gebruiken. Gebruik als ontwikkelomgeving [Visual Studio Code] (https://code.visualstudio.com/download). Wijzig de installatie en voeg de WSL-plugin toe aan Visual Studio Code. Open de distributie met <F1>WSL: Connect to WSL. Vergeet niet ROS-Humble te installeren in de distributie. Cloon deze repositry naar de WSL distributie.
+Je kunt de WSL Ubuntu-22.04 distributie uit de Microsoft Store gebruiken. Gebruik als ontwikkelomgeving [Visual Studio Code] (https://code.visualstudio.com/download). Wijzig de installatie en voeg de WSL-plugin toe aan Visual Studio Code. Open de distributie met <F1>WSL: Connect to WSL. Vergeet niet ROS-Jazzy te installeren in de distributie. Cloon deze repositry naar de WSL distributie.
 
 ## Inleveren van opdrachten
 Als je een opdracht dient in te leveren voor je opleiding dan vind je dat terug in de Elekronische Leeromgeving van je opleiding (bijvoorbeeld Brightspace). Zorg ervoor dat je bij elke opdracht de volgende informatie in het bestand invult:

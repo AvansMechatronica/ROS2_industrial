@@ -1,5 +1,5 @@
 # MicroROS ESP32 implementatie van een joystick
-In dit voorbeeld wordt een joystick sensor gekoppeld aan den ESP32 device. Nadat deze is geprogrammeerd zal dit device een topic **/cmd_vel** publiceren[Twist message-type](https://docs.ros.org/en/humble/p/geometry_msgs/msg/Twist.html). Met de joystick sensor kun je vervolgens een rijdende robot, zoals b.v. een [Turtlebot](https://www.turtlebot.com/), besturen.
+In dit voorbeeld wordt een joystick sensor gekoppeld aan den ESP32 device. Nadat deze is geprogrammeerd zal dit device een topic **/cmd_vel** publiceren[Twist message-type](https://docs.ros.org/en/jazzy/p/geometry_msgs/msg/Twist.html). Met de joystick sensor kun je vervolgens een rijdende robot, zoals b.v. een [Turtlebot](https://www.turtlebot.com/), besturen.
 
 ## Algemene microROS informatie
 Informatie over het installeren van microROS kun je [hier](../../references/microros/microros.md) vinden.

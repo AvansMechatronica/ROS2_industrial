@@ -7,7 +7,7 @@ In deze workshop leer je een aantal basis ROS2 commando's die je in alle volgend
 Tip: maak gebruik van een cheatsheet, bijvoorbeeld deze van [TheConstruct](https://www.theconstruct.ai/wp-content/uploads/2021/10/ROS2-Command-Cheat-Sheets-updated.pdf).
 
 
-[Officieel Understanding nodes](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html)
+[Officieel Understanding nodes](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html)
 
 ## Verkrijgen van hulp bij ROS2-commando's
 Maak het complete command regel niet af 

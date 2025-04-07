@@ -1,9 +1,9 @@
 # ROS2 Services
 
-![Image](https://docs.ros.org/en/humble/_images/Service-SingleServiceClient.gif)
+![Image](https://docs.ros.org/en/jazzy/_images/Service-SingleServiceClient.gif)
 
 
-In deze workshop leer je de basis van ROS2 services. De theorie hiervan wordt gedoceerd, maar kun je ook vinden op deze [website van ROS](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html)
+In deze workshop leer je de basis van ROS2 services. De theorie hiervan wordt gedoceerd, maar kun je ook vinden op deze [website van ROS](https://docs.ros.org/en/jazzy/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html)
 
 In deze workshop ga je de gemeten hoogte van de doos uit de topics workshop omrekenen van meters naar inches. We gebruiken hiervoor het ROS services mechanisme. Deze service is al voorbereid.
 je kunt de service starten met het volgende commando:
@@ -65,7 +65,7 @@ gedit ~/ros2_industrial_ws/src/ROS2_industrial/1_basics/range_sensor/setup.py
 Voeg het entry point van assigment2.py toe aan de **entry_points-->console_scripts** sectie. 
 *Tip: Gebruik als voorbeeld assignment1*
 
-Referentie:[Python Packages](https://docs.ros.org/en/humble/How-To-Guides/Developing-a-ROS-2-Package.html#python-packages)
+Referentie:[Python Packages](https://docs.ros.org/en/jazzy/How-To-Guides/Developing-a-ROS-2-Package.html#python-packages)
 
 Nadat setup.py gewijzigd is moet je de package opnieuw bouwen met **colcon build**:
 
@@ -79,7 +79,7 @@ source install/setup.bash
 
 ## Opdracht(programmeren)
 In het bestand **assignment2.py** vind je op een aantal plaatsen een **Todo x**. Vul onder deze regels de code in  die in de Todo beschreven is.
-* Laat je inspireren door [Writing a simple service and client Python](https://docs.ros.org/en/humble/Tutorials/Writing-A-Simple-Py-Service-And-Client.html)
+* Laat je inspireren door [Writing a simple service and client Python](https://docs.ros.org/en/jazzy/Tutorials/Writing-A-Simple-Py-Service-And-Client.html)
 
 ## Opdracht(testen)
 Om het programma te testen dien je achtereenvolgends de volgende node's te starten
