@@ -154,6 +154,14 @@ def launch_setup(context, *args, **kwargs):
         ],
     )
 
+    # Clock bridge
+    clock_bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',
+                        name='clock_bridge',
+                        output='screen',
+                        arguments=[
+                            '/clock' + '@rosgraph_msgs/msg/Clock' + '[gz.msgs.Clock'
+                        ])
+
 
     if len(controller_nodes) > 0:
         return [
@@ -189,6 +197,7 @@ def launch_setup(context, *args, **kwargs):
                 )
             ),
             robot_state_publisher_node,
+            clock_bridge,
         ]
     else:
         return [
