@@ -23,8 +23,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
+            package="ros_gz_sim",
+            executable="create",
             name='part_0_spawner',
             output='screen',
             arguments=[

@@ -8,8 +8,8 @@ def generate_launch_description():
     pkg_path = get_package_share_directory('ros_industrial_gazebo')
     return LaunchDescription([
         Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
+            package="ros_gz_sim",
+            executable="create",
             name='battery_part_0_spawner',
             output='screen',
             arguments=[
@@ -19,8 +19,8 @@ def generate_launch_description():
             ],
         ),
         Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
+            package="ros_gz_sim",
+            executable="create",
             name='regulator_part_0_spawner',
             output='screen',
             arguments=[
@@ -30,8 +30,8 @@ def generate_launch_description():
             ],
         ),
         Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
+            package="ros_gz_sim",
+            executable="create",
             name='pump_part_0_spawner',
             output='screen',
             arguments=[
@@ -41,8 +41,8 @@ def generate_launch_description():
             ],
         ),
         Node(
-            package='gazebo_ros',
-            executable='spawn_entity.py',
+            package="ros_gz_sim",
+            executable="create",
             name='sensor_part_0_spawner',
             output='screen',
             arguments=[

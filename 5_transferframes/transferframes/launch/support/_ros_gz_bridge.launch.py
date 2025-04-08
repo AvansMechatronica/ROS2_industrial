@@ -42,7 +42,7 @@ def generate_launch_description():
                         output='screen',
                         arguments=[
                             #'/ros_industrial/sensors/custom_logical_camera/image' + '@rosgraph_msgs/msg/my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage',
-                            '/ros_industrial/sensors/custom_logical_camera/image' + '@my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage'
+                            'my_logical_camera_topic' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
                         ],
                         parameters=[{'use_sim_time': use_sim_time}],
 )
