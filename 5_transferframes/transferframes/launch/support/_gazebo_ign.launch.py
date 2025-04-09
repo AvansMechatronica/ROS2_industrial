@@ -128,31 +128,27 @@ def launch_setup(context, *args, **kwargs):
                 parameters=[{'use_sim_time': True}],
             ))
 
-    pkg_path = get_package_share_directory('ros_industrial_sensors')
+
     camera_node = Node(
-        package="ros_gz_sim",
-        executable="create",
+        package="ros_industrial_sensors",
+        executable="spawn_logical_camera",
         output='screen',
         name='camera_spawner',
         arguments=[
             '-x', '0.5', '-y', '-0.7', '-z', '2.0',# '-P', str(math.radians(90)),
-            '-entity', 'logical_camera_1',
-            '-file', pkg_path+'/models/logical_camera/model.sdf',
-            '-timeout', '50'
         ],
     )
-    pkg_path = get_package_share_directory('ros_industrial_actuators')
+
     vacuum_gripper_node = Node(
-        package="ros_gz_sim",
-        executable="create",
+        package="ros_industrial_actuators",
+        executable="spawn_vacuum_gripper",
         output='screen',
-        name='vacuum_gripper_spawner',
+        name='camera_spawner',
         arguments=[
-            '-entity', 'vacuum_gripper_1',
-            '-file', pkg_path+'/models/vacuum_gripper/model.sdf',
-            '-timeout', '50'
+            '-x', '0.5', '-y', '-0.7', '-z', '2.0',# '-P', str(math.radians(90)),
         ],
     )
+
 
     # Clock bridge
     clock_bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',
@@ -196,6 +192,12 @@ def launch_setup(context, *args, **kwargs):
                     on_exit=camera_node,
                 )
             ),
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=vacuum_gripper_node,
+            #    )
+            #),
             robot_state_publisher_node,
             clock_bridge,
         ]

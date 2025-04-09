@@ -30,18 +30,6 @@ find_package(std_msgs REQUIRED)
 
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
-# Custom Logical Camera Plugin
-#add_library(CustomVacuumGripperPlugin SHARED
-#  src/custom_vacuum_gripper_plugin.cpp
-#)
-#target_include_directories(CustomVacuumGripperPlugin PUBLIC include)
-#ament_target_dependencies(CustomVacuumGripperPlugin
-#  "gazebo_ros"
-#  "ros_industrial_msgs"
-#  "std_msgs"
-#  "std_srvs"
-#)
-#ament_export_libraries(CustomVacuumGripperPlugin)
 
 
 # Install C++ components
@@ -49,7 +37,6 @@ install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-#    CustomVacuumGripperPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
@@ -59,13 +46,18 @@ install(DIRECTORY models
   DESTINATION share/${PROJECT_NAME}/
 )
 
+# Install launch
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
 # Python package installation
 ament_python_install_package(${PROJECT_NAME})
 
 # Python installation
 install(PROGRAMS
-  #ros_industrial_actuators/custom_logical_camera.py
   ros_industrial_actuators/vacuum_gripper.py
+  launch
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -74,4 +66,5 @@ install(FILES package.xml
   DESTINATION share/${PROJECT_NAME}
 )
 
+#add_subdirectory(vacuum_gripper)
 ament_package()

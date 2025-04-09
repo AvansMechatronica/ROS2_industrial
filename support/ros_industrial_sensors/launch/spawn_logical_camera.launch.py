@@ -1,19 +1,3 @@
-# Copyright 2023 Clearpath Robotics, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-# @author Roni Kreinin (rkreinin@clearpathrobotics.com)
-
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
@@ -34,7 +18,32 @@ ARGUMENTS = [
 
 def generate_launch_description():
 
+    x = LaunchConfiguration('x', default='0.0')
+    y = LaunchConfiguration('y', default='0.0')
+    z = LaunchConfiguration('z', default='0.0')
+    R = LaunchConfiguration('R', default='0.0')
+    P = LaunchConfiguration('P', default='0.0')
+    Y = LaunchConfiguration('Y', default='0.0')
     use_sim_time=LaunchConfiguration('use_sim_time')
+
+    pkg_path = get_package_share_directory('ros_industrial_sensors')
+    camera_node = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        name='camera_spawner',
+        arguments=[
+            '-x', x,
+            '-y', y, 
+            '-z', z,
+            '-R', R,
+            '-P', P,
+            '-Y', Y,
+            '-entity', 'logical_camera_1',
+            '-file', pkg_path+'/models/logical_camera/model.sdf',
+            '-timeout', '50'
+        ],
+    )
 
     logical_camera_bridge = Node(package='ros_gz_bridge', 
                         executable='parameter_bridge',
@@ -42,7 +51,7 @@ def generate_launch_description():
                         output='screen',
                         arguments=[
                             #'/ros_industrial/sensors/custom_logical_camera/image' + '@rosgraph_msgs/msg/my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage',
-                            'my_logical_camera_topic' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
+                            'custom_logical_camera_objects' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
                         ],
                         parameters=[{'use_sim_time': use_sim_time}],
 )
@@ -54,5 +63,6 @@ def generate_launch_description():
 
     # Define LaunchDescription variable
     ld = LaunchDescription(ARGUMENTS)
+    ld.add_action(camera_node)
     ld.add_action(logical_camera_bridge)
     return ld

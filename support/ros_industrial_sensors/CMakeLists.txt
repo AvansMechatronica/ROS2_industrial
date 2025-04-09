@@ -29,24 +29,12 @@ find_package(ros_industrial_msgs REQUIRED)
 
 link_directories(${gazebo_dev_LIBRARY_DIRS})
 
-# Custom Logical Camera Plugin
-#add_library(CustomLogicalCameraPlugin SHARED
-#  src/custom_logical_camera_plugin.cpp
-#)
-#target_include_directories(CustomLogicalCameraPlugin PUBLIC include)
-#ament_target_dependencies(CustomLogicalCameraPlugin
-#  "gazebo_ros"
-#  "ros_industrial_msgs"
-#)
-#ament_export_libraries(CustomLogicalCameraPlugin)
-
 
 # Install C++ components
 install(DIRECTORY include/
         DESTINATION include)
 
 install(TARGETS
-#    CustomLogicalCameraPlugin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
@@ -55,6 +43,12 @@ install(TARGETS
 install(DIRECTORY models
   DESTINATION share/${PROJECT_NAME}/
 )
+
+# Install launch
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+
 
 # Python package installation
 ament_python_install_package(${PROJECT_NAME})

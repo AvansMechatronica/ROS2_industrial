@@ -128,6 +128,24 @@ def launch_setup(context, *args, **kwargs):
                 parameters=[{'use_sim_time': True}],
             ))
 
+    # Clock bridge
+    clock_bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',
+                        name='clock_bridge',
+                        output='screen',
+                        arguments=[
+                            '/clock' + '@rosgraph_msgs/msg/Clock' + '[gz.msgs.Clock'
+                        ])
+
+    vacuum_gripper_node = Node(
+        package="ros_industrial_actuators",
+        executable="spawn_vacuum_gripper",
+        output='screen',
+        name='camera_spawner',
+        arguments=[
+            '-x', '0.5', '-y', '-0.7', '-z', '2.0',# '-P', str(math.radians(90)),
+        ],
+    )
+
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -155,7 +173,15 @@ def launch_setup(context, *args, **kwargs):
                     on_exit=controller_nodes,
                 )
             ),
+            #RegisterEventHandler(
+            #    event_handler=OnProcessExit(
+            #        target_action=gazebo_spawn_entity_node,
+            #        on_exit=vacuum_gripper_node,
+            #    )
+            #),
+
             robot_state_publisher_node,
+            clock_bridge
         ]
     else:
         return [

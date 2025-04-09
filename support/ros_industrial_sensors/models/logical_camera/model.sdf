@@ -13,8 +13,8 @@
         </geometry>
       </visual>
 
-      <sensor type="logical_camera" name="my_logical_camera">
-        <topic>my_logical_camera_topic</topic>
+      <sensor type="logical_camera" name="çustom_logical_camera">
+        <topic>custom_logical_camera_objects</topic>
           <logical_camera>
             <horizontal_fov>1.047</horizontal_fov>
             <!--
