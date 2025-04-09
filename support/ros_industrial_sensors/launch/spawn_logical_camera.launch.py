@@ -46,20 +46,20 @@ def generate_launch_description():
     )
 
     logical_camera_bridge = Node(package='ros_gz_bridge', 
-                        executable='parameter_bridge',
-                        name='logical_camera_bridge',
-                        output='screen',
-                        arguments=[
-                            #'/ros_industrial/sensors/custom_logical_camera/image' + '@rosgraph_msgs/msg/my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage',
-                            'custom_logical_camera_objects' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
-                        ],
-                        parameters=[{'use_sim_time': use_sim_time}],
-)
-
-
-
-#/ros_industrial/sensors/custom_logical_camera/image
-
+        executable='parameter_bridge',
+        name='logical_camera_bridge',
+        output='screen',
+        arguments=[
+            #'/ros_industrial/sensors/custom_logical_camera/image' + '@rosgraph_msgs/msg/my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage',
+            'custom_logical_camera_objects' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
+        ],
+        parameters=[
+            {'use_sim_time': use_sim_time}
+        ],
+        remappings=[
+            ('/custom_logical_camera_objects', '/ros_industrial/sensors/custom_logical_camera/objects'),
+        ]
+    )
 
     # Define LaunchDescription variable
     ld = LaunchDescription(ARGUMENTS)
