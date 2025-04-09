@@ -149,7 +149,6 @@ def launch_setup(context, *args, **kwargs):
         ],
     )
 
-
     # Clock bridge
     clock_bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',
                         name='clock_bridge',
