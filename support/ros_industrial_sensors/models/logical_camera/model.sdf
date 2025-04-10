@@ -16,7 +16,7 @@
       <sensor type="logical_camera" name="çustom_logical_camera">
         <topic>custom_logical_camera_objects</topic>
           <logical_camera>
-            <!-- Deze waardes lijken niet te werken, maar ik weet niet waarom(GH). -->
+            <!-- Deze waardes lijken niet te werken, maar ik weet niet waarom(GH) (frustum???). -->
             <!--
             <near>0.1</near>
             <far>1.5</far>

@@ -1,40 +1,71 @@
 cmake_minimum_required(VERSION 3.8)
 project(ros_industrial_actuators)
 
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
+cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(ament_cmake_python REQUIRED)
-#find_package(camera_info_manager REQUIRED)
-#find_package(gazebo_msgs REQUIRED)
-#find_package(gazebo_ros REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(image_transport REQUIRED)
-find_package(cv_bridge REQUIRED)
-find_package(nav_msgs REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(std_srvs REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED)
-find_package(tf2_ros REQUIRED)
-find_package(orocos_kdl REQUIRED)
-find_package(trajectory_msgs REQUIRED)
-find_package(ros_industrial_msgs REQUIRED)
-find_package(std_msgs REQUIRED)
 
-link_directories(${gazebo_dev_LIBRARY_DIRS})
+#============================================================================
+# Find gz-cmake
+#============================================================================
+find_package(gz-cmake3 REQUIRED)
+
+#--------------------------------------
+# Find gz-common
+#--------------------------------------
+gz_find_package(gz-common5
+                 COMPONENTS profiler
+                 REQUIRED)
+set(GZ_COMMON_VER ${gz-common5_VERSION_MAJOR})
+
+#--------------------------------------
+# Find gz-plugin
+#--------------------------------------
+gz_find_package(gz-plugin2 REQUIRED COMPONENTS register)
+set(GZ_PLUGIN_VER ${gz-plugin2_VERSION_MAJOR})
+
+#--------------------------------------
+# Find gz-msgs
+#--------------------------------------
+gz_find_package(gz-msgs10 REQUIRED)
+set(GZ_MSGS_VER ${gz-msgs10_VERSION_MAJOR})
 
 
+#--------------------------------------
+# Find gz-sim
+#--------------------------------------
+gz_find_package(gz-sim8 REQUIRED)
+set(GZ_SIM_VER ${gz-sim8_VERSION_MAJOR})
+
+#============================================================================
+# Configure the project
+#============================================================================
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+#gz_configure_project(VERSION_SUFFIX)
+
+
+#============================================================================
+# Set project-specific options
+#============================================================================
+set (DRI_TESTS TRUE CACHE BOOL "True to enable DRI tests")
+
+option(ENABLE_PROFILER "Enable Gazebo Profiler" FALSE)
+
+if(ENABLE_PROFILER)
+  add_definitions("-DGZ_PROFILER_ENABLE=1")
+else()
+  add_definitions("-DGZ_PROFILER_ENABLE=0")
+endif()
+
+add_subdirectory(vacuum_gripper)
 
 # Install C++ components
-install(DIRECTORY include/
-        DESTINATION include)
+#install(DIRECTORY include/
+#        DESTINATION include)
 
 install(TARGETS
   ARCHIVE DESTINATION lib
@@ -66,5 +97,4 @@ install(FILES package.xml
   DESTINATION share/${PROJECT_NAME}
 )
 
-#add_subdirectory(vacuum_gripper)
 ament_package()

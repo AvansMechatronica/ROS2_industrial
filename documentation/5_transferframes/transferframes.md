@@ -28,3 +28,9 @@ starten opdracht 1
 ```bash
 ros2 run transferframes assignment1 
 ```
+
+view-frames
+```bash
+ros2 run tf2_tools view_frames
+```
+Daarna pdf openen via project navigator
