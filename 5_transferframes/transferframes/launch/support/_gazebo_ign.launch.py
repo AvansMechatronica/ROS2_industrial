@@ -35,7 +35,6 @@ def launch_setup(context, *args, **kwargs):
     moveit_config_dump = LaunchConfiguration('moveit_config_dump', default='')
     load_controller = LaunchConfiguration('load_controller', default=True)
 
-
     moveit_config_dump = moveit_config_dump.perform(context)
     moveit_config_dict = yaml.load(moveit_config_dump, Loader=yaml.FullLoader) if moveit_config_dump else {}
     moveit_config_package_name = 'manipulation'
@@ -54,7 +53,6 @@ def launch_setup(context, *args, **kwargs):
             ('/tf_static', 'tf_static'),
         ]
     )
-
  
     # ignition gazebo launch
     xarm_gazebo_world = PathJoinSubstitution([FindPackageShare('transferframes'), 'worlds', 'casus.world'])
@@ -104,6 +102,7 @@ def launch_setup(context, *args, **kwargs):
             ('/tf_static', 'tf_static'),
         ]
     )
+
     # Load controllers
     controllers = [
         'joint_state_broadcaster',
@@ -128,8 +127,14 @@ def launch_setup(context, *args, **kwargs):
                 parameters=[{'use_sim_time': True}],
             ))
 
+    # spawn vacuum gripper
+    vacuum_gripper_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_industrial_actuators'), 'launch', 'spawn_vacuum_gripper.launch.py'])),
+        launch_arguments={
+        }.items(),
+    )
 
-
+    # spawn logical camera
     logical_camera_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_industrial_sensors'), 'launch', 'spawn_logical_camera.launch.py'])),
         launch_arguments={
@@ -139,8 +144,6 @@ def launch_setup(context, *args, **kwargs):
             'R' : str(math.radians(-90))
         }.items(),
     )
-
-
 
     # Clock bridge
     clock_bridge = Node(package='ros_gz_bridge', executable='parameter_bridge',
@@ -187,7 +190,7 @@ def launch_setup(context, *args, **kwargs):
             #RegisterEventHandler(
             #    event_handler=OnProcessExit(
             #        target_action=gazebo_spawn_entity_node,
-            #        on_exit=vacuum_gripper_node,
+            #        on_exit=vacuum_gripper_launch,
             #    )
             #),
             robot_state_publisher_node,
