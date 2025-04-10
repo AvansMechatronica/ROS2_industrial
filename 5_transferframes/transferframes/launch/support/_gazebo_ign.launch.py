@@ -129,34 +129,14 @@ def launch_setup(context, *args, **kwargs):
             ))
 
 
-    if 0:
-        camera_node = Node(
-            package="ros_industrial_sensors",
-            executable="spawn_logical_camera",
-            output='screen',
-            name='camera_spawner',
-            arguments=[
-                '-x', '0.5', '-y', '-0.7', '-z', '2.0',# '-P', str(math.radians(90)),
-            ],
-        )
-
-
-        vacuum_gripper_node = Node(
-            package="ros_industrial_actuators",
-            executable="spawn_vacuum_gripper",
-            output='screen',
-            name='camera_spawner',
-            arguments=[
-                '-x', '0.5', '-y', '-0.7', '-z', '2.0',# '-P', str(math.radians(90)),
-            ],
-        )
 
     logical_camera_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_industrial_sensors'), 'launch', 'spawn_logical_camera.launch.py'])),
         launch_arguments={
             'x': '0.5',
             'y': '-0.7',
-            'z': '-2.0', 
+            'z': '2.0', 
+            'R' : str(math.radians(-90))
         }.items(),
     )
 

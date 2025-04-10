@@ -60,16 +60,33 @@ class Camera(Node):
             # Spin once with a short timeout to process incoming messages
             rclpy.spin_once(self, timeout_sec=0.1)
 
+
             # Check if a new image has been received
             if self.camera_objects:
                 print('parts detected')
+                logical_camera_frame_name = 'logical_camera_frame'
+
+                t = TransformStamped()
+                t.header.stamp = self.get_clock().now().to_msg()
+                t.header.frame_id =  'world'
+                t.child_frame_id = logical_camera_frame_name
+                t.transform.translation.x = self.camera_objects.pose.position.x
+                t.transform.translation.y = self.camera_objects.pose.position.y
+                t.transform.translation.z = self.camera_objects.pose.position.z
+                t.transform.rotation.x = self.camera_objects.pose.orientation.x
+                t.transform.rotation.y = self.camera_objects.pose.orientation.y
+                t.transform.rotation.z = self.camera_objects.pose.orientation.z
+                t.transform.rotation.w = self.camera_objects.pose.orientation.w
+                self.tf_broadcaster.sendTransform(t)
+
+
                 parts = []
                 for index, model in enumerate(self.camera_objects.model):
                     parts.append(model.name)  # Collect part data
 
                     t = TransformStamped()
                     t.header.stamp = self.get_clock().now().to_msg()
-                    t.header.frame_id =  'çamera_orgin' # 'çustom_logical_camera'#self.camera_objects.
+                    t.header.frame_id =  logical_camera_frame_name
                     t.child_frame_id = model.name
                     if 0:
                         t.transform.translation = Vector3(

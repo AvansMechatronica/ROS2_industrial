@@ -6,6 +6,7 @@ from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import EqualsSubstitution, LaunchConfiguration
 from launch.substitutions.path_join_substitution import PathJoinSubstitution
+import math
 
 from launch_ros.actions import Node
 
@@ -50,7 +51,6 @@ def generate_launch_description():
         name='logical_camera_bridge',
         output='screen',
         arguments=[
-            #'/ros_industrial/sensors/custom_logical_camera/image' + '@rosgraph_msgs/msg/my_logical_camera_topic' + '[gz.msgs.LogicalCameraImage',
             'custom_logical_camera_objects' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
         ],
         parameters=[

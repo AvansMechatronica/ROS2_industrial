@@ -31,8 +31,8 @@ link_directories(${gazebo_dev_LIBRARY_DIRS})
 
 
 # Install C++ components
-install(DIRECTORY include/
-        DESTINATION include)
+#install(DIRECTORY include/
+#        DESTINATION include)
 
 install(TARGETS
   ARCHIVE DESTINATION lib
