@@ -40,7 +40,8 @@ def generate_launch_description():
         name='vacuum_gripper_bridge',
         output='screen',
         arguments=[
-            'vacuum_gripper_status' + '@ros_gz_interfaces/msg/LogicalCameraImage' + '[gz.msgs.LogicalCameraImage'
+            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '[gz.msgs.Boolean'
+            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + ']gz.msgs.Boolean'
         ],
         parameters=[
             {'use_sim_time': use_sim_time}
@@ -48,7 +49,6 @@ def generate_launch_description():
         remappings=[
             ('/vacuum_gripper_control', '/ros_industrial/actuators/vacuum_gripper/control'),
             ('/vacuum_gripper_status', '/ros_industrial/actuators/vacuum_gripper/status'),
-
         ]
     )
 
@@ -56,5 +56,5 @@ def generate_launch_description():
     # Define LaunchDescription variable
     ld = LaunchDescription(ARGUMENTS)
     ld.add_action(vacuum_gripper_node)
-    #ld.add_action(vacuum_gripper_bridge)
+    ld.add_action(vacuum_gripper_bridge)
     return ld

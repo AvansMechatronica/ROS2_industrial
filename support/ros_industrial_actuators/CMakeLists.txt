@@ -70,7 +70,8 @@ add_subdirectory(vacuum_gripper)
 install(TARGETS
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin)
+  RUNTIME DESTINATION bin
+)
 
 # Install models
 install(DIRECTORY models
