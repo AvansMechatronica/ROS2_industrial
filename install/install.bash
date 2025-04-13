@@ -20,6 +20,11 @@ if ! env | grep -q "QT_QPA_PLATFORM=xcb"; then
     echo "export QT_QPA_PLATFORM=xcb" >> ~/.bashrc
 fi
 
+# tempory patch for vacuum gripper plugin
+if ! env | grep -q "GZ_SIM_SYSTEM_PLUGIN_PATH"; then
+ echo "export GZ_SIM_SYSTEM_PLUGIN_PATH=/home/student/ros2_industrial_ws/install/ros_industrial_actuators/lib/ros_industrial_actuators/" >> ~/.bashrc
+fi
+
 # Install xArm Packages
 XARM_DIR=~/xarm_ws
 if ! ros2 pkg list | grep -q "xarm_description"; then

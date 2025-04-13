@@ -40,8 +40,8 @@ def generate_launch_description():
         name='vacuum_gripper_bridge',
         output='screen',
         arguments=[
-            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '[gz.msgs.Boolean'
-            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + ']gz.msgs.Boolean'
+            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '@gz.msgs.Boolean'
+            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + '@gz.msgs.Boolean'
         ],
         parameters=[
             {'use_sim_time': use_sim_time}
