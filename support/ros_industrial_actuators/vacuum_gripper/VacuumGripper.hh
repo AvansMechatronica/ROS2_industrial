@@ -17,32 +17,29 @@ namespace vacuum_gripper
     public gz::sim::System,
     // This class also implements the ISystemPostUpdate interface.
     public gz::sim::ISystemPostUpdate//,
-//    public gz::sim::ISystemUpdate
+    //public gz::sim::ISystemPreUpdate//,
+    //public gz::sim::ISystemUpdate
   {
     public: VacuumGripper();
  
-    public: ~VacuumGripper() override;
+    public: ~VacuumGripper();// override;
  
     public: void PostUpdate(const gz::sim::UpdateInfo &_info,
                 const gz::sim::EntityComponentManager &_ecm) override;
-#if 0
-    public: void Update(const gz::sim::UpdateInfo &_info,
-                  const gz::sim::EntityComponentManager &_ecm) override;
-#endif
+
+    public: void PreUpdate(const gz::sim::UpdateInfo &_info,
+                  const gz::sim::EntityComponentManager &_ecm);// override;
+
     private: std::unique_ptr<VacuumGripperPrivate> dataPtr;
 
     /// \brief Subscriber callbacks
     private:
-    void OnEnableMessage(const gz::msgs::Boolean & msg);
-    void CreatePublishers();
-    void CreateSubscribers();
-    void RemovePublishers();
-    void RemoveSubscribers();
-
-
-
+      void OnEnableMessage(const gz::msgs::Boolean & msg);
+      void CreatePublishers();
+      void CreateSubscribers();
+      void RemovePublishers();
+      void RemoveSubscribers();
   };
-
 
 }
 #endif // _VACUUM_GRIPPER_PLUGIN_INCL_

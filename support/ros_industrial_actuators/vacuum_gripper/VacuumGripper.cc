@@ -16,7 +16,9 @@ class vacuum_gripper::VacuumGripperPrivate
     std::string namespace_ = "";
     std::string enable_topic_ = "/enable";
     std::string status_topic_ = "/status";
-  
+
+    bool status = false;
+    bool enabled = false;  
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -27,6 +29,9 @@ VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
  
 VacuumGripper::~VacuumGripper()
 {
+  RemovePublishers();
+  RemoveSubscribers();
+  dataPtr.reset();
 }
 
 void VacuumGripper::CreatePublishers()
@@ -53,7 +58,7 @@ void VacuumGripper::RemoveSubscribers()
 
 
 void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
-
+  dataPtr->enabled = msg.data();
 }
  
 void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
@@ -62,13 +67,26 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
   gzmsg << "VacuumGripper::PostUpdate" << std::endl;
 }
 
-#if 0
-void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
+void VacuumGripper::PreUpdate(const gz::sim::UpdateInfo &_info,
   const gz::sim::EntityComponentManager &_ecm)
 {
-gzmsg << "VacuumGripper::Update" << std::endl;
+  gzmsg << "VacuumGripper::Update" << std::endl;
+
+
+  // Check if the gripper is enabled
+
+  if(dataPtr->enabled)
+  {
+    dataPtr->status = !dataPtr->status; // just testing
+  }
+
+  gz::msgs::Boolean status_msg;
+
+  status_msg.set_data(dataPtr->status);
+
+  dataPtr->status_pub_.Publish(status_msg);
+
 }
-#endif
 
 // Include a line in your source file for each interface implemented.
 GZ_ADD_PLUGIN(
