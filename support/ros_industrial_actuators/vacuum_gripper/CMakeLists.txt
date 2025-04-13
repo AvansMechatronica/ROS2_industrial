@@ -22,3 +22,8 @@ install(TARGETS
   VacuumGripper
   DESTINATION lib/${PROJECT_NAME}
 )
+
+install(
+  TARGETS VacuumGripper
+  DESTINATION share/${PROJECT_NAME}/lib
+)

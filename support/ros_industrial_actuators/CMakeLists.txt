@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.8)
 project(ros_industrial_actuators)
 
-cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
+#cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
 # Find dependencies
 find_package(ament_cmake REQUIRED)
@@ -47,26 +51,33 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 #gz_configure_project(VERSION_SUFFIX)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GZ-GUI_CXX_FLAGS}")
 
-#============================================================================
-# Set project-specific options
-#============================================================================
-set (DRI_TESTS TRUE CACHE BOOL "True to enable DRI tests")
+qt5_add_resources(resources_rcc Turtlebot4Hmi.qrc)
 
-option(ENABLE_PROFILER "Enable Gazebo Profiler" FALSE)
+include_directories(SYSTEM
+  ${GZ-COMMON_INCLUDE_DIRS}
 
-if(ENABLE_PROFILER)
-  add_definitions("-DGZ_PROFILER_ENABLE=1")
-else()
-  add_definitions("-DGZ_PROFILER_ENABLE=0")
-endif()
+)
 
-add_subdirectory(vacuum_gripper)
+link_directories(
+  ${GZ-COMMON_LIBRARY_DIRS}
+)
 
-# Install C++ components
-#install(DIRECTORY include/
-#        DESTINATION include)
+add_library(VacuumGripper SHARED vacuum_gripper/VacuumGripper.cc)
 
+target_link_libraries(VacuumGripper
+    ${GZ-COMMON_LIBRARIES}
+    ${GZ-PLUGIN_LIBRARIES}
+    ${GZ-SIM_LIBRARIES}
+)
+
+
+
+install(TARGETS
+  VacuumGripper
+  DESTINATION lib/${PROJECT_NAME}
+)
 install(TARGETS
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -97,5 +108,11 @@ install(PROGRAMS
 install(FILES package.xml
   DESTINATION share/${PROJECT_NAME}
 )
+
+install(
+  TARGETS VacuumGripper
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 
 ament_package()
