@@ -66,6 +66,14 @@ void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
   gzmsg << "VacuumGripper::OnEnableMessage" << std::endl;
   dataPtr->enabled = msg.data();
 }
+
+void VacuumGripper::Configure(
+  const Entity &_entity,
+  const std::shared_ptr<const sdf::Element> &_sdf,
+  EntityComponentManager &_ecm,
+  EventManager &_eventMgr){
+    gzmsg << "VacuumGripper::Configure" << std::endl;
+  }
  
 void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
     const gz::sim::EntityComponentManager &_ecm)
@@ -88,7 +96,7 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
 
 }
 
-void VacuumGripper::PreUpdate(const gz::sim::UpdateInfo &_info,
+void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   const gz::sim::EntityComponentManager &_ecm)
 {
   gzmsg << "VacuumGripper::Update" << std::endl;

@@ -5,6 +5,8 @@
 #include <gz/msgs.hh>
 #include <gz/transport/Node.hh>
 #include <gz/msgs/boolean.pb.h>
+#include <gz/sim/EntityComponentManager.hh>
+#include <gz/sim/Entity.hh>
 
 
 namespace vacuum_gripper
@@ -16,6 +18,7 @@ namespace vacuum_gripper
     // This class is a system.
     public gz::sim::System,
     // This class also implements the ISystemPostUpdate interface.
+    //public gz::sim::ISystemConfigure,
     public gz::sim::ISystemPostUpdate//,
     //public gz::sim::ISystemPreUpdate//,
     //public gz::sim::ISystemUpdate
@@ -24,10 +27,16 @@ namespace vacuum_gripper
  
     public: ~VacuumGripper();// override;
  
+    public: void Configure(
+      const Entity &_entity,
+      const std::shared_ptr<const sdf::Element> &_sdf,
+      EntityComponentManager &_ecm,
+      EventManager &_eventMgr);// override;
+
     public: void PostUpdate(const gz::sim::UpdateInfo &_info,
                 const gz::sim::EntityComponentManager &_ecm) override;
 
-    public: void PreUpdate(const gz::sim::UpdateInfo &_info,
+    public: void Update(const gz::sim::UpdateInfo &_info,
                   const gz::sim::EntityComponentManager &_ecm);// override;
 
     private: std::unique_ptr<VacuumGripperPrivate> dataPtr;
