@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-
 using namespace vacuum_gripper;
 
 class vacuum_gripper::VacuumGripperPrivate
@@ -68,10 +67,10 @@ void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
 }
 
 void VacuumGripper::Configure(
-  const Entity &_entity,
+  const gz::sim::Entity &_entity,
   const std::shared_ptr<const sdf::Element> &_sdf,
-  EntityComponentManager &_ecm,
-  EventManager &_eventMgr){
+  const gz::sim::EntityComponentManager &_ecm,
+  const gz::sim::EventManager &_eventMgr){
     gzmsg << "VacuumGripper::Configure" << std::endl;
   }
  
@@ -121,6 +120,7 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
 GZ_ADD_PLUGIN(
   vacuum_gripper::VacuumGripper,
   gz::sim::System,
+  //vacuum_gripper::VacuumGripper::ISystemConfigure//,
   vacuum_gripper::VacuumGripper::ISystemPostUpdate//,
   //vacuum_gripper::VacuumGripper::ISystemUpdate
 )

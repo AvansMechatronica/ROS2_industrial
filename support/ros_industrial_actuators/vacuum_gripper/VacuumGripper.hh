@@ -28,10 +28,10 @@ namespace vacuum_gripper
     public: ~VacuumGripper();// override;
  
     public: void Configure(
-      const Entity &_entity,
+      const gz::sim::Entity &_entity,
       const std::shared_ptr<const sdf::Element> &_sdf,
-      EntityComponentManager &_ecm,
-      EventManager &_eventMgr);// override;
+      const gz::sim::EntityComponentManager &_ecm,
+      const gz::sim::EventManager &_eventMgr);// override;
 
     public: void PostUpdate(const gz::sim::UpdateInfo &_info,
                 const gz::sim::EntityComponentManager &_ecm) override;

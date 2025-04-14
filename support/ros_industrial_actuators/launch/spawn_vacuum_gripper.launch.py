@@ -35,21 +35,22 @@ def generate_launch_description():
         ],
     )
 
+
     vacuum_gripper_bridge = Node(package='ros_gz_bridge', 
         executable='parameter_bridge',
         name='vacuum_gripper_bridge',
         output='screen',
         arguments=[
-            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '@gz.msgs.Boolean'
-            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + '@gz.msgs.Boolean'
+            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '[gz.msgs.Boolean'
+            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + ']gz.msgs.Boolean'
         ],
         parameters=[
             {'use_sim_time': use_sim_time}
         ],
-        remappings=[
-            ('/vacuum_gripper_control', '/ros_industrial/actuators/vacuum_gripper/control'),
-            ('/vacuum_gripper_status', '/ros_industrial/actuators/vacuum_gripper/status'),
-        ]
+        #remappings=[
+        #    ('/vacuum_gripper_control', '/ros_industrial/actuators/vacuum_gripper/control'),
+        #    ('/vacuum_gripper_status', '/ros_industrial/actuators/vacuum_gripper/status'),
+        #]
     )
 
 
