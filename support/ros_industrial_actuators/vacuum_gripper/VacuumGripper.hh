@@ -5,10 +5,14 @@
 #include <gz/msgs.hh>
 #include <gz/transport/Node.hh>
 
-//#include <gz/msgs/boolean.pb.h>
-#include <gz/msgs/int32.pb.h>
-
+#include <gz/sim/components/Pose.hh>
 #include <gz/sim/EntityComponentManager.hh>
+#include <gz/math/Pose3.hh>
+
+#include <gz/msgs/boolean.pb.h>
+//#include <gz/msgs/int32.pb.h>
+
+#include <gz/sim/components/Name.hh>
 #include <gz/sim/Entity.hh>
 
 
@@ -21,32 +25,29 @@ namespace vacuum_gripper
     // This class is a system.
     public gz::sim::System,
     // This class also implements the ISystemPostUpdate interface.
-    //public gz::sim::ISystemConfigure,
-    public gz::sim::ISystemPostUpdate//,
+    public gz::sim::ISystemConfigure,
+    //public gz::sim::ISystemPostUpdate,
     //public gz::sim::ISystemPreUpdate//,
-    //public gz::sim::ISystemUpdate
+    public gz::sim::ISystemUpdate
   {
     public: VacuumGripper();
  
     public: ~VacuumGripper();// override;
- 
+
     public: void Configure(
       const gz::sim::Entity &_entity,
       const std::shared_ptr<const sdf::Element> &_sdf,
-      const gz::sim::EntityComponentManager &_ecm,
-      const gz::sim::EventManager &_eventMgr);// override;
-
-    public: void PostUpdate(const gz::sim::UpdateInfo &_info,
-                const gz::sim::EntityComponentManager &_ecm) override;
+      gz::sim::EntityComponentManager &_ecm,
+      gz::sim::EventManager &_eventMgr) override;
 
     public: void Update(const gz::sim::UpdateInfo &_info,
-                  const gz::sim::EntityComponentManager &_ecm);// override;
+                  gz::sim::EntityComponentManager &_ecm) override;
 
     private: std::unique_ptr<VacuumGripperPrivate> dataPtr;
 
     /// \brief Subscriber callbacks
     private:
-      void OnEnableMessage(const gz::msgs::Int32 & msg);
+      void OnEnableMessage(const gz::msgs::Boolean & msg);
       void CreatePublishers();
       void CreateSubscribers();
       void RemovePublishers();

@@ -60,7 +60,7 @@ void VacuumGripper::CreatePublishers()
 {
   gzmsg << "VacuumGripper: CreatePublishers()" << std::endl;
   dataPtr->status_pub_ = gz::transport::Node::Publisher();
-  dataPtr->status_pub_ = dataPtr->node_.Advertise < gz::msgs::Int32> (dataPtr->status_topic_);
+  dataPtr->status_pub_ = dataPtr->node_.Advertise < gz::msgs::Boolean> (dataPtr->status_topic_);
 }
 
 void VacuumGripper::CreateSubscribers()
@@ -81,9 +81,9 @@ void VacuumGripper::RemoveSubscribers()
 }
 
 
-void VacuumGripper::OnEnableMessage(const gz::msgs::Int32 & msg){
+void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
   gzmsg << "VacuumGripper: OnEnableMessage()" << std::endl;
-  dataPtr->enabled = msg.data()? true : false;
+  dataPtr->enabled = msg.data();
 
   if (dataPtr->enabled) {
     if (!dataPtr->enabled_) {
@@ -106,16 +106,81 @@ void VacuumGripper::OnEnableMessage(const gz::msgs::Int32 & msg){
 void VacuumGripper::Configure(
   const gz::sim::Entity &_entity,
   const std::shared_ptr<const sdf::Element> &_sdf,
-  const gz::sim::EntityComponentManager &_ecm,
-  const gz::sim::EventManager &_eventMgr){
+  gz::sim::EntityComponentManager &_ecm,
+  gz::sim::EventManager &_eventMgr)
+  {
     gzmsg << "VacuumGripper: Configure()" << std::endl;
   }
  
-void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
-    const gz::sim::EntityComponentManager &_ecm)
+void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
+    gz::sim::EntityComponentManager &_ecm)
 {
-  //gzmsg << "VacuumGripper::PostUpdate" << std::endl;
+  //gzmsg << "VacuumGripper: Update()" << std::endl;
   // Check if the gripper is enabled
+
+  #if 0
+  std::optional<gz::sim::Entity> foundEntity;
+
+  std::string desiredName="vacuum_gripper";
+  _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
+    [&](const gz::sim::Entity &_entity,
+        const gz::sim::components::Name *_nameComp,
+        const gz::sim::components::Pose *_poseComp) -> bool
+    {
+      //if (!_nameComp) return true; // Continue iterating
+      if (_nameComp && (_nameComp->Data() == desiredName))
+      {
+        gzmsg << "Found entity with name: " << desiredName << ", ID: " << _entity << std::endl;
+        foundEntity = _entity;
+        gz::math::Pose3d pose = _poseComp->Data();
+        gzmsg << "Pose: " << pose << std::endl;
+
+        return false; // Stop iterating once the entity is found
+      }
+      //gzmsg << "No found entity with name: " << desiredName << std::endl;
+      return true; // Continue iterating
+    });
+#endif
+
+
+#if 0
+  // Iterate through all entities with a specific component (e.g., Name or Pose)
+  _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
+    [&](const gz::sim::Entity &_entity,
+        const gz::sim::components::Name *_nameComp,
+        const gz::sim::components::Pose *_poseComp) -> bool
+    {
+      if (!_nameComp || !_poseComp)
+      {
+        gzerr << "Entity " << _entity << " is missing required components." << std::endl;
+        return true; // Continue iterating
+      }
+  
+      // Access the entity's name
+      std::string entityName = _nameComp->Data();
+      gzmsg << "Entity ID: " << _entity << ", Name: " << entityName << std::endl;
+  
+      // Access the entity's pose
+      gz::math::Pose3d pose = _poseComp->Data();
+      gzmsg << "Pose: " << pose << std::endl;
+  
+      return true; // Continue iterating
+    });
+#endif
+#if 0
+
+  gz::math::Pose3d pose;
+
+  auto poseComp = _ecm.Component<gz::sim::components::Pose>(_entity);
+  if(!poseComp)
+  {
+    gzerr << "VacuumGripper: Pose component not found" << std::endl;
+    pose = gz::math::Pose3d::Zero;
+  }
+  else{
+    pose = poseComp->Data();
+  }
+#endif
 
   if(dataPtr->enabled)
   {
@@ -136,11 +201,11 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
 
     dataPtr->status = true;
   }
-  gz::msgs::Int32 status_msg;
+  gz::msgs::Boolean status_msg;
 
 
-  dataPtr->status = dataPtr->status? 0 : 1;
-  status_msg.set_data(dataPtr->status? 1 : 0);
+  dataPtr->status = dataPtr->status? false : true;
+  status_msg.set_data(dataPtr->status);
 
 //  dataPtr->status_pub_.Publish(status_msg);
 
@@ -151,32 +216,11 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
 
 }
 
-void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
-  const gz::sim::EntityComponentManager &_ecm)
-{
-  gzmsg << "VacuumGripper :Update()" << std::endl;
-
-
-  // Check if the gripper is enabled
-
-  if(dataPtr->enabled)
-  {
-    dataPtr->status = !dataPtr->status; // just testing
-  }
-
-  gz::msgs::Boolean status_msg;
-
-  status_msg.set_data(dataPtr->status);
-
-  dataPtr->status_pub_.Publish(status_msg);
-
-}
 
 // Include a line in your source file for each interface implemented.
 GZ_ADD_PLUGIN(
   vacuum_gripper::VacuumGripper,
   gz::sim::System,
-  //vacuum_gripper::VacuumGripper::ISystemConfigure//,
-  vacuum_gripper::VacuumGripper::ISystemPostUpdate//,
-  //vacuum_gripper::VacuumGripper::ISystemUpdate
+  vacuum_gripper::VacuumGripper::ISystemConfigure,
+  vacuum_gripper::VacuumGripper::ISystemUpdate
 )
