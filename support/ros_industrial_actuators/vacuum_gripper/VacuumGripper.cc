@@ -18,6 +18,20 @@ class vacuum_gripper::VacuumGripperPrivate
 
     bool status = false;
     bool enabled = false;  
+
+  /// True if gripper is on.
+  bool enabled_;
+  bool model_attached_;
+
+  /// Max distance to apply force.
+  double max_distance_;
+
+  /// List of models that the should pick up
+  std::vector<std::string> parts_to_pick_;
+
+  /// Protect variables accessed on callbacks.
+  std::mutex lock_;
+
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -26,6 +40,12 @@ VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
 
   CreatePublishers();
   CreateSubscribers();
+
+
+  // Set list of models to pickup
+  dataPtr->parts_to_pick_ = {"pump", "battery", "regulator", "sensor"};
+
+  dataPtr->max_distance_ = 0.085;
 }
  
 VacuumGripper::~VacuumGripper()
@@ -64,6 +84,23 @@ void VacuumGripper::RemoveSubscribers()
 void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
   gzmsg << "VacuumGripper::OnEnableMessage" << std::endl;
   dataPtr->enabled = msg.data();
+
+  if (dataPtr->enabled) {
+    if (!dataPtr->enabled_) {
+      dataPtr->enabled_ = true;
+      gzmsg << "Gripper on"<< std::endl;
+    } else {
+      gzmsg << "Gripper is already on" << std::endl;
+    }
+  } else {
+    if (dataPtr->enabled_) {
+      dataPtr->enabled_ = false;
+      gzmsg << "Gripper off"<< std::endl;
+    } else {
+      gzmsg << "Gripper is already off" << std::endl;
+    }
+  }
+
 }
 
 void VacuumGripper::Configure(
@@ -85,13 +122,25 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
     dataPtr->status = !dataPtr->status; // just testing
   }
 
+
+  if(dataPtr->enabled_ && !dataPtr->model_attached_){
+    gzmsg << "Gripper attach" << std::endl;
+    dataPtr->model_attached_ = true;
+    dataPtr->status = true;
+  }
+  else if(!dataPtr->enabled_ && dataPtr->model_attached_){
+    gzmsg << "Gripper de-attach" << std::endl;
+    dataPtr->status = false;
+  }
+  else if(dataPtr->enabled_ && dataPtr->model_attached_){
+
+    dataPtr->status = true;
+  }
   gz::msgs::Boolean status_msg;
 
   status_msg.set_data(dataPtr->status);
 
   dataPtr->status_pub_.Publish(status_msg);
-
-
 
 }
 
