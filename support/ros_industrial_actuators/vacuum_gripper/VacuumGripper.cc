@@ -13,30 +13,30 @@ class vacuum_gripper::VacuumGripperPrivate
     gz::transport::Node::Publisher status_pub_;
 
     std::string namespace_ = "";
-    std::string enable_topic_ = "/vacuum_gripper_control";
-    std::string status_topic_ = "/vacuum_gripper_status";
+    std::string enable_topic_ = "/vacuum_gripper/control/enable";
+    std::string status_topic_ = "/vacuum_gripper/status/attached";
 
     bool status = false;
     bool enabled = false;  
 
-  /// True if gripper is on.
-  bool enabled_;
-  bool model_attached_;
+    /// True if gripper is on.
+    bool enabled_;
+    bool model_attached_;
 
-  /// Max distance to apply force.
-  double max_distance_;
+    /// Max distance to apply force.
+    double max_distance_;
 
-  /// List of models that the should pick up
-  std::vector<std::string> parts_to_pick_;
+    /// List of models that the should pick up
+    std::vector<std::string> parts_to_pick_;
 
-  /// Protect variables accessed on callbacks.
-  std::mutex lock_;
+    /// Protect variables accessed on callbacks.
+    std::mutex lock_;
 
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
 {
-  gzmsg << "VacuumGripper::VacuumGripper" << std::endl;
+  gzmsg << "VacuumGripper: VacuumGripper()" << std::endl;
 
   CreatePublishers();
   CreateSubscribers();
@@ -50,7 +50,7 @@ VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
  
 VacuumGripper::~VacuumGripper()
 {
-  gzmsg << "VacuumGripper::~VacuumGripper" << std::endl;
+  gzmsg << "VacuumGripper: ~VacuumGripper()" << std::endl;
   RemovePublishers();
   RemoveSubscribers();
   dataPtr.reset();
@@ -58,14 +58,14 @@ VacuumGripper::~VacuumGripper()
 
 void VacuumGripper::CreatePublishers()
 {
-  gzmsg << "VacuumGripper::CreatePublishers" << std::endl;
+  gzmsg << "VacuumGripper: CreatePublishers()" << std::endl;
   dataPtr->status_pub_ = gz::transport::Node::Publisher();
-  dataPtr->status_pub_ = dataPtr->node_.Advertise < gz::msgs::Boolean> (dataPtr->status_topic_);
+  dataPtr->status_pub_ = dataPtr->node_.Advertise < gz::msgs::Int32> (dataPtr->status_topic_);
 }
 
 void VacuumGripper::CreateSubscribers()
 {
-  gzmsg << "VacuumGripper::CreateSubscribers" << std::endl;
+  gzmsg << "VacuumGripper: CreateSubscribers()" << std::endl;
   dataPtr->node_.Subscribe(dataPtr->enable_topic_, &VacuumGripper::OnEnableMessage, this);
 }
 
@@ -81,23 +81,23 @@ void VacuumGripper::RemoveSubscribers()
 }
 
 
-void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
-  gzmsg << "VacuumGripper::OnEnableMessage" << std::endl;
-  dataPtr->enabled = msg.data();
+void VacuumGripper::OnEnableMessage(const gz::msgs::Int32 & msg){
+  gzmsg << "VacuumGripper: OnEnableMessage()" << std::endl;
+  dataPtr->enabled = msg.data()? true : false;
 
   if (dataPtr->enabled) {
     if (!dataPtr->enabled_) {
       dataPtr->enabled_ = true;
-      gzmsg << "Gripper on"<< std::endl;
+      gzmsg << "VacuumGripper: Gripper on"<< std::endl;
     } else {
-      gzmsg << "Gripper is already on" << std::endl;
+      gzmsg << "VacuumGripper: Gripper is already on" << std::endl;
     }
   } else {
     if (dataPtr->enabled_) {
       dataPtr->enabled_ = false;
-      gzmsg << "Gripper off"<< std::endl;
+      gzmsg << "VacuumGripper: Gripper off"<< std::endl;
     } else {
-      gzmsg << "Gripper is already off" << std::endl;
+      gzmsg << "VacuumGripper: Gripper is already off" << std::endl;
     }
   }
 
@@ -108,7 +108,7 @@ void VacuumGripper::Configure(
   const std::shared_ptr<const sdf::Element> &_sdf,
   const gz::sim::EntityComponentManager &_ecm,
   const gz::sim::EventManager &_eventMgr){
-    gzmsg << "VacuumGripper::Configure" << std::endl;
+    gzmsg << "VacuumGripper: Configure()" << std::endl;
   }
  
 void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
@@ -124,30 +124,37 @@ void VacuumGripper::PostUpdate(const gz::sim::UpdateInfo &_info,
 
 
   if(dataPtr->enabled_ && !dataPtr->model_attached_){
-    gzmsg << "Gripper attach" << std::endl;
+    gzmsg << "VacuumGripper: Gripper attach" << std::endl;
     dataPtr->model_attached_ = true;
     dataPtr->status = true;
   }
   else if(!dataPtr->enabled_ && dataPtr->model_attached_){
-    gzmsg << "Gripper de-attach" << std::endl;
+    gzmsg << "VacuumGripper: Gripper de-attach()" << std::endl;
     dataPtr->status = false;
   }
   else if(dataPtr->enabled_ && dataPtr->model_attached_){
 
     dataPtr->status = true;
   }
-  gz::msgs::Boolean status_msg;
+  gz::msgs::Int32 status_msg;
 
-  status_msg.set_data(dataPtr->status);
 
-  dataPtr->status_pub_.Publish(status_msg);
+  dataPtr->status = dataPtr->status? 0 : 1;
+  status_msg.set_data(dataPtr->status? 1 : 0);
+
+//  dataPtr->status_pub_.Publish(status_msg);
+
+  if (!dataPtr->status_pub_.Publish(status_msg)) {
+    gzerr << "gz::msgs::Int32 message couldn't be published at topic: " <<
+    dataPtr->status_topic_ << std::endl;
+  }
 
 }
 
 void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   const gz::sim::EntityComponentManager &_ecm)
 {
-  gzmsg << "VacuumGripper::Update" << std::endl;
+  gzmsg << "VacuumGripper :Update()" << std::endl;
 
 
   // Check if the gripper is enabled

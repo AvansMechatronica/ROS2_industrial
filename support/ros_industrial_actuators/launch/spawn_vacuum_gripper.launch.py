@@ -41,15 +41,15 @@ def generate_launch_description():
         name='vacuum_gripper_bridge',
         output='screen',
         arguments=[
-            'vacuum_gripper_status' + '@std_msgs/msg/Bool' + '[gz.msgs.Boolean'
-            'vacuum_gripper_control' + '@std_msgs/msg/Bool' + ']gz.msgs.Boolean'
+            'vacuum_gripper/status/attached' + '@std_msgs/msg/Int32' + '[gz.msgs.Int32',
+            'vacuum_gripper/control/enable' + '@std_msgs/msg/Int32' + ']gz.msgs.Int32',
         ],
         parameters=[
             {'use_sim_time': use_sim_time}
         ],
         #remappings=[
-        #    ('/vacuum_gripper_control', '/ros_industrial/actuators/vacuum_gripper/control'),
-        #    ('/vacuum_gripper_status', '/ros_industrial/actuators/vacuum_gripper/status'),
+        #    ('/vacuum_gripper_control_enable', '/ros_industrial/actuators/vacuum_gripper/control'),
+        #    ('/vacuum_gripper_status_attached', '/ros_industrial/actuators/vacuum_gripper/status'),
         #]
     )
 

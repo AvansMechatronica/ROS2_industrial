@@ -4,7 +4,10 @@
 #include <gz/plugin/Register.hh>
 #include <gz/msgs.hh>
 #include <gz/transport/Node.hh>
-#include <gz/msgs/boolean.pb.h>
+
+//#include <gz/msgs/boolean.pb.h>
+#include <gz/msgs/int32.pb.h>
+
 #include <gz/sim/EntityComponentManager.hh>
 #include <gz/sim/Entity.hh>
 
@@ -43,7 +46,7 @@ namespace vacuum_gripper
 
     /// \brief Subscriber callbacks
     private:
-      void OnEnableMessage(const gz::msgs::Boolean & msg);
+      void OnEnableMessage(const gz::msgs::Int32 & msg);
       void CreatePublishers();
       void CreateSubscribers();
       void RemovePublishers();
