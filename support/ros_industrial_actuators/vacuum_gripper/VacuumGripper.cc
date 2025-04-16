@@ -26,12 +26,18 @@ class vacuum_gripper::VacuumGripperPrivate
     /// Max distance to apply force.
     double max_distance_;
 
+    std::string link_name;
+
     /// List of models that the should pick up
     std::vector<std::string> parts_to_pick_;
+
+    /// Pointer to link.
+    //gz::physics::LinkPtr gripper_link_;
 
     /// Protect variables accessed on callbacks.
     std::mutex lock_;
 
+    bool once = false;
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -110,6 +116,16 @@ void VacuumGripper::Configure(
   gz::sim::EventManager &_eventMgr)
   {
     gzmsg << "VacuumGripper: Configure()" << std::endl;
+    if (_sdf->HasElement("link_name")) {
+      dataPtr->link_name = _sdf->Get<std::string>("link_name");
+      //dataPtr->link_name = "link1";
+      gzmsg << "VacuumGripper: Link name found " << dataPtr->link_name << std::endl;
+      //impl_->gripper_link_ = _model->GetLink(link);
+    }
+    else{
+      gzerr << "VacuumGripper: No link defined)" << std::endl;
+
+    }
   }
  
 void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
@@ -118,30 +134,32 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   //gzmsg << "VacuumGripper: Update()" << std::endl;
   // Check if the gripper is enabled
 
-  #if 0
+  gz::math::Pose3d gripper_pose;
   std::optional<gz::sim::Entity> foundEntity;
 
-  std::string desiredName="vacuum_gripper";
+  if(!dataPtr->once){
+    //dataPtr->once = true;
   _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
     [&](const gz::sim::Entity &_entity,
         const gz::sim::components::Name *_nameComp,
         const gz::sim::components::Pose *_poseComp) -> bool
     {
       //if (!_nameComp) return true; // Continue iterating
-      if (_nameComp && (_nameComp->Data() == desiredName))
+      //if (_nameComp && (_nameComp->Data() == dataPtr->link_name))
+      if (_nameComp)
       {
-        gzmsg << "Found entity with name: " << desiredName << ", ID: " << _entity << std::endl;
+        //gzmsg << "Found entity with name: " << dataPtr->link_name << ", ID: " << _entity << std::endl;
+        gzmsg << "Found entity with name: " << _nameComp->Data() << ", ID: " << _entity << std::endl;
         foundEntity = _entity;
-        gz::math::Pose3d pose = _poseComp->Data();
-        gzmsg << "Pose: " << pose << std::endl;
+        gripper_pose = _poseComp->Data();
+        gzmsg << "Gripper pose: " << gripper_pose << std::endl;
 
-        return false; // Stop iterating once the entity is found
+        //return false; // Stop iterating once the entity is found
       }
-      //gzmsg << "No found entity with name: " << desiredName << std::endl;
+      //gzerr << "No found entity with name: " << dataPtr->link_name << std::endl;
       return true; // Continue iterating
     });
-#endif
-
+  }
 
 #if 0
   // Iterate through all entities with a specific component (e.g., Name or Pose)
@@ -158,28 +176,26 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   
       // Access the entity's name
       std::string entityName = _nameComp->Data();
-      gzmsg << "Entity ID: " << _entity << ", Name: " << entityName << std::endl;
+      if(entityName != dataPtr->link_name){ // Skip gripper link
   
-      // Access the entity's pose
-      gz::math::Pose3d pose = _poseComp->Data();
-      gzmsg << "Pose: " << pose << std::endl;
+        // Access the entity's pose
+        gz::math::Pose3d object_pose = _poseComp->Data();
+
+        gz::math::Pose3d diff = gripper_pose - object_pose;
+            
+        if (diff.Pos().Length() < dataPtr->max_distance_) {
+          gzmsg << "Entity ID: " << _entity << ", Name: " << entityName << std::endl;
+          gzmsg << "Object pose: " << object_pose << std::endl;
+          gzmsg << "Gripper pose: " << gripper_pose << std::endl;
+          gzmsg << "Distance : " << diff.Pos().Length()  << std::endl;
+          //continue;
+        }
+
+      }
+
   
       return true; // Continue iterating
     });
-#endif
-#if 0
-
-  gz::math::Pose3d pose;
-
-  auto poseComp = _ecm.Component<gz::sim::components::Pose>(_entity);
-  if(!poseComp)
-  {
-    gzerr << "VacuumGripper: Pose component not found" << std::endl;
-    pose = gz::math::Pose3d::Zero;
-  }
-  else{
-    pose = poseComp->Data();
-  }
 #endif
 
   if(dataPtr->enabled)

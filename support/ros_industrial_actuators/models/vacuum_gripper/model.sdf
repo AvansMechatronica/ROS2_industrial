@@ -4,8 +4,13 @@
     <static>true</static>
 
     <plugin
-      filename="VacuumGripper"
-      name="vacuum_gripper::VacuumGripper">
+      filename="VacuumGripper" name="vacuum_gripper::VacuumGripper">
+      <link_name>xarm::link6</link_name>
+      <!--
+      <link_name>vacuum_gripper1_suction_cup</link_name>
+      <link_name> "vacuum_gripper1_suction_cup" </link_name>
+      <max_distance>10.0</max_distance>
+      -->
     </plugin>
   </model>
 </sdf>

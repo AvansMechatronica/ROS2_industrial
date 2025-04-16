@@ -1,24 +1,37 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from std_srvs.srv import SetBool
+from std_msgs.msg import Bool
 
 class VacuumGripper(Node):
-    def __init__(self, namespace):
+    def __init__(self):
         super().__init__('vacuum_gripper')
-        self.client_name = namespace + '/custom_switch'
-        self.client = self.create_client(SetBool, self.client_name)
-        while not self.client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('Service not available, waiting...')
-        self.get_logger().info('Service is available.')
 
-    def send_request(self, on_state):
-        request = SetBool.Request()
-        request.data = on_state
-        self.future = self.client.call_async(request)
-        return self.future
-    
+        self.enable_topic_name =  '/vacuum_gripper/control/enable'
+        self.attached_topic_name =  '/vacuum_gripper/status/attached'
+        self.enable_topic_publisher = self.create_publisher(Bool, self.enable_topic_name, 10)
+   
+        self.attached = False
+
+        self.attached_topic_subscription = self.create_subscription(
+            Bool,
+            self.attached_topic_name',
+            self.attached_topic_callback,
+            10)
+        self.attached_topic_subscription  # prevent unused variable warning
+
+    def attached_topic_callback(self, msg):
+        self.attached = msg.data
+
     def pull(self):
-        self.send_request(True)
+        msg = Bool()
+        msg.data = True
+        self.enable_topic_publisher.publish(msg)
+
     def release(self):
-        self.send_request(False)
+        msg = Bool()
+        msg.data = False
+        self.enable_topic_publisher.publish(msg)
+
+    def is_attached(self):
+        return self.attached
