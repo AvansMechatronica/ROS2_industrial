@@ -9,6 +9,12 @@
 #include <gz/sim/EntityComponentManager.hh>
 #include <gz/math/Pose3.hh>
 
+#include <gz/sim/components/ParentEntity.hh>
+#include <gz/physics/Link.hh>
+
+#include <gz/sim/components/Joint.hh>
+//#include <gz/sim/components/FixedJoint.hh>
+
 #include <gz/msgs/boolean.pb.h>
 //#include <gz/msgs/int32.pb.h>
 
