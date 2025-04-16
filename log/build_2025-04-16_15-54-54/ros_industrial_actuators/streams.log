@@ -1,0 +1,338 @@
+[0.016s] Invoking command in '/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/student/ros2_industrial_ws/install/urdf_basics:/home/student/ros2_industrial_ws/install/transferframes:/home/student/ros2_industrial_ws/install/template_package_python:/home/student/ros2_industrial_ws/install/ros_industrial_utilities:/home/student/ros2_industrial_ws/install/ros_industrial_support:/home/student/ros2_industrial_ws/install/ros_industrial_gazebo:/home/student/ros2_industrial_ws/install/range_sensor:/home/student/ros2_industrial_ws/install/node_demo:/home/student/ros2_industrial_ws/install/navigation:/home/student/ros2_industrial_ws/install/manipulation:/home/student/ros2_industrial_ws/install/fanuc_robots:/home/student/xarm_ws/install/uf_ros_lib:/opt/ros/jazzy /usr/bin/cmake /home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/student/ros2_industrial_ws/src/ROS2_industrial/install/ros_industrial_actuators
+[0.406s] -- The C compiler identification is GNU 13.3.0
+[1.308s] -- The CXX compiler identification is GNU 13.3.0
+[2.177s] -- Detecting C compiler ABI info
+[2.549s] -- Detecting C compiler ABI info - done
+[2.559s] -- Check for working C compiler: /usr/bin/cc - skipped
+[2.603s] -- Detecting C compile features
+[2.604s] -- Detecting C compile features - done
+[2.720s] -- Detecting CXX compiler ABI info
+[3.019s] -- Detecting CXX compiler ABI info - done
+[3.029s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[3.029s] -- Detecting CXX compile features
+[3.030s] -- Detecting CXX compile features - done
+[3.098s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[3.334s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[3.478s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[3.641s] -- Looking for gz-common5 -- found version 5.7.1
+[3.642s] -- Searching for dependencies of gz-common5
+[3.646s] -- Looking for gz-utils2 -- found version 2.2.1
+[3.646s] -- Searching for dependencies of gz-utils2
+[3.719s] -- Looking for dlfcn.h - found
+[3.835s] -- Looking for libdl - found
+[3.836s] -- Found DL: TRUE  
+[3.896s] -- Checking for module 'uuid'
+[3.932s] --   Found uuid, version 2.39.3
+[3.970s] -- Found UUID: TRUE  
+[3.971s] -- Searching for <gz-common5> component [profiler]
+[3.976s] -- Looking for gz-common5-profiler -- found version 5.7.1
+[3.976s] -- Searching for dependencies of gz-common5-profiler
+[3.979s] -- Looking for gz-common5 - found
+[3.979s] 
+[3.983s] -- Looking for gz-plugin2 -- found version 2.0.4
+[3.984s] -- Searching for dependencies of gz-plugin2
+[3.984s] -- Looking for gz-utils2 -- found version 2.2.1
+[3.984s] -- Searching for dependencies of gz-utils2
+[3.984s] -- Searching for <gz-utils2> component [cli]
+[3.989s] -- Looking for gz-utils2-cli -- found version 2.2.1
+[3.989s] -- Searching for dependencies of gz-utils2-cli
+[3.992s] -- Searching for <gz-plugin2> component [register]
+[3.996s] -- Looking for gz-plugin2-register -- found version 2.0.4
+[3.996s] -- Searching for dependencies of gz-plugin2-register
+[3.997s] -- Looking for gz-plugin2 - found
+[3.997s] 
+[4.002s] -- Looking for gz-msgs10 -- found version 10.3.2
+[4.002s] -- Searching for dependencies of gz-msgs10
+[5.855s] -- Found Protobuf: /usr/lib/x86_64-linux-gnu/libprotobuf.so (found version "3.21.12") 
+[5.856s] -- Looking for gz-utils2 -- found version 2.2.1
+[5.860s] -- Looking for gz-math7 -- found version 7.5.2
+[5.860s] -- Searching for dependencies of gz-math7
+[5.860s] -- Looking for gz-utils2 -- found version 2.2.1
+[5.868s] -- Checking for module 'tinyxml2'
+[5.886s] --   Found tinyxml2, version 10.0.0
+[5.921s] -- Looking for gz-msgs10 - found
+[5.921s] 
+[5.935s] -- Looking for gz-sim8 -- found version 8.9.0
+[5.935s] -- Searching for dependencies of gz-sim8
+[5.940s] -- Looking for sdformat14 -- found version 14.7.0
+[5.940s] -- Searching for dependencies of sdformat14
+[5.946s] -- Looking for gz-math7 -- found version 7.5.2
+[5.946s] -- Looking for gz-utils2 -- found version 2.2.1
+[5.949s] -- Looking for gz-plugin2 -- found version 2.0.4
+[5.950s] -- Searching for dependencies of gz-plugin2
+[5.950s] -- Looking for gz-utils2 -- found version 2.2.1
+[5.950s] -- Searching for <gz-plugin2> component [loader]
+[5.954s] -- Looking for gz-plugin2-loader -- found version 2.0.4
+[5.954s] -- Searching for dependencies of gz-plugin2-loader
+[5.955s] -- Searching for <gz-plugin2> component [register]
+[5.960s] -- Looking for gz-transport13 -- found version 13.4.1
+[5.960s] -- Searching for dependencies of gz-transport13
+[7.934s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[7.938s] -- Checking for module 'libzmq >= 4'
+[8.010s] --   Found libzmq, version 4.3.5
+[8.087s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[8.183s] -- Looking for gz-utils2 -- found version 2.2.1
+[8.183s] -- Looking for gz-msgs10 -- found version 10.3.2
+[8.186s] -- Searching for <gz-transport13> component [log]
+[8.189s] -- Looking for gz-transport13-log -- found version 13.4.1
+[8.190s] -- Searching for dependencies of gz-transport13-log
+[8.191s] -- Searching for <gz-transport13> component [parameters]
+[8.194s] -- Looking for gz-transport13-parameters -- found version 13.4.1
+[8.194s] -- Searching for dependencies of gz-transport13-parameters
+[8.196s] -- Looking for gz-msgs10 -- found version 10.3.2
+[8.198s] -- Looking for gz-common5 -- found version 5.7.1
+[8.198s] -- Searching for dependencies of gz-common5
+[8.198s] -- Looking for gz-utils2 -- found version 2.2.1
+[8.199s] -- Looking for dlfcn.h - found
+[8.199s] -- Looking for libdl - found
+[8.207s] -- Searching for <gz-common5> component [av]
+[8.211s] -- Looking for gz-common5-av -- found version 5.7.1
+[8.212s] -- Searching for dependencies of gz-common5-av
+[8.221s] -- Checking for module 'libswscale'
+[8.242s] --   Found libswscale, version 7.5.100
+[8.275s] -- Found SWSCALE: TRUE  
+[8.281s] -- Checking for module 'libavdevice >= 56.4.100'
+[8.300s] --   Found libavdevice, version 60.3.100
+[8.355s] -- Found AVDEVICE: TRUE (Required is at least version "56.4.100") 
+[8.361s] -- Checking for module 'libavformat'
+[8.382s] --   Found libavformat, version 60.16.100
+[8.420s] -- Found AVFORMAT: TRUE  
+[8.425s] -- Checking for module 'libavcodec'
+[8.441s] --   Found libavcodec, version 60.31.102
+[8.477s] -- Found AVCODEC: TRUE  
+[8.482s] -- Checking for module 'libavutil'
+[8.498s] --   Found libavutil, version 58.29.100
+[8.528s] -- Found AVUTIL: TRUE  
+[8.531s] -- Searching for <gz-common5> component [events]
+[8.537s] -- Looking for gz-common5-events -- found version 5.7.1
+[8.538s] -- Searching for dependencies of gz-common5-events
+[8.538s] -- Looking for gz-math7 -- found version 7.5.2
+[8.540s] -- Searching for <gz-common5> component [graphics]
+[8.543s] -- Looking for gz-common5-graphics -- found version 5.7.1
+[8.544s] -- Searching for dependencies of gz-common5-graphics
+[8.544s] -- Looking for gz-math7 -- found version 7.5.2
+[8.555s] -- Found GzAssimp: TRUE (found version "5.3.0") 
+[8.556s] -- Searching for <gz-common5> component [io]
+[8.560s] -- Looking for gz-common5-io -- found version 5.7.1
+[8.560s] -- Searching for dependencies of gz-common5-io
+[8.561s] -- Searching for <gz-common5> component [profiler]
+[8.567s] -- Looking for gz-fuel_tools9 -- found version 9.1.1
+[8.567s] -- Searching for dependencies of gz-fuel_tools9
+[9.849s] -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "8.5.0")  
+[9.872s] -- Checking for module 'jsoncpp'
+[9.890s] --   Found jsoncpp, version 1.9.5
+[9.919s] -- Found JSONCPP: TRUE  
+[10.779s] -- Checking for module 'yaml-0.1'
+[10.851s] --   Found yaml-0.1, version 0.2.5
+[10.884s] -- Found YAML: TRUE  
+[10.889s] -- Checking for module 'libzip'
+[10.905s] --   Found libzip, version 1.7.3
+[10.935s] -- Found ZIP: TRUE  
+[10.935s] -- Looking for gz-utils2 -- found version 2.2.1
+[10.936s] -- Looking for gz-common5 -- found version 5.7.1
+[10.936s] -- Searching for dependencies of gz-common5
+[10.936s] -- Looking for gz-utils2 -- found version 2.2.1
+[10.936s] -- Looking for dlfcn.h - found
+[10.936s] -- Looking for libdl - found
+[10.943s] -- Searching for <gz-common5> component [testing]
+[10.946s] -- Looking for gz-common5-testing -- found version 5.7.1
+[10.946s] -- Searching for dependencies of gz-common5-testing
+[10.948s] -- Looking for gz-math7 -- found version 7.5.2
+[10.948s] -- Looking for gz-msgs10 -- found version 10.3.2
+[10.953s] -- Looking for gz-gui8 -- found version 8.4.0
+[10.953s] -- Searching for dependencies of gz-gui8
+[11.970s] -- Looking for gz-utils2 -- found version 2.2.1
+[11.970s] -- Looking for gz-math7 -- found version 7.5.2
+[11.971s] -- Looking for gz-common5 -- found version 5.7.1
+[11.971s] -- Looking for gz-plugin2 -- found version 2.0.4
+[11.972s] -- Looking for gz-transport13 -- found version 13.4.1
+[12.019s] -- Looking for gz-rendering8 -- found version 8.2.2
+[12.019s] -- Searching for dependencies of gz-rendering8
+[12.020s] -- Looking for gz-math7 -- found version 7.5.2
+[12.021s] -- Searching for dependencies of gz-math7
+[12.022s] -- Looking for gz-utils2 -- found version 2.2.1
+[12.022s] -- Searching for <gz-math7> component [eigen3]
+[12.029s] -- Looking for gz-math7-eigen3 -- found version 7.5.2
+[12.029s] -- Searching for dependencies of gz-math7-eigen3
+[12.044s] -- Looking for gz-common5 -- found version 5.7.1
+[12.044s] -- Searching for dependencies of gz-common5
+[12.044s] -- Looking for gz-utils2 -- found version 2.2.1
+[12.045s] -- Looking for dlfcn.h - found
+[12.045s] -- Looking for libdl - found
+[12.052s] -- Searching for <gz-common5> component [graphics]
+[12.052s] -- Searching for <gz-common5> component [events]
+[12.052s] -- Searching for <gz-common5> component [geospatial]
+[12.056s] -- Looking for gz-common5-geospatial -- found version 5.7.1
+[12.056s] -- Searching for dependencies of gz-common5-geospatial
+[12.056s] -- Looking for gz-math7 -- found version 7.5.2
+[12.057s] -- Looking for gz-common5 -- found version 5.7.1
+[12.058s] -- Looking for gz-plugin2 -- found version 2.0.4
+[12.058s] -- Searching for dependencies of gz-plugin2
+[12.059s] -- Looking for gz-utils2 -- found version 2.2.1
+[12.059s] -- Searching for <gz-plugin2> component [all]
+[12.062s] -- Looking for all libraries of gz-plugin2 -- found version 2.0.4
+[12.063s] -- Looking for gz-plugin2 -- found version 2.0.4
+[12.065s] -- Looking for gz-utils2 -- found version 2.2.1
+[12.897s] -- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so  found components: OpenGL 
+[12.943s] -- Looking for gz-msgs10 -- found version 10.3.2
+[13.188s] -- Looking for gz-physics7 -- found version 7.5.0
+[13.188s] -- Searching for dependencies of gz-physics7
+[13.188s] -- Looking for gz-common5 -- found version 5.7.1
+[13.188s] -- Looking for gz-math7 -- found version 7.5.2
+[13.188s] -- Looking for gz-plugin2 -- found version 2.0.4
+[13.189s] -- Looking for gz-utils2 -- found version 2.2.1
+[13.190s] -- Searching for <gz-physics7> component [heightmap]
+[13.196s] -- Looking for gz-physics7-heightmap -- found version 7.5.0
+[13.197s] -- Searching for dependencies of gz-physics7-heightmap
+[13.197s] -- Looking for gz-common5 -- found version 5.7.1
+[13.198s] -- Searching for <gz-physics7> component [mesh]
+[13.202s] -- Looking for gz-physics7-mesh -- found version 7.5.0
+[13.203s] -- Searching for dependencies of gz-physics7-mesh
+[13.204s] -- Looking for gz-common5 -- found version 5.7.1
+[13.204s] -- Searching for <gz-physics7> component [sdf]
+[13.207s] -- Looking for gz-physics7-sdf -- found version 7.5.0
+[13.208s] -- Searching for dependencies of gz-physics7-sdf
+[13.208s] -- Looking for sdformat14 -- found version 14.7.0
+[13.213s] -- Looking for gz-sensors8 -- found version 8.2.2
+[13.213s] -- Searching for dependencies of gz-sensors8
+[14.213s] -- Looking for gz-math7 -- found version 7.5.2
+[14.213s] -- Looking for gz-common5 -- found version 5.7.1
+[14.213s] -- Looking for gz-transport13 -- found version 13.4.1
+[14.213s] -- Looking for gz-rendering8 -- found version 8.2.2
+[14.214s] -- Looking for gz-msgs10 -- found version 10.3.2
+[14.214s] -- Looking for sdformat14 -- found version 14.7.0
+[14.261s] -- Searching for <gz-sensors8> component [air_pressure]
+[14.269s] -- Looking for gz-sensors8-air_pressure -- found version 8.2.2
+[14.269s] -- Searching for dependencies of gz-sensors8-air_pressure
+[14.271s] -- Searching for <gz-sensors8> component [air_speed]
+[14.275s] -- Looking for gz-sensors8-air_speed -- found version 8.2.2
+[14.275s] -- Searching for dependencies of gz-sensors8-air_speed
+[14.277s] -- Searching for <gz-sensors8> component [altimeter]
+[14.283s] -- Looking for gz-sensors8-altimeter -- found version 8.2.2
+[14.284s] -- Searching for dependencies of gz-sensors8-altimeter
+[14.285s] -- Searching for <gz-sensors8> component [imu]
+[14.288s] -- Looking for gz-sensors8-imu -- found version 8.2.2
+[14.288s] -- Searching for dependencies of gz-sensors8-imu
+[14.290s] -- Searching for <gz-sensors8> component [force_torque]
+[14.294s] -- Looking for gz-sensors8-force_torque -- found version 8.2.2
+[14.294s] -- Searching for dependencies of gz-sensors8-force_torque
+[14.296s] -- Searching for <gz-sensors8> component [logical_camera]
+[14.299s] -- Looking for gz-sensors8-logical_camera -- found version 8.2.2
+[14.300s] -- Searching for dependencies of gz-sensors8-logical_camera
+[14.301s] -- Searching for <gz-sensors8> component [magnetometer]
+[14.304s] -- Looking for gz-sensors8-magnetometer -- found version 8.2.2
+[14.305s] -- Searching for dependencies of gz-sensors8-magnetometer
+[14.306s] -- Searching for <gz-sensors8> component [navsat]
+[14.310s] -- Looking for gz-sensors8-navsat -- found version 8.2.2
+[14.310s] -- Searching for dependencies of gz-sensors8-navsat
+[14.311s] -- Searching for <gz-sensors8> component [dvl]
+[14.315s] -- Looking for gz-sensors8-dvl -- found version 8.2.2
+[14.316s] -- Searching for dependencies of gz-sensors8-dvl
+[14.316s] -- Looking for gz-sensors8 -- found version 8.2.2
+[14.316s] -- Searching for dependencies of gz-sensors8
+[15.367s] -- Looking for gz-math7 -- found version 7.5.2
+[15.368s] -- Looking for gz-common5 -- found version 5.7.1
+[15.368s] -- Looking for gz-transport13 -- found version 13.4.1
+[15.368s] -- Looking for gz-rendering8 -- found version 8.2.2
+[15.368s] -- Looking for gz-msgs10 -- found version 10.3.2
+[15.369s] -- Looking for sdformat14 -- found version 14.7.0
+[15.369s] -- Searching for <gz-sensors8> component [rendering]
+[15.416s] -- Looking for gz-sensors8-rendering -- found version 8.2.2
+[15.416s] -- Searching for dependencies of gz-sensors8-rendering
+[15.422s] -- Searching for <gz-sensors8> component [rendering]
+[15.422s] -- Searching for <gz-sensors8> component [lidar]
+[15.428s] -- Looking for gz-sensors8-lidar -- found version 8.2.2
+[15.429s] -- Searching for dependencies of gz-sensors8-lidar
+[15.430s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.432s] -- Searching for <gz-sensors8> component [gpu_lidar]
+[15.436s] -- Looking for gz-sensors8-gpu_lidar -- found version 8.2.2
+[15.436s] -- Searching for dependencies of gz-sensors8-gpu_lidar
+[15.437s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.439s] -- Searching for <gz-sensors8> component [camera]
+[15.443s] -- Looking for gz-sensors8-camera -- found version 8.2.2
+[15.443s] -- Searching for dependencies of gz-sensors8-camera
+[15.444s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.445s] -- Searching for <gz-sensors8> component [boundingbox_camera]
+[15.449s] -- Looking for gz-sensors8-boundingbox_camera -- found version 8.2.2
+[15.449s] -- Searching for dependencies of gz-sensors8-boundingbox_camera
+[15.451s] -- Searching for <gz-sensors8> component [segmentation_camera]
+[15.455s] -- Looking for gz-sensors8-segmentation_camera -- found version 8.2.2
+[15.455s] -- Searching for dependencies of gz-sensors8-segmentation_camera
+[15.456s] -- Searching for <gz-sensors8> component [depth_camera]
+[15.460s] -- Looking for gz-sensors8-depth_camera -- found version 8.2.2
+[15.460s] -- Searching for dependencies of gz-sensors8-depth_camera
+[15.460s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.462s] -- Searching for <gz-sensors8> component [rgbd_camera]
+[15.465s] -- Looking for gz-sensors8-rgbd_camera -- found version 8.2.2
+[15.466s] -- Searching for dependencies of gz-sensors8-rgbd_camera
+[15.467s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.469s] -- Searching for <gz-sensors8> component [thermal_camera]
+[15.472s] -- Looking for gz-sensors8-thermal_camera -- found version 8.2.2
+[15.473s] -- Searching for dependencies of gz-sensors8-thermal_camera
+[15.473s] -- Looking for gz-sensors8 -- found version 8.2.2
+[15.475s] -- Searching for <gz-sensors8> component [wide_angle_camera]
+[15.478s] -- Looking for gz-sensors8-wide_angle_camera -- found version 8.2.2
+[15.478s] -- Searching for dependencies of gz-sensors8-wide_angle_camera
+[15.480s] -- Looking for gz-rendering8 -- found version 8.2.2
+[15.480s] -- Looking for gz-math7 -- found version 7.5.2
+[15.480s] -- Looking for gz-utils2 -- found version 2.2.1
+[16.518s] -- Looking for gz-sim8 - found
+[16.518s] 
+[16.777s] -- Configuring done (16.7s)
+[16.798s] -- Generating done (0.0s)
+[16.802s] -- Build files have been written to: /home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators
+[16.813s] Invoked command in '/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/student/ros2_industrial_ws/install/urdf_basics:/home/student/ros2_industrial_ws/install/transferframes:/home/student/ros2_industrial_ws/install/template_package_python:/home/student/ros2_industrial_ws/install/ros_industrial_utilities:/home/student/ros2_industrial_ws/install/ros_industrial_support:/home/student/ros2_industrial_ws/install/ros_industrial_gazebo:/home/student/ros2_industrial_ws/install/range_sensor:/home/student/ros2_industrial_ws/install/node_demo:/home/student/ros2_industrial_ws/install/navigation:/home/student/ros2_industrial_ws/install/manipulation:/home/student/ros2_industrial_ws/install/fanuc_robots:/home/student/xarm_ws/install/uf_ros_lib:/opt/ros/jazzy /usr/bin/cmake /home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/student/ros2_industrial_ws/src/ROS2_industrial/install/ros_industrial_actuators
+[16.814s] Invoking command in '/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/student/ros2_industrial_ws/install/urdf_basics:/home/student/ros2_industrial_ws/install/transferframes:/home/student/ros2_industrial_ws/install/template_package_python:/home/student/ros2_industrial_ws/install/ros_industrial_utilities:/home/student/ros2_industrial_ws/install/ros_industrial_support:/home/student/ros2_industrial_ws/install/ros_industrial_gazebo:/home/student/ros2_industrial_ws/install/range_sensor:/home/student/ros2_industrial_ws/install/node_demo:/home/student/ros2_industrial_ws/install/navigation:/home/student/ros2_industrial_ws/install/manipulation:/home/student/ros2_industrial_ws/install/fanuc_robots:/home/student/xarm_ws/install/uf_ros_lib:/opt/ros/jazzy /usr/bin/cmake --build /home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators -- -j16 -l16
+[16.869s] [ 50%] [32mBuilding CXX object CMakeFiles/VacuumGripper.dir/vacuum_gripper/VacuumGripper.cc.o[0m
+[16.878s] [ 50%] Built target ament_cmake_python_symlink_ros_industrial_actuators
+[17.133s] running egg_info
+[17.134s] creating ros_industrial_actuators.egg-info
+[17.155s] writing ros_industrial_actuators.egg-info/PKG-INFO
+[17.155s] writing dependency_links to ros_industrial_actuators.egg-info/dependency_links.txt
+[17.156s] writing top-level names to ros_industrial_actuators.egg-info/top_level.txt
+[17.156s] writing manifest file 'ros_industrial_actuators.egg-info/SOURCES.txt'
+[17.220s] reading manifest file 'ros_industrial_actuators.egg-info/SOURCES.txt'
+[17.220s] writing manifest file 'ros_industrial_actuators.egg-info/SOURCES.txt'
+[17.249s] [ 50%] Built target ament_cmake_python_build_ros_industrial_actuators_egg
+[20.636s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:[m[K In member function ‘[01m[Kvirtual void vacuum_gripper::VacuumGripper::[01;32m[KConfigure[m[K(const gz::sim::v8::Entity&, const std::shared_ptr<const sdf::v14::Element>&, gz::sim::v8::EntityComponentManager&, gz::sim::v8::EventManager&)[m[K’:
+[20.636s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:113:26:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_entity[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[20.636s]   113 |   [01;35m[Kconst gz::sim::Entity &_entity[m[K,
+[20.637s]       |   [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~[m[K
+[20.637s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:115:36:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_ecm[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[20.637s]   115 |   [01;35m[Kgz::sim::EntityComponentManager &_ecm[m[K,
+[20.637s]       |   [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~[m[K
+[20.637s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:116:26:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_eventMgr[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[20.637s]   116 |   [01;35m[Kgz::sim::EventManager &_eventMgr[m[K)
+[20.637s]       |   [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~[m[K
+[20.638s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:[m[K In member function ‘[01m[Kvirtual void vacuum_gripper::VacuumGripper::[01;32m[KUpdate[m[K(const gz::sim::v8::UpdateInfo&, gz::sim::v8::EntityComponentManager&)[m[K’:
+[20.639s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:199:15:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kenabled[m[K’
+[20.640s]   199 |   if(dataPtr->[01;31m[Kenabled[m[K)
+[20.640s]       |               [01;31m[K^~~~~~~[m[K
+[20.641s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:208:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.641s]   208 |     dataPtr->[01;31m[Kstatus[m[K = true;
+[20.641s]       |              [01;31m[K^~~~~~[m[K
+[20.641s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:212:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.641s]   212 |     dataPtr->[01;31m[Kstatus[m[K = false;
+[20.642s]       |              [01;31m[K^~~~~~[m[K
+[20.642s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:216:14:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.642s]   216 |     dataPtr->[01;31m[Kstatus[m[K = true;
+[20.642s]       |              [01;31m[K^~~~~~[m[K
+[20.642s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:221:12:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.642s]   221 |   dataPtr->[01;31m[Kstatus[m[K = dataPtr->status? false : true;
+[20.642s]       |            [01;31m[K^~~~~~[m[K
+[20.642s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:221:30:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.642s]   221 |   dataPtr->status = dataPtr->[01;31m[Kstatus[m[K? false : true;
+[20.642s]       |                              [01;31m[K^~~~~~[m[K
+[20.642s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:222:32:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass vacuum_gripper::VacuumGripperPrivate[m[K’ has no member named ‘[01m[Kstatus[m[K’
+[20.642s]   222 |   status_msg.set_data(dataPtr->[01;31m[Kstatus[m[K);
+[20.642s]       |                                [01;31m[K^~~~~~[m[K
+[20.642s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:131:55:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_info[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[20.643s]   131 | void VacuumGripper::Update([01;35m[Kconst gz::sim::UpdateInfo &_info[m[K,
+[20.643s]       |                            [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~[m[K
+[20.643s] [01m[K/home/student/ros2_industrial_ws/src/ROS2_industrial/support/ros_industrial_actuators/vacuum_gripper/VacuumGripper.cc:132:38:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[K_ecm[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[20.643s]   132 |     [01;35m[Kgz::sim::EntityComponentManager &_ecm[m[K)
+[20.643s]       |     [01;35m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~[m[K
+[21.376s] gmake[2]: *** [CMakeFiles/VacuumGripper.dir/build.make:76: CMakeFiles/VacuumGripper.dir/vacuum_gripper/VacuumGripper.cc.o] Error 1
+[21.376s] gmake[1]: *** [CMakeFiles/Makefile2:140: CMakeFiles/VacuumGripper.dir/all] Error 2
+[21.377s] gmake: *** [Makefile:146: all] Error 2
+[21.383s] Invoked command in '/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/student/ros2_industrial_ws/install/urdf_basics:/home/student/ros2_industrial_ws/install/transferframes:/home/student/ros2_industrial_ws/install/template_package_python:/home/student/ros2_industrial_ws/install/ros_industrial_utilities:/home/student/ros2_industrial_ws/install/ros_industrial_support:/home/student/ros2_industrial_ws/install/ros_industrial_gazebo:/home/student/ros2_industrial_ws/install/range_sensor:/home/student/ros2_industrial_ws/install/node_demo:/home/student/ros2_industrial_ws/install/navigation:/home/student/ros2_industrial_ws/install/manipulation:/home/student/ros2_industrial_ws/install/fanuc_robots:/home/student/xarm_ws/install/uf_ros_lib:/opt/ros/jazzy /usr/bin/cmake --build /home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators -- -j16 -l16

@@ -15,7 +15,7 @@ class VacuumGripper(Node):
 
         self.attached_topic_subscription = self.create_subscription(
             Bool,
-            self.attached_topic_name',
+            self.attached_topic_name,
             self.attached_topic_callback,
             10)
         self.attached_topic_subscription  # prevent unused variable warning

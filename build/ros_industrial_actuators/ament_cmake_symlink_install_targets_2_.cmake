@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/libVacuumGripper.so" "TARGETS" "VacuumGripper" "DESTINATION" "lib/ros_industrial_actuators")

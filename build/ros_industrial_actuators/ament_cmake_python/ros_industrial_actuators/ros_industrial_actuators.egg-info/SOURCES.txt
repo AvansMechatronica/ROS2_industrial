@@ -1,0 +1,7 @@
+setup.py
+ros_industrial_actuators/__init__.py
+ros_industrial_actuators/vacuum_gripper.py
+ros_industrial_actuators.egg-info/PKG-INFO
+ros_industrial_actuators.egg-info/SOURCES.txt
+ros_industrial_actuators.egg-info/dependency_links.txt
+ros_industrial_actuators.egg-info/top_level.txt

@@ -1,0 +1,12 @@
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/uninstall.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/ros_industrial_actuators_uninstall.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/VacuumGripper.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/ament_cmake_python_symlink_ros_industrial_actuators.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/ament_cmake_python_build_ros_industrial_actuators_egg.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/test.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/edit_cache.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/rebuild_cache.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/list_install_components.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/install.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/install/local.dir
+/home/student/ros2_industrial_ws/src/ROS2_industrial/build/ros_industrial_actuators/CMakeFiles/install/strip.dir

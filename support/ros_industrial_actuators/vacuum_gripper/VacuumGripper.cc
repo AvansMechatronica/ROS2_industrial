@@ -16,11 +16,11 @@ class vacuum_gripper::VacuumGripperPrivate
     std::string enable_topic_ = "/vacuum_gripper/control/enable";
     std::string status_topic_ = "/vacuum_gripper/status/attached";
 
-    bool status = false;
-    bool enabled = false;  
+    //bool status = false;
+    //bool enabled = false;  
 
     /// True if gripper is on.
-    bool enabled_;
+    bool gripper_enabled;
     bool model_attached_;
 
     /// Max distance to apply force.
@@ -37,7 +37,7 @@ class vacuum_gripper::VacuumGripperPrivate
     /// Protect variables accessed on callbacks.
     std::mutex lock_;
 
-    bool once = false;
+
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -89,18 +89,18 @@ void VacuumGripper::RemoveSubscribers()
 
 void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
   gzmsg << "VacuumGripper: OnEnableMessage()" << std::endl;
-  dataPtr->enabled = msg.data();
+  bool enabled = msg.data();
 
-  if (dataPtr->enabled) {
-    if (!dataPtr->enabled_) {
-      dataPtr->enabled_ = true;
+  if (enabled) {
+    if (!dataPtr->gripper_enabled) {
+      dataPtr->gripper_enabled = true;
       gzmsg << "VacuumGripper: Gripper on"<< std::endl;
     } else {
       gzmsg << "VacuumGripper: Gripper is already on" << std::endl;
     }
   } else {
-    if (dataPtr->enabled_) {
-      dataPtr->enabled_ = false;
+    if (dataPtr->gripper_enabled) {
+      dataPtr->gripper_enabled = false;
       gzmsg << "VacuumGripper: Gripper off"<< std::endl;
     } else {
       gzmsg << "VacuumGripper: Gripper is already off" << std::endl;
@@ -137,16 +137,15 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   gz::math::Pose3d gripper_pose;
   std::optional<gz::sim::Entity> foundEntity;
 
-  if(!dataPtr->once){
-    //dataPtr->once = true;
+#if 0
   _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
     [&](const gz::sim::Entity &_entity,
         const gz::sim::components::Name *_nameComp,
         const gz::sim::components::Pose *_poseComp) -> bool
     {
       //if (!_nameComp) return true; // Continue iterating
-      //if (_nameComp && (_nameComp->Data() == dataPtr->link_name))
-      if (_nameComp)
+      if (_nameComp && (_nameComp->Data() == dataPtr->link_name))
+      //if (_nameComp)
       {
         //gzmsg << "Found entity with name: " << dataPtr->link_name << ", ID: " << _entity << std::endl;
         gzmsg << "Found entity with name: " << _nameComp->Data() << ", ID: " << _entity << std::endl;
@@ -159,8 +158,8 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
       //gzerr << "No found entity with name: " << dataPtr->link_name << std::endl;
       return true; // Continue iterating
     });
-  }
 
+#endif
 #if 0
   // Iterate through all entities with a specific component (e.g., Name or Pose)
   _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
@@ -193,37 +192,35 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
 
       }
 
-  
       return true; // Continue iterating
     });
 #endif
 
   if(dataPtr->enabled)
   {
-    dataPtr->status = !dataPtr->status; // just testing
+    //dataPtr->status = !dataPtr->status; // just testing
   }
 
 
-  if(dataPtr->enabled_ && !dataPtr->model_attached_){
+  if(dataPtr->gripper_enabled && !dataPtr->model_attached_){
     gzmsg << "VacuumGripper: Gripper attach" << std::endl;
     dataPtr->model_attached_ = true;
     dataPtr->status = true;
   }
-  else if(!dataPtr->enabled_ && dataPtr->model_attached_){
+  else if(!dataPtr->gripper_enabled && dataPtr->model_attached_){
     gzmsg << "VacuumGripper: Gripper de-attach()" << std::endl;
     dataPtr->status = false;
   }
-  else if(dataPtr->enabled_ && dataPtr->model_attached_){
+  else if(dataPtr->gripper_enabled && dataPtr->model_attached_){
 
     dataPtr->status = true;
   }
   gz::msgs::Boolean status_msg;
 
 
-  dataPtr->status = dataPtr->status? false : true;
+  dataPtr->status = dataPtr->
+  status? false : true;
   status_msg.set_data(dataPtr->status);
-
-//  dataPtr->status_pub_.Publish(status_msg);
 
   if (!dataPtr->status_pub_.Publish(status_msg)) {
     gzerr << "gz::msgs::Int32 message couldn't be published at topic: " <<
