@@ -10,9 +10,14 @@
 #include <gz/math/Pose3.hh>
 
 #include <gz/sim/components/ParentEntity.hh>
+//#include <gz/sim/components/ChildEntity.hh>
 #include <gz/physics/Link.hh>
 
 #include <gz/sim/components/Joint.hh>
+#include <gz/sim/components/DetachableJoint.hh>
+
+#include <gz/sim/components/ChildLinkName.hh>
+
 //#include <gz/sim/components/FixedJoint.hh>
 
 #include <gz/msgs/boolean.pb.h>

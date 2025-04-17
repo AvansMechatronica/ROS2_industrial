@@ -186,19 +186,21 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
             gzmsg << "Object pose: " << object_pose << std::endl;
             gzmsg << "Distance: " << diff.Pos().Length() << std::endl;
 
-  #if 0
+  #if 1
             // Create a joint to attach the object to the gripper
             dataPtr->jointEntity = _ecm.CreateEntity();
 
-            // Add a FixedJoint component to the new entity
+            // Add a DetachableJoint component to the new entity
+            //_ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::DetachableJoint());
             _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::Joint());
 
-            // Set the parent and child links for the joint
-            // Set the parent and child links for the joint
+            // Set the parent link for the joint
             _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ParentEntity(gripper_entity.value()));
-            _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ChildEntity(object_entity));
-          
-          //_ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ChildLinkName(entityName));
+
+            // Set the child link for the joint using ChildLinkName
+            _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ChildLinkName(entityName));
+
+            // Log the attachment
   #endif 
             gzmsg << "VacuumGripper: Object attached to gripper." << std::endl;
 
