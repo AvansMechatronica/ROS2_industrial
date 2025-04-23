@@ -39,7 +39,7 @@ class vacuum_gripper::VacuumGripperPrivate
 
     /// Pointer to joint.
 
-    gz::sim::Entity jointEntity = gz::sim::kNullEntity;
+    // gz::sim::Entity jointEntity = gz::sim::kNullEntity;
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -152,7 +152,12 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
           gripper_pose = _poseComp->Data();
           gzmsg << "Gripper pose: " << gripper_pose << std::endl;
           return false; // Stop iterating once the gripper is found
-        }
+          if(!_ecm.CreateComponent(_entity, gz::sim::components::Joint()))
+          {
+            gzerr << "Failed to create joint component for entity: " << _entity << std::endl;
+            return true; // Continue iterating
+          }
+              }
         return true; // Continue iterating
       });
 
@@ -161,6 +166,10 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
       gzerr << "VacuumGripper: Gripper entity not found." << std::endl;
       return;
     }
+
+
+
+
 
     // Find objects within range of the gripper
     _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
@@ -186,22 +195,31 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
             gzmsg << "Object pose: " << object_pose << std::endl;
             gzmsg << "Distance: " << diff.Pos().Length() << std::endl;
 
-  #if 1
-            // Create a joint to attach the object to the gripper
-            dataPtr->jointEntity = _ecm.CreateEntity();
-
             // Add a DetachableJoint component to the new entity
             //_ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::DetachableJoint());
-            _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::Joint());
+#if 0
+            #if 0
+            if(!_ecm.CreateComponent(object_entity, gz::sim::components::Joint()))
+            {
+              gzerr << "Failed to create joint component for entity: " << object_entity << std::endl;
+              return true; // Continue iterating
+            }
+#else
+            if(!_ecm.CreateComponent(gripper_entity, gz::sim::components::Joint()))
+            {
+              gzerr << "Failed to create joint component for entity: " << gripper_entity << std::endl;
+              return true; // Continue iterating
+            }
+#endif
+#endif
 
             // Set the parent link for the joint
-            _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ParentEntity(gripper_entity.value()));
+            if(!_ecm.CreateComponent(object_entity, gz::sim::components::ParentEntity(gripper_entity.value())))
+            {
+              gzerr << "Failed to set parent entity for joint: " << object_entity << std::endl;
+              return true; // Continue iterating
+            }
 
-            // Set the child link for the joint using ChildLinkName
-            _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ChildLinkName(entityName));
-
-            // Log the attachment
-  #endif 
             gzmsg << "VacuumGripper: Object attached to gripper." << std::endl;
 
             dataPtr->model_attached = true;

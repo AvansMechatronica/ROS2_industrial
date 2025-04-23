@@ -140,6 +140,27 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
+    pkg_path = get_package_share_directory('ros_industrial_support')
+    model_path = pkg_path + '/meshes/computer_mobile/model.sdf'
+
+    #entity_name = 'battery_' + str(random.randint(0, 1000))
+    
+    # ignition gazebo spawn entity node
+    mobile_computer_launch = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        arguments=[
+            '-name', "computer_mobile",
+            '-file', model_path,
+            '-x', '1.5', '-y', '-0.5', '-z', '0.0', '-Y', str(math.radians(45)),
+        ],
+        #parameters=[{'use_sim_time': True}],
+    )
+
+    #<xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
+    #<origin xyz="1.5 -0.5 0.00" rpy="0 0 ${radians(45)}"/>
+
     if len(controller_nodes) > 0:
         return [
             RegisterEventHandler(
@@ -175,7 +196,8 @@ def launch_setup(context, *args, **kwargs):
             ),
 
             robot_state_publisher_node,
-            clock_bridge
+            clock_bridge,
+            mobile_computer_launch
         ]
     else:
         return [
