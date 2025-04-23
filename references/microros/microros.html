@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="nl" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>microROS &mdash; Avans: ROS2 Industrial 0.1 documentatie</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=a57088fb"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/translations.js?v=e4d38c6a"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Zoeken" href="../../search.html" />
+    <link rel="prev" title="Referenties" href="../references.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Avans: ROS2 Industrial
+              <img src="../../_static/avans-hogeschool.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Zoek in documentatie" aria-label="Zoek in documentatie" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigatiemenu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../general/general.html">Algemene informatie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../1_basics/basics.html">ROS2 Basics Workshop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../2_urdf/urdf.html">ROS2 urdf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../3_navigation/navigation.html">ROS2 navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../4_manipulation/manipulation.html">ROS2 industrial manipulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../5_transferframes/transferframes.html">ROS2_industrial_transferframes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../references.html">Referenties</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">microROS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#algemene-informatie">Algemene informatie</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installatie-van-microros-agent">Installatie van microROS-agent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ontwikkelomgeving">Ontwikkelomgeving</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#esp32-devices">ESP32 devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uploaden-programma-naar-esp32-devices">Uploaden programma naar ESP32 devices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#environment-selecteren">Environment selecteren</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#software-compileren">Software Compileren</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uploaden-naar-esp32-device">Uploaden naar ESP32 device</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#voorbeelden">Voorbeelden</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Navigatiemenu voor mobiel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Avans: ROS2 Industrial</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Paginanavigatie">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../references.html">Referenties</a></li>
+      <li class="breadcrumb-item active">microROS</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/references/microros/microros.md.txt" rel="nofollow"> Bekijk paginabron</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="microros">
+<h1>microROS<a class="headerlink" href="#microros" title="Link to this heading"></a></h1>
+<section id="algemene-informatie">
+<h2>Algemene informatie<a class="headerlink" href="#algemene-informatie" title="Link to this heading"></a></h2>
+<p>Met microROS is het mogelijk om een communicatie kanaal tussen een embedded systeem en ROS2 op te bouwen. Dit communicatie kanaal maakt het mogelijk om dan op de embedded systeem de volgende ROS2 methodes te gebruiken:</p>
+<ul class="simple">
+<li><p>Topics</p></li>
+<li><p>Services</p></li>
+<li><p>Actions</p></li>
+</ul>
+<p>Gedetaileerde informatie over microROS zie website: <a class="reference external" href="https://micro.ros.org/">microROS</a></p>
+</section>
+<section id="installatie-van-microros-agent">
+<h2>Installatie van microROS-agent<a class="headerlink" href="#installatie-van-microros-agent" title="Link to this heading"></a></h2>
+<p>microROS maakt gebruik van een agent welke als brug(bridge) tussen het embedded systeem en ROS2 fungeert.</p>
+<p>Je kunt kunt de microROS-agent als volgt installeren:</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Installatie script</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/ros2_industrial_ws/src/ROS2_industrial/microros/scripts
+./install_microros_agent.sh
+<span class="nb">source</span><span class="w"> </span>~/microros_ws/install/setup.bash
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Handmatig installeren</label><div class="sd-tab-content docutils">
+<p class="sd-card-text">Zie: <a class="reference external" href="https://micro.ros.org/docs/tutorials/core/first_application_linux/">first_application_linux</a></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ontwikkelomgeving">
+<h2>Ontwikkelomgeving<a class="headerlink" href="#ontwikkelomgeving" title="Link to this heading"></a></h2>
+<p><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg> Om een microROS applicatie te ontwikkelen dient in Visual Studie Code de <strong>PlatformIO</strong> plugin geinstalleerd.
+Voor <strong>WSL</strong> is dat beschreven in de <a class="reference external" href="https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#platform-io">Windows Subsystem for Lunix</a></p>
+</section>
+<section id="esp32-devices">
+<h2>ESP32 devices<a class="headerlink" href="#esp32-devices" title="Link to this heading"></a></h2>
+<p>In deze workshop wordt gewerkt met de volgende ESP32 devices:</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+ESP32-WROOM</label><div class="sd-tab-content docutils">
+<p class="sd-card-text"><img alt="image" src="../../_images/esp32.jpg" />
+Environmet: eps32-upesy_wroom
+Environment: <strong>eps32-upesy_wroom</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>platform = espressif32
+board = esp32-s3-devkitc-1
+</pre></div>
+</div>
+<p class="sd-card-text"><a class="reference external" href="https://www.espboards.dev/esp32/upesy-wrover/">Info</a></p>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+ESP32-WROOM-Mini</label><div class="sd-tab-content docutils">
+<p class="sd-card-text"><img alt="image" src="../../_images/esp32-mini.jpg" />
+Environment: <strong>eps32-upesy_wroom</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>platform = espressif32
+board = esp32-s3-devkitc-1
+</pre></div>
+</div>
+<p class="sd-card-text"><a class="reference external" href="https://www.espboards.dev/esp32/upesy-wrover/">Info</a></p>
+<p class="sd-card-text"><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg>Deze ESP32-WROOM-Mini heeft dezelfde specificatie als de ESP32-WROOM, echter de pinout is afwijkend:</p>
+<p class="sd-card-text"><img alt="Pinots" src="../../_images/esp32-mini-pinout.png" /></p>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+ESP32C3-Mini</label><div class="sd-tab-content docutils">
+<p class="sd-card-text"><img alt="image" src="../../_images/esp32-c3-mini.jpg" />
+Environment: <strong>esp32-C3</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>platform = espressif32
+board = lolin_c3_mini
+</pre></div>
+</div>
+<p class="sd-card-text"><a class="reference external" href="https://www.espboards.dev/esp32/esp32-c3-super-mini/">Info</a></p>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+ESP32S3-Mini</label><div class="sd-tab-content docutils">
+<p class="sd-card-text"><img alt="image" src="../../_images/esp32-S3-mini.jpg" />
+Environment: <strong>esp32-S3</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>platform = espressif32
+board = esp32-s3-devkitc-1
+</pre></div>
+</div>
+<p class="sd-card-text"><a class="reference external" href="https://www.espboards.dev/esp32/esp32-s3-zero/">Info</a></p>
+</div>
+</div>
+</div>
+</div>
+<p><em>In het platformio.ini bestand van het project kun je details m.b.t. compileropties voor ieder environment inzien.</em></p>
+</section>
+<section id="uploaden-programma-naar-esp32-devices">
+<h2>Uploaden programma naar ESP32 devices<a class="headerlink" href="#uploaden-programma-naar-esp32-devices" title="Link to this heading"></a></h2>
+<section id="environment-selecteren">
+<h3>Environment selecteren<a class="headerlink" href="#environment-selecteren" title="Link to this heading"></a></h3>
+<p>Alvorens je een microROS programma kan compileren dien je de juiste environment te selecteren die bij het het gekozen ESP32 board past.
+Activeer de environment slectector:</p>
+<p><img alt="image" src="../../_images/SelectEnvironmentPre.JPG" /></p>
+<p>Kies daarna de juiste environmet:</p>
+<p><img alt="image" src="../../_images/SelectEnvironment.JPG" /></p>
+</section>
+<section id="software-compileren">
+<h3>Software Compileren<a class="headerlink" href="#software-compileren" title="Link to this heading"></a></h3>
+<p>Je kunt het programma voor het device compileren met onderstaande functie:</p>
+<p><img alt="image" src="../../_images/Compile.JPG" /></p>
+</section>
+<section id="uploaden-naar-esp32-device">
+<h3>Uploaden naar ESP32 device<a class="headerlink" href="#uploaden-naar-esp32-device" title="Link to this heading"></a></h3>
+<p>Nadat je het device hebt aangesloten via USB kun je de software naar het device uploaden:</p>
+<p><img alt="image" src="../../_images/Upload.JPG" /></p>
+<p>Nadat de software succesvol is geüpload zal het programma automatisch in het device starten.</p>
+<p>Tip: <em>Tijdens het uploaden zal getoond worden welke USB-device hiervoor gebruikt wordt. Maak hiervan een aantekening deze heb je nodig bij het starten van de microROS-agent.</em></p>
+<p><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg> Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie <a class="reference external" href="https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie">Koppelen USB-devices aan WSL-Distributie</a></p>
+<p><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg>Zorg er voor dat bij het uploaden de bijbehorende microROS-agent is afgesloten.</p>
+<p><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg>Start in geen geval de <em>Serial Monitor</em>. Deze zal de communicatie over USB naar de microROS-agent blokkeren.</p>
+<p><img alt="image" src="../../_images/NoSerialMonitor.JPG" /></p>
+</section>
+</section>
+<section id="voorbeelden">
+<h2>Voorbeelden<a class="headerlink" href="#voorbeelden" title="Link to this heading"></a></h2>
+<p>Er zijn in het kader van deze modules al twee microROS implementaties gerealiseerd voor de volgende workshops:</p>
+<ul class="simple">
+<li><p>ROS2 Basics: <a class="reference internal" href="../../1_basics/ESP32/ultrasonic_sensor.html"><span class="std std-doc">range-sensor</span></a></p></li>
+<li><p>Manipulation: <a class="reference internal" href="../../3_navigation/ESP32/joystick.html"><span class="std std-doc">joystick</span></a></p></li>
+</ul>
+<p>De microROS-agent kan worden gestart met het volgende commando:</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+USB</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">run</span> <span class="n">micro_ros_agent</span> <span class="n">micro_ros_agent</span> <span class="n">serial</span> <span class="o">--</span><span class="n">dev</span> <span class="o">&lt;</span><span class="n">usb</span><span class="o">-</span><span class="n">device</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p class="sd-card-text">Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je usb-device in te vullen.
+Bijvoorbeeld:</p>
+<ul class="simple">
+<li><p class="sd-card-text">/dev/ttyUSB0</p></li>
+<li><p class="sd-card-text">/dev/ttyACM0</p></li>
+</ul>
+<p class="sd-card-text"><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg> Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie <a class="reference external" href="https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie">Koppelen USB-devices aan WSL-Distributie</a></p>
+<p class="sd-card-text"><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-bell sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1c3.681 0 7 2.565 7 6v4.539c0 .642.189 1.269.545 1.803l2.2 3.298A1.517 1.517 0 0 1 20.482 19H15.5a3.5 3.5 0 1 1-7 0H3.519a1.518 1.518 0 0 1-1.265-2.359l2.2-3.299A3.25 3.25 0 0 0 5 11.539V7c0-3.435 3.318-6 7-6ZM6.5 7v4.539a4.75 4.75 0 0 1-.797 2.635l-2.2 3.298-.003.01.001.007.004.006.006.004.007.001h16.964l.007-.001.006-.004.004-.006.001-.006a.017.017 0 0 0-.003-.01l-2.199-3.299a4.753 4.753 0 0 1-.798-2.635V7c0-2.364-2.383-4.5-5.5-4.5S6.5 4.636 6.5 7ZM14 19h-4a2 2 0 1 0 4 0Z"></path></svg> Het device wordt getoond bij het uploaden/programmeren van het embedded systeem in Visual Code met de Platform IO plugin</p>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+Wifi</label><div class="sd-tab-content docutils">
+<p class="sd-card-text"><svg version="1.1" width="2.0em" height="2.0em" class="sd-octicon sd-octicon-alert sd-text-info" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 17.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.25-8.25a.75.75 0 0 0-1.5 0v4.5a.75.75 0 0 0 1.5 0v-4.5Z"></path><path d="M9.836 3.244c.963-1.665 3.365-1.665 4.328 0l8.967 15.504c.963 1.667-.24 3.752-2.165 3.752H3.034c-1.926 0-3.128-2.085-2.165-3.752Zm3.03.751a1.002 1.002 0 0 0-1.732 0L2.168 19.499A1.002 1.002 0 0 0 3.034 21h17.932a1.002 1.002 0 0 0 .866-1.5L12.866 3.994Z"></path></svg> Dit werkt alleen als in <em>platformio.ini</em> bestand de parameter <strong>board_microros_transport = wifi</strong> is gezet.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ros2<span class="w"> </span>run<span class="w"> </span>micro_ros_agent<span class="w"> </span>micro_ros_agent<span class="w"> </span>udp4<span class="w"> </span>--port<span class="w"> </span><span class="m">8888</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Voettekst">
+        <a href="../references.html" class="btn btn-neutral float-left" title="Referenties" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Vorige</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Avans ATIx: Gerard Harkema.</p>
+  </div>
+
+  Gebouwd met <a href="https://www.sphinx-doc.org/">Sphinx</a> met een
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thema</a>
+    geleverd door <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
