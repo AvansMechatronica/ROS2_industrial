@@ -140,10 +140,8 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    pkg_path = get_package_share_directory('ros_industrial_support')
-    model_path = pkg_path + '/meshes/computer_mobile/model.sdf'
-
-    #entity_name = 'battery_' + str(random.randint(0, 1000))
+    pkg_path = get_package_share_directory('ros_industrial_gazebo')
+    model_path = pkg_path + '/models/computer_mobile/model.sdf'
     
     # ignition gazebo spawn entity node
     mobile_computer_launch = Node(
@@ -158,8 +156,6 @@ def launch_setup(context, *args, **kwargs):
         #parameters=[{'use_sim_time': True}],
     )
 
-    #<xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
-    #<origin xyz="1.5 -0.5 0.00" rpy="0 0 ${radians(45)}"/>
 
     if len(controller_nodes) > 0:
         return [

@@ -8,9 +8,6 @@
             <geometry>
                 <mesh>
                   <scale>0.01 0.01 0.01</scale>
-                  <!-->
-                  <uri>model://computer/meshes/computer.dae</uri>
-                  -->
                   <uri>model://computer_mobile/meshes/computer.dae</uri>
                 </mesh>
             </geometry>

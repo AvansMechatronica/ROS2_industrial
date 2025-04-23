@@ -5,12 +5,15 @@
 #include <vector>
 
 using namespace vacuum_gripper;
+using namespace gz;
+using namespace sim;
+using namespace systems;
 
 class vacuum_gripper::VacuumGripperPrivate
 {
   public:
-    gz::transport::Node node_;
-    gz::transport::Node::Publisher status_pub_;
+    transport::Node node_;
+    transport::Node::Publisher status_pub_;
 
     std::string namespace_ = "";
     std::string enable_topic_ = "/vacuum_gripper/control/enable";
@@ -32,14 +35,23 @@ class vacuum_gripper::VacuumGripperPrivate
     //std::vector<std::string> parts_to_pick_;
 
     /// Pointer to link.
-    //gz::physics::LinkPtr gripper_link_;
+    //physics::LinkPtr gripper_link_;
 
     /// Protect variables accessed on callbacks.
     //std::mutex lock_;
 
     /// Pointer to joint.
 
-    // gz::sim::Entity jointEntity = gz::sim::kNullEntity;
+    // Entity jointEntity = kNullEntity;
+//    components::Joint object_joint;// = kNullEntity;
+
+    Entity gripperLinkEntity;
+
+    Model model;
+    Entity object_joint;// = kNullEntity;
+
+    Entity detachableJointEntity{kNullEntity};
+
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -67,8 +79,8 @@ VacuumGripper::~VacuumGripper()
 void VacuumGripper::CreatePublishers()
 {
   gzmsg << "VacuumGripper: CreatePublishers()" << std::endl;
-  dataPtr->status_pub_ = gz::transport::Node::Publisher();
-  dataPtr->status_pub_ = dataPtr->node_.Advertise < gz::msgs::Boolean> (dataPtr->status_topic_);
+  dataPtr->status_pub_ = transport::Node::Publisher();
+  dataPtr->status_pub_ = dataPtr->node_.Advertise < msgs::Boolean> (dataPtr->status_topic_);
 }
 
 void VacuumGripper::CreateSubscribers()
@@ -89,7 +101,7 @@ void VacuumGripper::RemoveSubscribers()
 }
 
 
-void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
+void VacuumGripper::OnEnableMessage(const msgs::Boolean & msg){
   gzmsg << "VacuumGripper: OnEnableMessage()" << std::endl;
   bool enabled = msg.data();
 
@@ -112,38 +124,56 @@ void VacuumGripper::OnEnableMessage(const gz::msgs::Boolean & msg){
 }
 
 void VacuumGripper::Configure(
-  const gz::sim::Entity &_entity,
+  const Entity &_entity,
   const std::shared_ptr<const sdf::Element> &_sdf,
-  gz::sim::EntityComponentManager &_ecm,
-  gz::sim::EventManager &_eventMgr)
+  EntityComponentManager &_ecm,
+  EventManager &_eventMgr)
 {
   gzmsg << "VacuumGripper: Configure()" << std::endl;
+
+  dataPtr->model = Model(_entity);
+  if (!dataPtr->model.Valid(_ecm))
+  {
+    gzerr << "DetachableJoint should be attached to a model entity. "
+           << "Failed to initialize." << std::endl;
+    return;
+  }
+
   if (_sdf->HasElement("link_name")) {
     dataPtr->link_name = _sdf->Get<std::string>("link_name");
-    //dataPtr->link_name = "link1";
     gzmsg << "VacuumGripper: Link name found " << dataPtr->link_name << std::endl;
-    //dataPtr->gripper_link_ = _model->GetLink(dataPtr->link_name);
 
+    dataPtr->gripperLinkEntity = dataPtr->model.LinkByName(_ecm, dataPtr->link_name);
+    if (kNullEntity == dataPtr->gripperLinkEntity)
+    {
+      gzerr << "Link with name " << dataPtr->link_name
+             << " not found in model " << dataPtr->model.Name(_ecm)
+             << ". Make sure the parameter 'parent_link' has the "
+             << "correct value. Failed to initialize.\n";
+      return;
+    }
   }
   else{
     gzerr << "VacuumGripper: No link defined)" << std::endl;
   }
 }
  
-void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
-  gz::sim::EntityComponentManager &_ecm)
+void VacuumGripper::Update(const UpdateInfo &_info,
+  EntityComponentManager &_ecm)
 {
-  gz::math::Pose3d gripper_pose;
-  std::optional<gz::sim::Entity> gripper_entity;
+  math::Pose3d gripper_pose;
+
+  std::optional<Entity> gripper_entity;
 
   // Check if the gripper is enabled and no model is currently attached
   if (dataPtr->gripper_enabled && !dataPtr->model_attached)
   {
+    #if 0
     // Find the gripper entity and its pose
-    _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
-      [&](const gz::sim::Entity &_entity,
-          const gz::sim::components::Name *_nameComp,
-          const gz::sim::components::Pose *_poseComp) -> bool
+    _ecm.Each<components::Name, components::Pose>(
+      [&](const Entity &_entity,
+          const components::Name *_nameComp,
+          const components::Pose *_poseComp) -> bool
       {
         if (_nameComp && (_nameComp->Data() == dataPtr->link_name))
         {
@@ -152,7 +182,7 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
           gripper_pose = _poseComp->Data();
           gzmsg << "Gripper pose: " << gripper_pose << std::endl;
           return false; // Stop iterating once the gripper is found
-          if(!_ecm.CreateComponent(_entity, gz::sim::components::Joint()))
+          if(!_ecm.CreateComponent(_entity, components::Joint()))
           {
             gzerr << "Failed to create joint component for entity: " << _entity << std::endl;
             return true; // Continue iterating
@@ -166,16 +196,12 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
       gzerr << "VacuumGripper: Gripper entity not found." << std::endl;
       return;
     }
-
-
-
-
-
+#endif
     // Find objects within range of the gripper
-    _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
-      [&](const gz::sim::Entity &object_entity,
-          const gz::sim::components::Name *_nameComp,
-          const gz::sim::components::Pose *_poseComp) -> bool
+    _ecm.Each<components::Name, components::Pose>(
+      [&](const Entity &object_entity,
+          const components::Name *_nameComp,
+          const components::Pose *_poseComp) -> bool
       {
         if (!_nameComp || !_poseComp)
         {
@@ -186,8 +212,8 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
         std::string entityName = _nameComp->Data();
         if (entityName != dataPtr->link_name) // Skip the gripper link itself
         {
-          gz::math::Pose3d object_pose = _poseComp->Data();
-          gz::math::Pose3d diff = gripper_pose - object_pose;
+          math::Pose3d object_pose = _poseComp->Data();
+          math::Pose3d diff = gripper_pose - object_pose;
 
           if (diff.Pos().Length() < dataPtr->max_distance_)
           {
@@ -195,35 +221,45 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
             gzmsg << "Object pose: " << object_pose << std::endl;
             gzmsg << "Distance: " << diff.Pos().Length() << std::endl;
 
-            // Add a DetachableJoint component to the new entity
-            //_ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::DetachableJoint());
-#if 0
             #if 0
-            if(!_ecm.CreateComponent(object_entity, gz::sim::components::Joint()))
-            {
-              gzerr << "Failed to create joint component for entity: " << object_entity << std::endl;
-              return true; // Continue iterating
+
+            Entity modelEntity{kNullEntity};
+            modelEntity = _ecm.EntityByComponents(
+              Model(), components::Name(entityName));
+            if (kNullEntity != modelEntity){
+              childLinkEntity = _ecm.EntityByComponents(
+                Link(), components::ParentEntity(modelEntity),
+                components::Name(entityName));
             }
+
+            if (kNullEntity != childLinkEntity)
+            {
+
+            dataPtr->detachableJointEntity = _ecm.CreateEntity();
+#if 1
+            auto component = _ecm.CreateComponent(
+              dataPtr->detachableJointEntity,
+              components::DetachableJoint({gripper_entity.value(),
+                childLinkEntity, "fixed"}));
 #else
-            if(!_ecm.CreateComponent(gripper_entity, gz::sim::components::Joint()))
+                  auto component = _ecm.CreateComponent(
+              dataPtr->detachableJointEntity,
+              components::DetachableJoint({object_entity,
+                gripper_entity.value(), "fixed"}));
+#endif
+                if (!component)
             {
-              gzerr << "Failed to create joint component for entity: " << gripper_entity << std::endl;
+              gzmsg << "Failed to create DetachableJoint component for entity: " << dataPtr->detachableJointEntity << std::endl;
               return true; // Continue iterating
             }
-#endif
-#endif
-
-            // Set the parent link for the joint
-            if(!_ecm.CreateComponent(object_entity, gz::sim::components::ParentEntity(gripper_entity.value())))
-            {
-              gzerr << "Failed to set parent entity for joint: " << object_entity << std::endl;
-              return true; // Continue iterating
-            }
-
+            gzmsg << "connect " << object_entity << " to " << gripper_entity.value() << std::endl;
+            // https://github.com/gazebosim/gz-sim/blob/gz-sim8/src/systems/detachable_joint/DetachableJoint.cc
             gzmsg << "VacuumGripper: Object attached to gripper." << std::endl;
 
             dataPtr->model_attached = true;
+          }
             return false; // Stop iterating once an object is attached
+#endif
           }
         }
         return true; // Continue iterating
@@ -236,16 +272,16 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
 
     // Remove the joint entity
     #if 0
-    if (dataPtr->jointEntity != gz::sim::kNullEntity)
+    if (dataPtr->detachableJointEntity != kNullEntity)
     {
-      _ecm.RequestRemoveEntity(dataPtr->jointEntity);
-      dataPtr->jointEntity = gz::sim::kNullEntity;
+      _ecm.RequestRemoveEntity(dataPtr->detachableJointEntity);
+      dataPtr->detachableJointEntity = kNullEntity;
     }
     #endif
   }
 
   // Publish the gripper status
-  gz::msgs::Boolean status_msg;
+  msgs::Boolean status_msg;
   status_msg.set_data(dataPtr->model_attached);
 
   if (!dataPtr->status_pub_.Publish(status_msg))
@@ -254,114 +290,10 @@ void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
   }
 }
 
-#if 0
-void VacuumGripper::Update(const gz::sim::UpdateInfo &_info,
-    gz::sim::EntityComponentManager &_ecm)
-{
-  //gzmsg << "VacuumGripper: Update()" << std::endl;
-  // Check if the gripper is enabled
-
-  gz::math::Pose3d gripper_pose;
-  std::optional<gz::sim::Entity> gripper_entity;
-  if(dataPtr->gripper_enabled && !dataPtr->model_attached){
-
-  // Iterate through all entities with a specific component (vacuum_gripper_link)
-  _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
-    [&](const gz::sim::Entity &_entity,
-        const gz::sim::components::Name *_nameComp,
-        const gz::sim::components::Pose *_poseComp) -> bool
-    {
-      if (_nameComp && (_nameComp->Data() == dataPtr->link_name))
-      {
-        gzmsg << "Found entity with name: " << _nameComp->Data() << ", ID: " << _entity << std::endl;
-        gripper_entity = _entity;
-        gripper_pose = _poseComp->Data();
-        gzmsg << "Gripper pose: " << gripper_pose << std::endl;
-        return false; // Stop iterating once the entity is found
-      }
-      //gzerr << "No found entity with name: " << dataPtr->link_name << std::endl;
-      return true; // Continue iterating
-    });
-
-    std::optional<gz::sim::Entity> object_entity;
-
-  // Iterate through all entities with a specific component (e.g., Name or Pose)
-  _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
-    [&](const gz::sim::Entity &_entity,
-        const gz::sim::components::Name *_nameComp,
-        const gz::sim::components::Pose *_poseComp) -> bool
-    {
-      if (!_nameComp || !_poseComp)
-      {
-        gzerr << "Entity " << _entity << " is missing required components." << std::endl;
-        return true; // Continue iterating
-      }
-  
-      // Access the entity's name
-      object_entity = _entity;
-      std::string entityName = _nameComp->Data();
-      if(_nameComp->Data()!= dataPtr->link_name){ // Skip gripper link
-  
-        // Access the entity's pose
-        gz::math::Pose3d object_pose = _poseComp->Data();
-
-        gz::math::Pose3d diff = gripper_pose - object_pose;
-        //gzmsg << "Found Entity ID: " << _entity << ", Name: " << entityName << std::endl;
-            
-        if (diff.Pos().Length() < dataPtr->max_distance_) {
-          gzmsg << "Entity ID: " << _entity << ", Name: " << entityName << std::endl;
-          gzmsg << "Object pose: " << object_pose << std::endl;
-          gzmsg << "Gripper pose: " << gripper_pose << std::endl;
-          gzmsg << "Distance : " << diff.Pos().Length()  << std::endl;
-          
-          dataPtr->jointEntity = _ecm.CreateEntity();
-
-          // Add a Joint component to the new entity
-          _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::FixedJoint());
-
-          // Set the joint type to fixed
-          //_ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::JointType(gz::physics::JointType::FIXED));
-
-          // Set the parent and child links for the joint
-          _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ParentEntity(gripper_entity));
-          _ecm.CreateComponent(dataPtr->jointEntity, gz::sim::components::ChildEntity(object_entity));
-
-
-
-
-
-          return false; // Stop iterating once the entity is found
-        }
-      }
-      return true; // Continue iterating
-    });
-
-    gzmsg << "VacuumGripper: Gripper attach" << std::endl;
-    dataPtr->model_attached = true;
-  }
-  else if(!dataPtr->gripper_enabled && dataPtr->model_attached){
-    gzmsg << "VacuumGripper: Gripper de-attach()" << std::endl;
-    dataPtr->model_attached = false;
-  }
-  else if(dataPtr->gripper_enabled && dataPtr->model_attached){
-
-    //gzerr << "VacuumGripper: Invalid state" << std::endl;
-  }
-  gz::msgs::Boolean status_msg;
-  status_msg.set_data(dataPtr->model_attached);
-
-  if (!dataPtr->status_pub_.Publish(status_msg)) {
-    gzerr << "gz::msgs::Int32 message couldn't be published at topic: " <<
-    dataPtr->status_topic_ << std::endl;
-  }
-
-}
-#endif
-
 // Include a line in your source file for each interface implemented.
 GZ_ADD_PLUGIN(
   vacuum_gripper::VacuumGripper,
-  gz::sim::System,
+  System,
   vacuum_gripper::VacuumGripper::ISystemConfigure,
   vacuum_gripper::VacuumGripper::ISystemUpdate
 )

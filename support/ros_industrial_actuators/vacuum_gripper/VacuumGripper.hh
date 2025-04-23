@@ -1,6 +1,7 @@
 #ifndef _VACUUM_GRIPPER_PLUGIN_INCL_
 #define _VACUUM_GRIPPER_PLUGIN_INCL_
 #include <gz/sim/System.hh>
+#include <gz/sim/Model.hh>
 #include <gz/plugin/Register.hh>
 #include <gz/msgs.hh>
 #include <gz/transport/Node.hh>
