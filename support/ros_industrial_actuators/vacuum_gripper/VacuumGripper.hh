@@ -8,6 +8,7 @@
 
 #include <gz/sim/components/Pose.hh>
 #include <gz/sim/EntityComponentManager.hh>
+#include <gz/sim/Link.hh>
 #include <gz/math/Pose3.hh>
 
 #include <gz/sim/components/ParentEntity.hh>
@@ -15,6 +16,7 @@
 #include <gz/physics/Link.hh>
 
 #include <gz/sim/components/Joint.hh>
+#include <gz/sim/components/Link.hh>
 #include <gz/sim/components/DetachableJoint.hh>
 
 #include <gz/sim/components/ChildLinkName.hh>

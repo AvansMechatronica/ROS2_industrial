@@ -205,37 +205,29 @@ void VacuumGripper::PreUpdate(
             // Attach object to gripper here
             {
 
+
+              auto objectLinkEntity = _ecm.EntityByComponents(
+                gz::sim::components::Link(), gz::sim::components::ParentEntity(object_entity));//,
+
+              if (!objectLinkEntity){
+                gzerr << "Failed to find object link entity for: " << entityName << std::endl;
+                return false; // Stop iterating
+
+              }
+              gzerr << "Object link entity: " << objectLinkEntity << std::endl;
+
               dataPtr->detachableJointEntity = _ecm.CreateEntity();
 
               auto component = _ecm.CreateComponent(
                 dataPtr->detachableJointEntity,
                 gz::sim::components::DetachableJoint({gripper_entity.value(),
-//                  object_entity, "fixed"}));
-                  58, "fixed"}));
+                  objectLinkEntity, "fixed"}));
               if (!component)
               {
   	            gzmsg << "Failed to create DetachableJoint component for entity: " << dataPtr->detachableJointEntity << std::endl;
                 return true; // Continue iterating
               }
-              gzmsg << "connect entity " << object_entity << " to entty " << gripper_entity.value() << std::endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+              //gzmsg << "connect entity " << object_entity << " to entty " << gripper_entity.value() << std::endl;
 
             }
 
@@ -254,11 +246,11 @@ void VacuumGripper::PreUpdate(
     dataPtr->model_attached = false;
 
     // Remove the joint entity
-    #if 0
-    if (dataPtr->jointEntity != gz::sim::kNullEntity)
+    #if 1
+    if (dataPtr->detachableJointEntity != gz::sim::kNullEntity)
     {
       _ecm.RequestRemoveEntity(dataPtr->detachableJointEntity);
-      dataPtr->detachableJointEntity = kNullEntity;
+      dataPtr->detachableJointEntity = gz::sim::kNullEntity;
     }
     #endif
   }
