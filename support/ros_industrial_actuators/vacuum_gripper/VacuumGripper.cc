@@ -1,3 +1,8 @@
+// Created by Gerard Harkema on Aril 24, 2016
+// Copyright (C) 2016 Gerard Harkema
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the License CC BY-NC-SA 4.0(https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
 #include "VacuumGripper.hh"
 
 
@@ -16,9 +21,6 @@ class vacuum_gripper::VacuumGripperPrivate
     std::string enable_topic_ = "/vacuum_gripper/control/enable";
     std::string status_topic_ = "/vacuum_gripper/status/attached";
 
-    //bool status = false;
-    //bool enabled = false;  
-
     /// True if gripper is on.
     bool gripper_enabled;
     bool model_attached;
@@ -30,19 +32,6 @@ class vacuum_gripper::VacuumGripperPrivate
     std::string link_name;
 
     gz::sim::Entity detachableJointEntity{gz::sim::kNullEntity};
-
-    /// List of models that the should pick up
-    //std::vector<std::string> parts_to_pick_;
-
-    /// Pointer to link.
-    //gz::physics::LinkPtr gripper_link_;
-
-    /// Protect variables accessed on callbacks.
-    //std::mutex lock_;
-
-    /// Pointer to joint.
-
-    // gz::sim::Entity jointEntity = gz::sim::kNullEntity;
 };
 
 VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
@@ -51,10 +40,6 @@ VacuumGripper::VacuumGripper(): dataPtr(new VacuumGripperPrivate())
 
   CreatePublishers();
   CreateSubscribers();
-
-
-  // Set list of models to pickup
-  //dataPtr->parts_to_pick_ = {"pump", "battery", "regulator", "sensor"};
 
   dataPtr->max_distance_ = 0.085;
 }
@@ -172,12 +157,6 @@ void VacuumGripper::PreUpdate(
         return true; // Continue iterating
       });
 
-    if (!gripper_entity)
-    {
-      //gzerr << "VacuumGripper: Gripper entity not found." << std::endl;
-      return;
-    }
-
     // Find objects within range of the gripper
     _ecm.Each<gz::sim::components::Name, gz::sim::components::Pose>(
       [&](const gz::sim::Entity &object_entity,
@@ -204,8 +183,6 @@ void VacuumGripper::PreUpdate(
 
             // Attach object to gripper here
             {
-
-
               auto objectLinkEntity = _ecm.EntityByComponents(
                 gz::sim::components::Link(), gz::sim::components::ParentEntity(object_entity));//,
 
@@ -228,7 +205,6 @@ void VacuumGripper::PreUpdate(
                 return true; // Continue iterating
               }
               //gzmsg << "connect entity " << object_entity << " to entty " << gripper_entity.value() << std::endl;
-
             }
 
             gzmsg << "VacuumGripper: Object attached to gripper." << std::endl;
@@ -246,13 +222,11 @@ void VacuumGripper::PreUpdate(
     dataPtr->model_attached = false;
 
     // Remove the joint entity
-    #if 1
     if (dataPtr->detachableJointEntity != gz::sim::kNullEntity)
     {
       _ecm.RequestRemoveEntity(dataPtr->detachableJointEntity);
       dataPtr->detachableJointEntity = gz::sim::kNullEntity;
     }
-    #endif
   }
 
   // Publish the gripper status
