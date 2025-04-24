@@ -59,7 +59,7 @@ def launch_setup(context, *args, **kwargs):
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py'])),
         launch_arguments={
-            'gz_args': ' -r -v 3 {}'.format(xarm_gazebo_world.perform(context)),
+            'gz_args': ' -r -v 4 {}'.format(xarm_gazebo_world.perform(context)),
         }.items(),
     )
 
