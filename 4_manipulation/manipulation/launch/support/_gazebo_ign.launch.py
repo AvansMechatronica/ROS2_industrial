@@ -20,6 +20,9 @@ from launch.conditions import IfCondition
 from launch_ros.substitutions import FindPackageShare
 from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.actions import OpaqueFunction
+from launch_param_builder import load_xacro
+import xacro
+
 
     
 def launch_setup(context, *args, **kwargs):
@@ -64,16 +67,42 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # ignition gazebo spawn entity node
-    gazebo_spawn_entity_node = Node(
-        package="ros_gz_sim",
-        executable="create",
-        output='screen',
-        arguments=[
-            '-name', 'xarm',
-            '-topic', 'robot_description',
-        ],
-        parameters=[{'use_sim_time': True}],
-    )
+    if 1:
+        #print(robot_description)
+        gazebo_spawn_entity_node = Node(
+            package="ros_gz_sim",
+            executable="create",
+            output='screen',
+            arguments=[
+                '-name', 'xarm',
+                '-topic', 'robot_description',
+            ],
+            parameters=[{'use_sim_time': True}],
+        )
+    else:
+
+        pkg_path = os.path.join(get_package_share_directory('manipulation'))
+        robot_on_pedestal_urdf_file = os.path.join(pkg_path, 'urdf', 'robot_on_pedestal.urdf.xacro')
+        #robot_on_pedestal_urdf_file = os.path.join(pkg_path, 'urdf', 'environment.urdf.xacro')
+        print(robot_on_pedestal_urdf_file)
+        #robot_on_pedestal_description = load_xacro(robot_on_pedestal_urdf_file)
+        robot_on_pedestal_description = xacro.load_yaml(robot_on_pedestal_urdf_file)
+        #robot_on_pedestal_description = load_xacro('/home/student/ros2_industrial_ws/install/manipulation/share/manipulation/urdf/robot_on_pedestal.urdf.xacro')
+        print('jason robot_on_pedestal_description')
+
+        print(robot_on_pedestal_description)
+        if 1:
+            gazebo_spawn_entity_node = Node(
+                package="ros_gz_sim",
+                executable="create",
+                output='screen',
+                arguments=[
+                    '-name', 'xarm',
+                    '-topic', robot_on_pedestal_description,
+                    #'-file', robot_on_pedestal_urdf_file,
+                ],
+                parameters=[{'use_sim_time': True}],
+            )
 
     # rviz with moveit configuration
     if not rviz_config.perform(context):
