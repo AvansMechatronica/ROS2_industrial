@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="mesh_path" default="$(find ros_industrial_support)"/>
+
+  <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='package://ros_industrial_support'">-->
+  <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='$(find ros_industrial_support)'">-->
+  <xacro:macro name="bin_urdf" params="prefix">
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_gazebo)"/>
+
+    <!-- link list -->
+    <link name="${prefix}base_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="${mesh_path}/models/drop_bin/meshes/bin_exterior.dae" />
+          <scale>0.6 0.6 0.6</scale>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="${mesh_path}/models/drop_bin/meshes/bin_exterior.dae"/>
+          <scale>0.6 0.6 0.6</scale>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="1.0" ixy="0" ixz="0"
+                 iyy="1.0" iyz="0"
+                 izz="1.0" />
+        <mass value="100" />
+      </inertial>
+    </link>
+  </xacro:macro>
+</robot>

@@ -6,28 +6,35 @@
   <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='package://ros_industrial_support'">-->
   <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='$(find ros_industrial_support)'">-->
   <xacro:macro name="bin_urdf" params="prefix">
-  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_gazebo)"/>
 
     <!-- link list -->
     <link name="${prefix}base_link">
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="${mesh_path}/meshes/bin/visual/bin.dae" />
+          <mesh filename="${mesh_path}/models/part_bin/meshes/bin_exterior.dae" />
+          <scale>0.6 0.6 0.6</scale>
+        </geometry>
+      </visual>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="${mesh_path}/models/part_bin/meshes/bin_interior.stl" />
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="${mesh_path}/meshes/bin/collision/bin_bottom.dae"/>
+          <mesh filename="${mesh_path}/models/part_bin/meshes/bin_exterior.dae"/>
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </collision>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="${mesh_path}/meshes/bin/collision/bin_sides.dae"/>
+          <mesh filename="${mesh_path}/models/part_bin/meshes/bin_interior.stl"/>
           <scale>0.6 0.6 0.6</scale>
         </geometry>
       </collision>
@@ -39,20 +46,5 @@
         <mass value="100" />
       </inertial>
     </link>
-    <link name="${prefix}drop_point">
-      <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="1.0" ixy="0" ixz="0"
-                 iyy="1.0" iyz="0"
-                 izz="1.0" />
-        <mass value="1.0" />
-      </inertial>
-    </link>
-    <!-- joint list -->
-    <joint name="${prefix}joint_1" type="fixed">
-      <origin xyz="0 0 1.0" rpy="0 0 0" />
-      <parent link="${prefix}base_link" />
-      <child link="${prefix}drop_point" />
-    </joint>
   </xacro:macro>
 </robot>

@@ -67,42 +67,21 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # ignition gazebo spawn entity node
-    if 1:
-        #print(robot_description)
-        gazebo_spawn_entity_node = Node(
-            package="ros_gz_sim",
-            executable="create",
-            output='screen',
-            arguments=[
-                '-name', 'xarm',
-                '-topic', 'robot_description',
-            ],
-            parameters=[{'use_sim_time': True}],
-        )
-    else:
 
-        pkg_path = os.path.join(get_package_share_directory('manipulation'))
-        robot_on_pedestal_urdf_file = os.path.join(pkg_path, 'urdf', 'robot_on_pedestal.urdf.xacro')
-        #robot_on_pedestal_urdf_file = os.path.join(pkg_path, 'urdf', 'environment.urdf.xacro')
-        print(robot_on_pedestal_urdf_file)
-        #robot_on_pedestal_description = load_xacro(robot_on_pedestal_urdf_file)
-        robot_on_pedestal_description = xacro.load_yaml(robot_on_pedestal_urdf_file)
-        #robot_on_pedestal_description = load_xacro('/home/student/ros2_industrial_ws/install/manipulation/share/manipulation/urdf/robot_on_pedestal.urdf.xacro')
-        print('jason robot_on_pedestal_description')
+    pkg_path = os.path.join(get_package_share_directory('manipulation'))
+    robot_on_pedestal_sdf_file = os.path.join(pkg_path, 'urdf', 'robot_on_pedestal.sdf')
 
-        print(robot_on_pedestal_description)
-        if 1:
-            gazebo_spawn_entity_node = Node(
-                package="ros_gz_sim",
-                executable="create",
-                output='screen',
-                arguments=[
-                    '-name', 'xarm',
-                    '-topic', robot_on_pedestal_description,
-                    #'-file', robot_on_pedestal_urdf_file,
-                ],
-                parameters=[{'use_sim_time': True}],
-            )
+    robot_ob_pedestal_launch = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        arguments=[
+            '-name', 'xarm',
+            #'-topic', robot_on_pedestal_description,
+            '-file', robot_on_pedestal_sdf_file,
+        ],
+        parameters=[{'use_sim_time': True}],
+    )
 
     # rviz with moveit configuration
     if not rviz_config.perform(context):
@@ -182,7 +161,33 @@ def launch_setup(context, *args, **kwargs):
             '-file', model_path,
             '-x', '1.5', '-y', '-0.5', '-z', '0.0', '-Y', str(math.radians(45)),
         ],
-        #parameters=[{'use_sim_time': True}],
+    )
+
+    model_path = pkg_path + '/models/assembly_station/model.sdf'
+    # ignition gazebo spawn entity node
+    assembly_station_launch = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        arguments=[
+            '-name', "assembly_station",
+            '-file', model_path,
+            '-x', '0.5', '-y', '-0.5', '-z', '0.0', '-Y', str(math.radians(90)),
+        ],
+    )
+
+
+    model_path = pkg_path + '/models/drop_bin/model.sdf'
+    # ignition gazebo spawn entity node
+    drop_bin_launch = Node(
+        package="ros_gz_sim",
+        executable="create",
+        output='screen',
+        arguments=[
+            '-name', "drop_bin",
+            '-file', model_path,
+            '-x', '-0.5', '-y', '0.5', '-z', '0.0',
+        ],
     )
 
 
@@ -197,32 +202,34 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,
-                    on_start=gazebo_spawn_entity_node,
+                    on_start=robot_ob_pedestal_launch,
                 )
             ),
             RegisterEventHandler(
                 condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
+                    target_action=robot_ob_pedestal_launch,
                     on_exit=rviz2_node,
                 )
             ),
             RegisterEventHandler(
                 event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
+                    target_action=robot_ob_pedestal_launch,
                     on_exit=controller_nodes,
                 )
             ),
             RegisterEventHandler(
                 event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
+                    target_action=robot_ob_pedestal_launch,
                     on_exit=vacuum_gripper_launch,
                 )
             ),
 
             robot_state_publisher_node,
             clock_bridge,
-            mobile_computer_launch
+            mobile_computer_launch,
+            assembly_station_launch,
+            drop_bin_launch
         ]
     else:
         return [
@@ -235,13 +242,13 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,
-                    on_start=gazebo_spawn_entity_node,
+                    on_start=robot_ob_pedestal_launch,
                 )
             ),
             RegisterEventHandler(
                 condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
-                    target_action=gazebo_spawn_entity_node,
+                    target_action=robot_ob_pedestal_launch,
                     on_exit=rviz2_node,
                 )
             ),

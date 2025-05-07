@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="parts_bin">
+    <static>true</static>
+    <link name="link">
+      <visual name="exterior_visual">
+        <geometry>
+          <mesh>
+            <uri>model://parts_bin/meshes/bin_exterior.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+
+      <collision name="exterior_collision">
+        <geometry>
+          <mesh>
+            <uri>model://parts_bin/meshes/bin_exterior.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+    </link>
+  </model>
+</sdf>
