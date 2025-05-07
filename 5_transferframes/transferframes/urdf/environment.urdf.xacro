@@ -18,12 +18,10 @@
   </xacro:assembly_station_urdf>
 
   <!-- Mobile Computer -->
-  <!--
   <xacro:include filename="$(find ros_industrial_support)/urdf/computer_mobile/computer.urdf.xacro"/>
   <xacro:computer_urdf computer_parent="world" computer_prefix="comp_mobile_" >
   <origin xyz="1.5 -0.5 0.00" rpy="0 0 ${radians(45)}"/>
   </xacro:computer_urdf>
-  -->
 
   <!-- Robot1 Pedestal -->
   <xacro:include filename="$(find ros_industrial_support)/urdf/robot_pedestal/robot_pedestal.urdf.xacro"/>
@@ -47,7 +45,7 @@
   <xacro:vacuum_gripper_urdf prefix="vacuum_gripper1_" joint_prefix="vacuum_gripper1_joint"/>
 
   <!-- bins -->
-  <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
+  <xacro:include filename="$(find ros_industrial_support)/urdf/drop_bin/drop_bin.urdf.xacro"/>
   <xacro:bin_urdf prefix="bin_1_"/>
 
   <!-- bin to world. -->

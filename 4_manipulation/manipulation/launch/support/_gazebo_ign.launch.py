@@ -71,7 +71,7 @@ def launch_setup(context, *args, **kwargs):
     pkg_path = os.path.join(get_package_share_directory('manipulation'))
     robot_on_pedestal_sdf_file = os.path.join(pkg_path, 'urdf', 'robot_on_pedestal.sdf')
 
-    robot_ob_pedestal_launch = Node(
+    robot_on_pedestal_launch = Node(
         package="ros_gz_sim",
         executable="create",
         output='screen',
@@ -202,25 +202,25 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,
-                    on_start=robot_ob_pedestal_launch,
+                    on_start=robot_on_pedestal_launch,
                 )
             ),
             RegisterEventHandler(
                 condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
-                    target_action=robot_ob_pedestal_launch,
+                    target_action=robot_on_pedestal_launch,
                     on_exit=rviz2_node,
                 )
             ),
             RegisterEventHandler(
                 event_handler=OnProcessExit(
-                    target_action=robot_ob_pedestal_launch,
+                    target_action=robot_on_pedestal_launch,
                     on_exit=controller_nodes,
                 )
             ),
             RegisterEventHandler(
                 event_handler=OnProcessExit(
-                    target_action=robot_ob_pedestal_launch,
+                    target_action=robot_on_pedestal_launch,
                     on_exit=vacuum_gripper_launch,
                 )
             ),
@@ -242,13 +242,13 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,
-                    on_start=robot_ob_pedestal_launch,
+                    on_start=robot_on_pedestal_launch,
                 )
             ),
             RegisterEventHandler(
                 condition=IfCondition(show_rviz),
                 event_handler=OnProcessExit(
-                    target_action=robot_ob_pedestal_launch,
+                    target_action=robot_on_pedestal_launch,
                     on_exit=rviz2_node,
                 )
             ),

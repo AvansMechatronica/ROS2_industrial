@@ -114,14 +114,15 @@ class PickAndDrop(Node):
         time.sleep(1.0)
         ## goto post-grasp
         self.move_to_object(0.015)
-    
-        # Move to joint configuration
-        result, joint_values = self.lite6_groupstates.get_joint_values('home')
-        if result:
-            self.node.get_logger().info("Move to " + 'home')
-            self.move_group_helper.move_to_configuration(joint_values)
-        else:
-            self.node.get_logger().error( "Failed to get joint_values of " + 'home')
+        if 0: # Waarom wordt de home positie niet gehaald?
+            time.sleep(1.0)
+            # Move to joint configuration
+            result, joint_values = self.lite6_groupstates.get_joint_values('home')
+            if result:
+                self.node.get_logger().info("Move to " + 'home')
+                self.move_group_helper.move_to_configuration(joint_values)
+            else:
+                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
         # Move to joint configuration
         result, joint_values = self.lite6_groupstates.get_joint_values('drop')
