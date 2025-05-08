@@ -24,6 +24,9 @@ from ros_industrial_sensors.custom_logical_camera import Camera
 from rclpy.executors import MultiThreadedExecutor
 import time
 from ros_industrial_actuators import VacuumGripper
+from tf2_ros import TransformException
+from tf2_ros.buffer import Buffer
+from tf2_ros.transform_listener import TransformListener
 
 prefix = ''
 joint_names = [
@@ -39,9 +42,7 @@ end_effector_name = "vacuum_gripper1_suction_cup"
 group_name = "xarm6"
 package_name = 'transferframes_moveit_config'
 srdf_file_name = 'config/manipuation_environment.srdf'
-from tf2_ros import TransformException
-from tf2_ros.buffer import Buffer
-from tf2_ros.transform_listener import TransformListener
+
 
 joint_states = ['left', 'right', 'home']
 
@@ -49,10 +50,11 @@ class PickAndDrop(Node):
     def __init__(self, node):
         super().__init__('PickAndDrop')
 
+
         # Create node for this example
         self.node = node
 
-        self.vacuum_gripper = VacuumGripper("/gripper")
+        self.vacuum_gripper = VacuumGripper()
         self.vacuum_gripper.release()
 
         # Initialize the TransformListener and buffer
@@ -81,54 +83,56 @@ class PickAndDrop(Node):
             return
         
         parts = photo['parts']
+        parts_to_pick = ['pump', 'sensor', 'battery', 'regulator']
         #camera_frame = ['camera_frame']
         #self.node.get_logger().info("Parts detected: {parts}")
 
         
         for part in parts:
-            self.node.get_logger().info(f'Handeling: {part}')
+            if part in parts_to_pick:
+                self.node.get_logger().info(f'Handeling: {part}')
 
-            #self.node.get_logger().info("Move to published fransfer frame")
-            ## goto pre-grasp
-            self.move_to_object(part, 0.015)
-            ## goto grasp
-            self.move_to_object(part)
-            time.sleep(1.0)
-            ## gripper enable
-            self.vacuum_gripper.pull()
-            time.sleep(1.0)
-            #self.gripper_release() 
-            ## goto post-grasp
-            self.move_to_object(part, 0.015)
-        
+                #self.node.get_logger().info("Move to published fransfer frame")
+                ## goto pre-grasp
+                self.move_to_object(part, 0.05)
+                ## goto grasp
+                self.move_to_object(part)
+                time.sleep(1.0)
+                ## gripper enable
+                self.vacuum_gripper.pull()
+                time.sleep(1.0)
+                #self.gripper_release() 
+                ## goto post-grasp
+                self.move_to_object(part, 0.05)
+            
+                if 0:
+                    # Move to joint configuration
+                    result, joint_values = self.lite6_groupstates.get_joint_values('home')
+                    if result:
+                        self.node.get_logger().info("Move to " + 'home')
+                        self.move_group_helper.move_to_configuration(joint_values)
+                    else:
+                        self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
-            # Move to joint configuration
-            result, joint_values = self.lite6_groupstates.get_joint_values('home')
-            if result:
-                self.node.get_logger().info("Move to " + 'home')
-                self.move_group_helper.move_to_configuration(joint_values)
-            else:
-                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
+                # Move to joint configuration
+                result, joint_values = self.lite6_groupstates.get_joint_values('drop')
+                if result:
+                    self.node.get_logger().info("Move to " + 'drop')
+                    self.move_group_helper.move_to_configuration(joint_values)
+                else:
+                    self.node.get_logger().error( "Failed to get joint_values of " + 'drop')
 
-            # Move to joint configuration
-            result, joint_values = self.lite6_groupstates.get_joint_values('drop')
-            if result:
-                self.node.get_logger().info("Move to " + 'drop')
-                self.move_group_helper.move_to_configuration(joint_values)
-            else:
-                self.node.get_logger().error( "Failed to get joint_values of " + 'drop')
+                ## gripper release
+                self.vacuum_gripper.release()
 
-            ## gripper release
-            self.vacuum_gripper.release()
-
-            # Move to joint configuration
-            result, joint_values = self.lite6_groupstates.get_joint_values('home')
-            if result:
-                self.node.get_logger().info("Move to " + 'home')
-                self.move_group_helper.move_to_configuration(joint_values)
-            else:
-                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
+                # Move to joint configuration
+                result, joint_values = self.lite6_groupstates.get_joint_values('home')
+                if result:
+                    self.node.get_logger().info("Move to " + 'home')
+                    self.move_group_helper.move_to_configuration(joint_values)
+                else:
+                    self.node.get_logger().error( "Failed to get joint_values of " + 'home')
 
         result, joint_values = self.lite6_groupstates.get_joint_values('resting')
         if result:
