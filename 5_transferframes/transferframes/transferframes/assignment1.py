@@ -94,7 +94,7 @@ class PickAndDrop(Node):
 
                 #self.node.get_logger().info("Move to published fransfer frame")
                 ## goto pre-grasp
-                self.move_to_object(part, 0.05)
+                self.move_to_object(part, 0.15)
                 ## goto grasp
                 self.move_to_object(part)
                 time.sleep(1.0)
@@ -103,7 +103,7 @@ class PickAndDrop(Node):
                 time.sleep(1.0)
                 #self.gripper_release() 
                 ## goto post-grasp
-                self.move_to_object(part, 0.05)
+                self.move_to_object(part, 0.15)
             
                 if 0:
                     # Move to joint configuration

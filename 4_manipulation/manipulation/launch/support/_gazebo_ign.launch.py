@@ -21,8 +21,7 @@ from launch_ros.substitutions import FindPackageShare
 from launch.event_handlers import OnProcessExit, OnProcessStart
 from launch.actions import OpaqueFunction
 from launch_param_builder import load_xacro
-import xacro
-
+from launch.actions import ExecuteProcess
 
     
 def launch_setup(context, *args, **kwargs):
@@ -190,6 +189,18 @@ def launch_setup(context, *args, **kwargs):
         ],
     )
 
+    set_cam_pose = ExecuteProcess(
+            cmd=[
+                'gz', 'service',
+                '-s', '/gui/move_to/pose',
+                '--reqtype', 'gz.msgs.GUICamera',
+                '--reptype', 'gz.msgs.Boolean',
+                '--timeout', '2000',
+                '--req', 
+                'pose: {position: {x: 3.0, y: 2.0, z: 3.0} orientation: {x: 0.261282, y: 0.1065307, z: -0.8883635, w: 0.3622062}}',
+            ],
+            output='screen'
+        )
 
     if len(controller_nodes) > 0:
         return [
@@ -222,6 +233,12 @@ def launch_setup(context, *args, **kwargs):
                 event_handler=OnProcessExit(
                     target_action=robot_on_pedestal_launch,
                     on_exit=vacuum_gripper_launch,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=robot_on_pedestal_launch,
+                    on_exit=set_cam_pose,
                 )
             ),
 
