@@ -5,6 +5,7 @@
 # All rights reserved.
 #
 # Author: Vinman <vinman.wen@ufactory.cc> <vinman.cub@gmail.com>
+# Adapted for Avans ROS2 Industrial Workshop by Gerard Harkema, may 2025
 
 import os
 import yaml
@@ -238,15 +239,30 @@ def launch_setup(context, *args, **kwargs):
             RegisterEventHandler(
                 event_handler=OnProcessExit(
                     target_action=robot_on_pedestal_launch,
+                    on_exit=mobile_computer_launch,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=robot_on_pedestal_launch,
+                    on_exit=assembly_station_launch,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=robot_on_pedestal_launch,
+                    on_exit=drop_bin_launch,
+                )
+            ),
+            RegisterEventHandler(
+                event_handler=OnProcessExit(
+                    target_action=drop_bin_launch,
                     on_exit=set_cam_pose,
                 )
             ),
-
             robot_state_publisher_node,
             clock_bridge,
-            mobile_computer_launch,
-            assembly_station_launch,
-            drop_bin_launch
+            
         ]
     else:
         return [

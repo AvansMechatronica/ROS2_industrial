@@ -5,6 +5,7 @@
 # All rights reserved.
 #
 # Author: Vinman <vinman.wen@ufactory.cc> <vinman.cub@gmail.com>
+# Adapted for Avans ROS2 Industrial Workshop by Gerard Harkema, may 2025
 
 import yaml
 from launch import LaunchDescription
