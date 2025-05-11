@@ -1,4 +1,13 @@
 #!/bin/bash
+sudo apt update
+sudo apt install ros-$ROS_DISTRO-gz-ros2-control -y
+sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui -y
+sudo apt install ros-$ROS_DISTRO-moveit* -y
+sudo apt install ros-$ROS_DISTRO-geometric-shapes
+sudo apt install ros-$ROS_DISTRO-srdfdom -y
+sudo apt update
+sudo apt install ros-$ROS_DISTRO-eigen-stl-containers
+sudo apt install python3-pip -y
 
 # Environment Setup
 source /opt/ros/$ROS_DISTRO/setup.bash
@@ -14,7 +23,7 @@ rosdep update
 cd $CURRENT_DIR/..
 rosdep install --from-paths install --ignore-src -r -y
 
-#sudo apt install ros-$ROS_DISTRO-joint-state-publisher-gui
+
 
 if ! env | grep -q "QT_QPA_PLATFORM=xcb"; then
     echo "export QT_QPA_PLATFORM=xcb" >> ~/.bashrc
