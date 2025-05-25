@@ -4,6 +4,7 @@ Under contruction
 
 
 ```bash
+old style
 mkdir -p ~/turtlebot3_ws/src
 cd ~/turtlebot3_ws/src
 git clone -b jazzy https://github.com/ROBOTIS-GIT/DynamixelSDK.git
@@ -17,6 +18,10 @@ echo 'export TURTLEBOT3_MODEL=waffle' >> ~/.bashrc
 
 ```
 
+```bash
+cd ~/ros2_industrial_ws/src/ROS2_industrial/3_navigation_tb3/install
+./install.bash
+```
 
 Starten van de omgeving
 ```bash

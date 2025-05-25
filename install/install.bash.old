@@ -72,5 +72,23 @@ else
     echo "my_moveit_python already installed"
 fi
 
+# Install TurtleBot 4 Packages
+TURTLEBOT_DIR=~/turtlebot_ws
+if ! ros2 pkg list | grep -q "turtlebot4"; then
+    echo "Installing TurtleBot 4 packages"
+    mkdir -p "$TURTLEBOT_DIR/src"
+    cd "$TURTLEBOT_DIR/src"
+    git clone https://github.com/turtlebot/turtlebot4_desktop.git -b $ROS_DISTRO
+    git clone https://github.com/turtlebot/turtlebot4.git -b $ROS_DISTRO
+    git clone https://github.com/turtlebot/turtlebot4_simulator.git -b $ROS_DISTRO
+    cd "$TURTLEBOT_DIR"
+    rosdep install --from-paths . --ignore-src -r -y
+    colcon build --symlink-install
+    #echo "export TURTLEBOT3_MODEL=waffle_pi" >> ~/.bashrc
+    echo "source $TURTLEBOT_DIR/install/setup.bash" >> ~/.bashrc
+    source $TURTLEBOT_DIR/install/setup.bash
+else
+    echo "TurtleBot 4 packages already installed"
+fi
 
 cd "$CURRENT_DIR"
