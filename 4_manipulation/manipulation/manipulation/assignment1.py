@@ -74,15 +74,29 @@ def main():
     # Create node for this example
     node = Node("assignment1")
 
-    assignment = Assignment(node) # Note must be placed bevore creating executer
+    assignment = Assignment(node) # Note must be placed before creating executer
 
-    # Spin the node in background thread(s) and wait a bit for initialization
+
+    # Create a MultiThreadedExecutor that can use up to 2 threads
+    # to process callbacks (e.g., subscriptions, timers, services).
     executor = rclpy.executors.MultiThreadedExecutor(2)
+
+    # Register the node with the executor so its callbacks can be scheduled.
     executor.add_node(node)
+
+    # Create a separate background thread that will run the executor's spin loop.
+    # This allows ROS callbacks to be handled without blocking the main thread.
+    # Setting daemon=True ensures this thread will automatically stop when the main program exits.
     executor_thread = Thread(target=executor.spin, daemon=True, args=())
+
+    # Start the executor thread so it begins processing callbacks in parallel.
     executor_thread.start()
+
+    # Create a Rate object set to 1 Hz (once per second).
+    # This call blocks the main thread for ~1 second before continuing.
+    # Typically used in a loop to control the frequency of main-thread tasks.
     node.create_rate(1.0).sleep()
-    
+
     assignment.execute()
 
     rclpy.shutdown()

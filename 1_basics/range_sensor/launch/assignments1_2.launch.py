@@ -43,11 +43,11 @@ def generate_launch_description():
         output='screen'
     )
 
-      # Define the BoxHeightInformation subscriber / convert to feet node (Assignment 2)
+      # Define the BoxHeightInformation subscriber / convert to inches node (Assignment 2)
     box_height_feet_node = Node(
         package='range_sensor',
         executable='assignment2',
-        name='box_height_feet',
+        name='box_height_inches',
         output='screen'
     )
 
