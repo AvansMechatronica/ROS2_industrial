@@ -9,11 +9,9 @@
 from threading import Thread
 
 import rclpy
-from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.executors import MultiThreadedExecutor   
 from rclpy.node import Node
 
-#from ament_index_python.packages import get_package_share_directory
-import xml.etree.ElementTree as ET
 
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
@@ -21,87 +19,130 @@ from tf2_ros.transform_listener import TransformListener
 from my_moveit_python import srdfGroupStates
 from my_moveit_python import MovegroupHelper
 
-prefix = ''
-joint_names = [
-        prefix + "joint1",
-        prefix + "joint2",
-        prefix + "joint3",
-        prefix + "joint4",
-        prefix + "joint5",
-        prefix + "joint6",
-    ]
-base_link_name = "link_base"
-end_effector_name = "link_eef"
-group_name = "xarm6"
-package_name = 'manipulation_moveit_config'
-srdf_file_name = 'config/manipuation_environment.srdf'
 
-joint_states = ['left', 'right', 'home']
 
 class Assignment(Node):
-    def __init__(self, node):
-        super().__init__('Assignment')
+    def __init__(self):
+        super().__init__("assignment1")
+        # Robot parameters
+        prefix = ""
+        self.joint_names = [
+            prefix + "joint1",
+            prefix + "joint2",
+            prefix + "joint3",
+            prefix + "joint4",
+            prefix + "joint5",
+            prefix + "joint6",
+        ]
+        self.base_link_name = "link_base"
+        self.end_effector_name = "link_eef"
+        self.group_name = "xarm6"
+        self.package_name = "manipulation_moveit_config"
+        self.srdf_file_name = "config/manipuation_environment.srdf"
 
-        # Create node for this example
-        self.node = node
+        # TF setup
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
 
-        self.node.tf_buffer = Buffer()
-        self.node.tf_listener = TransformListener(self.node.tf_buffer, node)
+        # MoveIt helpers
+        self.group_states = srdfGroupStates(
+            self.package_name, self.srdf_file_name, self.group_name
+        )
+        self.move_group = MovegroupHelper(
+            self, self.joint_names, self.base_link_name, self.end_effector_name, self.group_name
+        )
 
-        self.lite6_groupstates = srdfGroupStates(package_name, srdf_file_name, group_name)
-        self.move_group_helper = MovegroupHelper(self.node, joint_names, base_link_name, end_effector_name, group_name)
-    
-    def execute(self):
+        # --- Create subscribers, publishers, clients, timers here ---
+
+        self.get_logger().info("assignment1 node has been initialized.")
+
+    # --- Create callback functions here ---
+
+    # --- Motion primitives ------------------------------------------------
+    def move_to_state(self, state_name: str):
+        result, joint_values = self.group_states.get_joint_values(state_name)
+        if not result:
+            self.get_logger().error(f"Failed to get joint values for state '{state_name}'.")
+        self.get_logger().info(f"Moving to state '{state_name}'.")
+        self.move_group.move_to_configuration(joint_values)
+
+    def move_to_pose(self, translation, rotation):
+        self.get_logger().info(f"Moving to pose: {translation}, {rotation}")
+        self.move_group.move_to_pose(translation, rotation)
+
+    def move_to_tf(self, from_frame: str, to_frame: str):
+        try:
+            t = self.tf_buffer.lookup_transform(
+                to_frame, from_frame, rclpy.time.Time()
+            )
+            translation = [
+                t.transform.translation.x,
+                t.transform.translation.y,
+                t.transform.translation.z,
+            ]
+            rotation = [
+                t.transform.rotation.w,
+                t.transform.rotation.x,
+                t.transform.rotation.y,
+                t.transform.rotation.z,
+            ]
+            self.get_logger().info(f"Moving to transform: {from_frame} → {to_frame}")
+            self.move_to_pose(translation, rotation)
+        except TransformException as ex:
+            self.get_logger().warn(f"Could not transform {to_frame} to {from_frame}: {ex}")
+
+    # --- App sequence ----------------------------------------------------
+
+    def execute_app(self):
+
+        joint_states = ['left', 'right', 'home']
+
         for joint_state in joint_states:
             # Move to joint configuration
-            result, joint_values = self.lite6_groupstates.get_joint_values(joint_state)
-            if result:
-                print("Move to " + joint_state)
-                self.move_group_helper.move_to_configuration(joint_values)
-            else:
-                print( "Failed to get joint_values of " + joint_state)
+            self.move_to_state(joint_state)
 
-
-            print("Move to fixed pose")
-            translation = [0.5, 0.2, 0.25]
-            rotation = [1.0, 0.0, 0.0, 0.0]
-            self.move_group_helper.move_to_pose(translation, rotation)
+        translation = [0.5, 0.2, 0.25]
+        rotation = [1.0, 0.0, 0.0, 0.0]
+        self.move_to_pose(translation, rotation)
 
         pass
 
 def main():
+    # Initialize the ROS 2 Python client library (must be called before anything ROS-related)
     rclpy.init()
-    # Create node for this example
-    node = Node("assignment1")
 
-    assignment = Assignment(node) # Note must be placed before creating executer
+    # Create an instance of your custom Node class (here called "Assignment")
+    # This must happen before creating the executor so that the node can be registered properly.
+    node = Assignment()  # Note: must be created before adding it to the executor
 
+    # Create a multithreaded executor with 2 threads
+    # This allows the node to handle multiple callbacks concurrently (e.g., subscriptions, timers)
+    executor = MultiThreadedExecutor(num_threads=2)
 
-    # Create a MultiThreadedExecutor that can use up to 2 threads
-    # to process callbacks (e.g., subscriptions, timers, services).
-    executor = rclpy.executors.MultiThreadedExecutor(2)
-
-    # Register the node with the executor so its callbacks can be scheduled.
+    # Add the node to the executor so it can process its callbacks
     executor.add_node(node)
 
-    # Create a separate background thread that will run the executor's spin loop.
-    # This allows ROS callbacks to be handled without blocking the main thread.
-    # Setting daemon=True ensures this thread will automatically stop when the main program exits.
-    executor_thread = Thread(target=executor.spin, daemon=True, args=())
-
-    # Start the executor thread so it begins processing callbacks in parallel.
+    # Start the executor in a separate background thread
+    # This keeps the ROS event loop (callback processing) running
+    # while your main thread can still execute custom logic (like execute_app)
+    executor_thread = Thread(target=executor.spin, daemon=True)
     executor_thread.start()
 
-    # Create a Rate object set to 1 Hz (once per second).
-    # This call blocks the main thread for ~1 second before continuing.
-    # Typically used in a loop to control the frequency of main-thread tasks.
+    # Create a 1 Hz rate object and sleep once to allow initialization
+    # Equivalent to "rclpy.spin_once(node)" but gives time for system setup (e.g., MoveIt, TF)
     node.create_rate(1.0).sleep()
 
-    assignment.execute()
+    # Run your custom main logic (defined inside the Assignment class)
+    # This typically executes the robot’s motion, computation, or control behavior
+    node.execute_app()
 
+    # Shutdown ROS gracefully once the main logic finishes
     rclpy.shutdown()
+
+    # Wait for the executor thread to exit cleanly before terminating the program
     executor_thread.join()
-    exit(0)
+
+
 
 if __name__ == "__main__":
     main()

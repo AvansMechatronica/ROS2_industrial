@@ -79,76 +79,78 @@ class VacuumGripper(Node):
 
 
 class PickAndDrop(Node):
-    def __init__(self, node):
-        super().__init__('PickAndDrop')
 
-        # Create node for this example
-        self.node = node
+    def __init__(self):
+        super().__init__("PickAndDrop")
+        # Robot parameters
+        prefix = ""
+        self.joint_names = [
+            prefix + "joint1",
+            prefix + "joint2",
+            prefix + "joint3",
+            prefix + "joint4",
+            prefix + "joint5",
+            prefix + "joint6",
+        ]
+        self.base_link_name = "link_base"
+        self.end_effector_name = "link_eef"
+        self.group_name = "xarm6"
+        self.package_name = "manipulation_moveit_config"
+        self.srdf_file_name = "config/manipuation_environment.srdf"
+
+        # TF setup
+        self.tf_buffer = Buffer()
+        self.tf_listener = TransformListener(self.tf_buffer, self)
+
+        # MoveIt helpers
+        self.group_states = srdfGroupStates(
+            self.package_name, self.srdf_file_name, self.group_name
+        )
+        self.move_group = MovegroupHelper(
+            self, self.joint_names, self.base_link_name, self.end_effector_name, self.group_name
+        )
 
         self.vacuum_gripper = VacuumGripper()
         self.vacuum_gripper.release()
 
-        # Initialize SRDF and MoveGroup helper
-        self.lite6_groupstates = srdfGroupStates(package_name, srdf_file_name, group_name)
-        self.move_group_helper = MovegroupHelper(self.node, joint_names, base_link_name, end_effector_name, group_name)
+        # --- Create subscribers, publishers, clients, timers here ---
 
+        self.get_logger().info("PickAndDrop node has been initialized.")
 
-    def execute(self):
+    # --- Create callback functions here ---
 
-        # Move to joint configuration
-        result, joint_values = self.lite6_groupstates.get_joint_values('home')
-        if result:
-            self.node.get_logger().info("Move to " + 'home')
-            self.move_group_helper.move_to_configuration(joint_values)
-        else:
-            self.node.get_logger().error( "Failed to get joint_values of " + 'home')
+    # --- Motion primitives ------------------------------------------------
+    def move_to_state(self, state_name: str):
+        result, joint_values = self.group_states.get_joint_values(state_name)
+        if not result:
+            self.get_logger().error(f"Failed to get joint values for state '{state_name}'.")
+        self.get_logger().info(f"Moving to state '{state_name}'.")
+        self.move_group.move_to_configuration(joint_values)
 
-        #self.node.get_logger().info("Move to published fransfer frame")
-        ## goto pre-grasp
-        self.move_to_object(0.015)
-        ## goto grasp
-        self.move_to_object(0.0)
-        time.sleep(1.0)
-        ## gripper enable
-        self.vacuum_gripper.pull()
-        time.sleep(1.0)
-        ## goto post-grasp
-        self.move_to_object(0.015)
-        if 0: # Waarom wordt de home positie niet gehaald?
-            time.sleep(1.0)
-            # Move to joint configuration
-            result, joint_values = self.lite6_groupstates.get_joint_values('home')
-            if result:
-                self.node.get_logger().info("Move to " + 'home')
-                self.move_group_helper.move_to_configuration(joint_values)
-            else:
-                self.node.get_logger().error( "Failed to get joint_values of " + 'home')
+    def move_to_pose(self, translation, rotation):
+        self.get_logger().info(f"Moving to pose: {translation}, {rotation}")
+        self.move_group.move_to_pose(translation, rotation)
 
-        # Move to joint configuration
-        result, joint_values = self.lite6_groupstates.get_joint_values('drop')
-        if result:
-            self.node.get_logger().info("Move to " + 'drop')
-            self.move_group_helper.move_to_configuration(joint_values)
-        else:
-            self.node.get_logger().error( "Failed to get joint_values of " + 'drop')
-
-        ## gripper release
-        self.vacuum_gripper.release()
-
-        # Move to joint configuration
-        result, joint_values = self.lite6_groupstates.get_joint_values('home')
-        if result:
-            self.node.get_logger().info("Move to " + 'home')
-            self.move_group_helper.move_to_configuration(joint_values)
-        else:
-            self.node.get_logger().error( "Failed to get joint_values of " + 'home')
-
-        result, joint_values = self.lite6_groupstates.get_joint_values('resting')
-        if result:
-            self.node.get_logger().info("Move to " + 'resting')
-            self.move_group_helper.move_to_configuration(joint_values)
-        else:
-            self.node.get_logger().error( "Failed to get joint_values of " + 'resting')
+    def move_to_tf(self, from_frame: str, to_frame: str):
+        try:
+            t = self.tf_buffer.lookup_transform(
+                to_frame, from_frame, rclpy.time.Time()
+            )
+            translation = [
+                t.transform.translation.x,
+                t.transform.translation.y,
+                t.transform.translation.z,
+            ]
+            rotation = [
+                t.transform.rotation.w,
+                t.transform.rotation.x,
+                t.transform.rotation.y,
+                t.transform.rotation.z,
+            ]
+            self.get_logger().info(f"Moving to transform: {from_frame} → {to_frame}")
+            self.move_to_pose(translation, rotation)
+        except TransformException as ex:
+            self.get_logger().warn(f"Could not transform {to_frame} to {from_frame}: {ex}")
 
     def move_to_object(self, z_offset = 0.0):
         translation = [0.0, 0.0, 0.0]
@@ -161,7 +163,47 @@ class PickAndDrop(Node):
         rotation[1] = 0.0
         rotation[2] = 0.0
         rotation[3] = 0.0
-        self.move_group_helper.move_to_pose(translation, rotation)
+        self.move_to_pose(translation, rotation)
+
+    # --- App sequence ----------------------------------------------------
+
+    def execute_app(self):
+
+        self.move_to_state('home')
+        # Move to joint configuration
+        self.get_logger().info("Move to home")
+
+        #self.get_logger().info("Move to published fransfer frame")
+        ## goto pre-grasp
+        self.move_to_object(0.015)
+        ## goto grasp
+        self.move_to_object(0.0)
+        time.sleep(1.0)
+        ## gripper enable
+        self.vacuum_gripper.pull()
+        time.sleep(1.0)
+        ## goto post-grasp
+        self.move_to_object(0.015)
+        
+        self.move_to_state('home')
+        # Move to joint configuration
+        self.get_logger().info("Move to home")
+
+        self.move_to_state('drop')
+        # Move to joint configuration
+        self.get_logger().info("Move to drop")
+
+        ## gripper release
+        self.vacuum_gripper.release()
+
+        self.move_to_state('home')
+        # Move to joint configuration
+        self.get_logger().info("Move to home")
+
+        self.move_to_state('resting')
+        # Move to joint configuration
+        self.get_logger().info("Move to resting")
+
         
     def __del__(self):
         # Safe cleanup of executor and thread
@@ -172,25 +214,35 @@ class PickAndDrop(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    # Create the ROS 2 node
-    node = Node("assignment1")
-
     # Instantiate the PickAndDrop class and execute
-    pick_and_drop = PickAndDrop(node) # Note must be placed bevore creating executer
+    node = PickAndDrop() # Note must be placed bevore creating executer
 
+    # Create a multithreaded executor with 2 threads
+    # This allows the node to handle multiple callbacks concurrently (e.g., subscriptions, timers)
+    executor = MultiThreadedExecutor(num_threads=2)
 
-    # Spin the node in background thread(s) and wait a bit for initialization
-    executor = rclpy.executors.MultiThreadedExecutor(2)
+    # Add the node to the executor so it can process its callbacks
     executor.add_node(node)
-    executor_thread = Thread(target=executor.spin, daemon=True, args=())
+
+    # Start the executor in a separate background thread
+    # This keeps the ROS event loop (callback processing) running
+    # while your main thread can still execute custom logic (like execute_app)
+    executor_thread = Thread(target=executor.spin, daemon=True)
     executor_thread.start()
+
+    # Create a 1 Hz rate object and sleep once to allow initialization
+    # Equivalent to "rclpy.spin_once(node)" but gives time for system setup (e.g., MoveIt, TF)
     node.create_rate(1.0).sleep()
 
-    pick_and_drop.execute()
+    # Run your custom main logic (defined inside the Assignment class)
+    # This typically executes the robot’s motion, computation, or control behavior
+    node.execute_app()
 
-    pick_and_drop.destroy_node()
-        
+    # Shutdown ROS gracefully once the main logic finishes
     rclpy.shutdown()
+
+    # Wait for the executor thread to exit cleanly before terminating the program
+    executor_thread.join()
 
 if __name__ == '__main__':
     main()
