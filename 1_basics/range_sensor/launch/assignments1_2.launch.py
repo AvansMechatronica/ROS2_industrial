@@ -5,6 +5,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 import os
 from ament_index_python.packages import get_package_share_directory
+from launch.conditions import IfCondition   
 
 def generate_launch_description():
     # Declare the `sim` argument with a default value of `false`
@@ -13,20 +14,17 @@ def generate_launch_description():
         default_value='true', # Shuold be false
         description='Simulation mode'
     )
+    sim = LaunchConfiguration('sim')
 
-    # Path to the sensor_info_publisher launch file
-    sensor_info_publisher_launch_path = os.path.join(
-        get_package_share_directory('range_sensor'),
-        'launch',
-        'sensor_info_publisher.launch.py'  # assuming converted to Python
+    # Define the sensor_info_publisher_simulation node
+    sensor_info_publisher_node = Node(
+        package='range_sensor',
+        executable='sensor_info_publisher_simulation',
+        name='sensor_info_publisher_simulation',
+        output='screen',
+        condition=IfCondition(sim),
     )
-
-    # Include the sensor_info_publisher launch file with the `sim` argument
-    sensor_info_publisher_include = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(sensor_info_publisher_launch_path),
-        launch_arguments={'sim': LaunchConfiguration('sim')}.items()
-    )
-
+        
     # Define the BoxHeightInformation publisher node (Assignment 1)
     box_height_metres_node = Node(
         package='range_sensor',
@@ -54,7 +52,7 @@ def generate_launch_description():
     # Combine all launch actions
     return LaunchDescription([
         sim_arg,
-        sensor_info_publisher_include,
+        sensor_info_publisher_node,
         box_height_metres_node,
         metres_to_feet_node,
         box_height_feet_node
