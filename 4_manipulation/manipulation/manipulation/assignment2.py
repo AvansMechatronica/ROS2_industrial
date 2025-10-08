@@ -9,11 +9,9 @@
 from threading import Thread
 
 import rclpy
-from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.node import Node
 
 #from ament_index_python.packages import get_package_share_directory
-import xml.etree.ElementTree as ET
 
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
@@ -23,25 +21,6 @@ from my_moveit_python import MovegroupHelper
 from rclpy.executors import MultiThreadedExecutor
 import time
 from std_msgs.msg import Bool
-
-
-prefix = ''
-joint_names = [
-        prefix + "joint1",
-        prefix + "joint2",
-        prefix + "joint3",
-        prefix + "joint4",
-        prefix + "joint5",
-        prefix + "joint6",
-    ]
-base_link_name = "link_base"
-end_effector_name = "vacuum_gripper1_suction_cup"
-group_name = "xarm6"
-package_name = 'transferframes_moveit_config'
-srdf_file_name = 'config/manipuation_environment.srdf'
-
-
-joint_states = ['left', 'right', 'home']
 
 
 class VacuumGripper(Node):
