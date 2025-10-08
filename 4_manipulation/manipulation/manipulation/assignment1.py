@@ -101,7 +101,7 @@ class Assignment(Node):
             # Move to joint configuration
             self.move_to_state(joint_state)
 
-        translation = [0.5, 0.2, 0.25]
+        translation = [0.4, -0.4, 0.25]
         rotation = [1.0, 0.0, 0.0, 0.0]
         self.move_to_pose(translation, rotation)
 

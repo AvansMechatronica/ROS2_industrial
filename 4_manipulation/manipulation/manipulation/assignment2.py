@@ -137,7 +137,7 @@ class PickAndDrop(Node):
 
         translation[0] = 0.4
         translation[1] = -0.4
-        translation[2] = 0.1 + z_offset
+        translation[2] = 0.18 + z_offset
         rotation[0] = 1.0
         rotation[1] = 0.0
         rotation[2] = 0.0
@@ -154,7 +154,7 @@ class PickAndDrop(Node):
 
         #self.get_logger().info("Move to published fransfer frame")
         ## goto pre-grasp
-        self.move_to_object(0.015)
+        self.move_to_object(0.03)
         ## goto grasp
         self.move_to_object(0.0)
         time.sleep(1.0)
@@ -162,7 +162,7 @@ class PickAndDrop(Node):
         self.vacuum_gripper.pull()
         time.sleep(1.0)
         ## goto post-grasp
-        self.move_to_object(0.015)
+        self.move_to_object(0.1)
         
         self.move_to_state('home')
         # Move to joint configuration

@@ -9,7 +9,7 @@ def generate_launch_description():
             package='range_sensor',
             executable='template_publisher_script',
             name='node_1',
-            output='screen'
+            #output='screen'
         ),
         
         # Start the template subscriber ROS node
@@ -17,6 +17,6 @@ def generate_launch_description():
             package='range_sensor',
             executable='template_subscriber_script',
             name='node_2',
-            output='screen'
+            #output='screen'
         ),
     ])
