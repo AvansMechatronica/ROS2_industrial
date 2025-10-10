@@ -34,7 +34,7 @@
   
 
   <!-- bins -->
-  <xacro:include filename="$(find ros_industrial_support)/urdf/bin/bin.urdf.xacro"/>
+  <xacro:include filename="$(find ros_industrial_support)/urdf/drop_bin/drop_bin.urdf.xacro"/>
   <xacro:bin_urdf prefix="bin_1_"/>
   <xacro:bin_urdf prefix="bin_2_"/>
 
