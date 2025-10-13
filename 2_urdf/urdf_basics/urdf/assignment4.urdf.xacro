@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+
+<!-- Naam Student; <jou naam>-->
+<!-- Studentnummer; <jou studentnummer>-->
+<!-- Datum; <datum>-->
+<!-- Verklaring; Door het inleveren van dit bestand verklaar ik dat ik deze opdracht zelfstandig heb uitgevoerd en -->
+<!-- dat ik geen code van anderen heb gebruikt. Tevens ga ik akkoord met de beoordeling van deze opdracht. -->
+
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <!-- world -->
+  <link name="world" />
+
+  <!-- workcell -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/workcell/workcell.urdf.xacro"/>
+  <xacro:workcell_urdf workcell_parent="world_interface"/>
+
+  <!-- Robot1 Pedestal -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/robot_pedestal/robot_pedestal.urdf.xacro"/>
+  <xacro:robot_pedestal_urdf pedestal_prefix="robot1_" pedestal_parent="world_interface" pedestal_height="0.95">
+    <origin xyz="0.5 1.8 0.0" rpy="0 0 0"/>
+  </xacro:robot_pedestal_urdf>
+
+ 
+
+  <!-- bins -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/drop_bin/drop_bin.urdf.xacro"/>
+  <xacro:bin_urdf prefix="bin_1_"/>
+  <xacro:bin_urdf prefix="bin_2_"/>
+
+  <!-- Joints -->
+  <joint name="world_interface_to_world" type="fixed">
+    <parent link="world" />
+    <child link="world_interface" />
+  </joint>
+
+  <!-- robot1-pedestal to world. -->
+  <joint name="robot1_pedestal_to_world_interface" type="fixed">
+    <parent link="world_interface" />
+    <child link="robot1_pedestal_link" />
+    <origin xyz="0.5 1.8 0.0" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+
+  <!-- bin 1 -->
+  <joint name="bin_1_joint" type="fixed">
+    <parent link="world_interface" />
+    <child link="bin_1_base_link" />
+    <origin xyz="-8.0 -2.2 0" rpy="0 0 0" />
+  </joint>
+
+  <!-- bin 2 -->
+  <joint name="bin_2_joint" type="fixed">
+    <parent link="world_interface" />
+    <child link="bin_2_base_lin" />
+    <origin xyz="2.5 1.8 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="robot2_pedestal_link">
+    <visual>
+      <origin xyz="0 0 0.3" />
+      <geometry>
+        <box size="0.3 0.3 0.6" />
+      </geometry>
+      <material name="robot2_pedestal_color">
+        <color rgba="0 ${40/255} ${134/255} 1" />
+      </material>
+    </visual>
+  </link>
+
+  <joint name="robot2_pedestal_joint" type="fixed">
+    <origin xyz="-7.8 -1.5 0" />
+    <parent link="world" />
+    <child link="robot2_pedestal_link" />
+  </joint>
+
+
+
+</robot>
