@@ -12,13 +12,12 @@ import rclpy
 from rclpy.executors import MultiThreadedExecutor   
 from rclpy.node import Node
 
-
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
 from tf2_ros.transform_listener import TransformListener
 from my_moveit_python import srdfGroupStates
 from my_moveit_python import MovegroupHelper
-
+import tf_transformations
 
 
 class Assignment(Node):
@@ -95,14 +94,27 @@ class Assignment(Node):
 
     def execute_app(self):
 
+        # Vul hier je code uit opdrach 3 in
+        # Sequence: move through a series of joint states and poses
         joint_states = ['left', 'right', 'home']
+
 
         for joint_state in joint_states:
             # Move to joint configuration
             self.move_to_state(joint_state)
 
+        # Vul hier je code uit opdrach 4 in
+        # Move to a specific pose
+
         translation = [0.4, -0.4, 0.25]
-        rotation = [1.0, 0.0, 0.0, 0.0]
+
+        # RPY angles in radians
+        roll = 3.1415927
+        pitch = 0.0
+        yaw = 0.0
+        # Convert RPY to quaternion
+        rotation = tf_transformations.quaternion_from_euler(roll, pitch, yaw)
+
         self.move_to_pose(translation, rotation)
 
         pass

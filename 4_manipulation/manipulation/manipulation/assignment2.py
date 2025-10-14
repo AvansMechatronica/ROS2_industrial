@@ -11,7 +11,6 @@ from threading import Thread
 import rclpy
 from rclpy.node import Node
 
-#from ament_index_python.packages import get_package_share_directory
 
 from tf2_ros import TransformException
 from tf2_ros.buffer import Buffer
@@ -20,6 +19,8 @@ from my_moveit_python import srdfGroupStates
 from my_moveit_python import MovegroupHelper
 from rclpy.executors import MultiThreadedExecutor
 import time
+import tf_transformations
+# Todo 2: Defineer hier de benodigde imports voor de gripper
 from std_msgs.msg import Bool
 
 
@@ -27,34 +28,24 @@ class VacuumGripper(Node):
     def __init__(self):
         super().__init__('vacuum_gripper')
 
+        # Todo 2: Plaats hier de topic naam van de gripper
         self.enable_topic_name =  '/vacuum_gripper/control/enable'
-        self.attached_topic_name =  '/vacuum_gripper/status/attached'
+
+        # Todo 2: Maak hier de publisher voor de gripper aan
         self.enable_topic_publisher = self.create_publisher(Bool, self.enable_topic_name, 10)
    
-        self.attached = False
-
-        self.attached_topic_subscription = self.create_subscription(
-            Bool,
-            self.attached_topic_name,
-            self.attached_topic_callback,
-            10)
-        self.attached_topic_subscription  # prevent unused variable warning
-
-    def attached_topic_callback(self, msg):
-        self.attached = msg.data
-
     def pull(self):
+        # Todo 2: Activeer de gripper door een topic te publiceren
         msg = Bool()
         msg.data = True
         self.enable_topic_publisher.publish(msg)
 
     def release(self):
+        # Todo 2: Deactiveer de gripper door een topic te publiceren
         msg = Bool()
         msg.data = False
         self.enable_topic_publisher.publish(msg)
 
-    def is_attached(self):
-        return self.attached
 
 
 class PickAndDrop(Node):
@@ -133,7 +124,14 @@ class PickAndDrop(Node):
 
     def move_to_object(self, z_offset = 0.0):
         translation = [0.0, 0.0, 0.0]
-        rotation= [0.0, 0.0, 0.0, 0.0]
+        #rotation= [0.0, 0.0, 0.0, 0.0]
+        # RPY angles in radians
+        
+        roll = 3.1415927
+        pitch = 0.0
+        yaw = 0.0
+        # Convert RPY to quaternion
+        rotation = tf_transformations.quaternion_from_euler(roll, pitch, yaw)
 
         translation[0] = 0.4
         translation[1] = -0.4
@@ -148,41 +146,50 @@ class PickAndDrop(Node):
 
     def execute_app(self):
 
+        # Todo 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
         #self.get_logger().info("Move to published fransfer frame")
         ## goto pre-grasp
+        # Todo 1: Ga naar de pre-grasp positie boven het object
         self.move_to_object(0.03)
         ## goto grasp
+        # Todo 1: Ga naar de grasp positie op het object
         self.move_to_object(0.0)
+        # Todo: Wacht 1 seconde
         time.sleep(1.0)
-        ## gripper enable
+        ## Activeer gripper
         self.vacuum_gripper.pull()
         time.sleep(1.0)
+
         ## goto post-grasp
+        # Todo 1: Ga naar de pre-grasp positie boven het object
         self.move_to_object(0.1)
         
+        #Todo 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
+        # Todo 1: Ga naar de drop positie
         self.move_to_state('drop')
         # Move to joint configuration
         self.get_logger().info("Move to drop")
 
-        ## gripper release
+        ## deactiveer gripper
         self.vacuum_gripper.release()
 
+        # Todo 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
+        # Todo 1: Ga naar de resting positie
         self.move_to_state('resting')
         # Move to joint configuration
         self.get_logger().info("Move to resting")
-
         
     def __del__(self):
         # Safe cleanup of executor and thread
