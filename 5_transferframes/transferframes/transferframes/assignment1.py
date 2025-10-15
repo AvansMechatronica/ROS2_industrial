@@ -83,26 +83,6 @@ class PickAndDrop(Node):
         self.get_logger().info(f"Moving to pose: {translation}, {rotation}")
         self.move_group.move_to_pose(translation, rotation)
 
-    def move_to_tf(self, from_frame: str, to_frame: str):
-        try:
-            t = self.tf_buffer.lookup_transform(
-                to_frame, from_frame, rclpy.time.Time()
-            )
-            translation = [
-                t.transform.translation.x,
-                t.transform.translation.y,
-                t.transform.translation.z,
-            ]
-            rotation = [
-                t.transform.rotation.w,
-                t.transform.rotation.x,
-                t.transform.rotation.y,
-                t.transform.rotation.z,
-            ]
-            self.get_logger().info(f"Moving to transform: {from_frame} → {to_frame}")
-            self.move_to_pose(translation, rotation)
-        except TransformException as ex:
-            self.get_logger().warn(f"Could not transform {to_frame} to {from_frame}: {ex}")
 
     def move_to_object(self, part, z_offset = 0.0):
         to_frame_rel = 'base_link'
@@ -133,61 +113,115 @@ class PickAndDrop(Node):
 
     def execute_app(self):
 
+        # TODO 2: Beweeg naar de 'home' positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
-
+        # TODO 1: Maak een foto met de camera
         result, photo = self.camera.take_photo()
+
+        # TODO 1: Controleer of er onderdelen zijn gedetecteerd, zo niet verlaat dan deze functie
         if not result:
             self.get_logger().info(f'No parts found')
             return
         
+        # TODO 1: Druk de gedetecteerde onderdelen af in de logger
+
         parts = photo['parts']
         parts_to_pick = ['pump', 'sensor', 'battery', 'regulator']
         #camera_frame = ['camera_frame']
         #self.get_logger().info("Parts detected: {parts}")
 
-        
+         # inereer over alle gedetecteerde onderdelen
         for part in parts:
+            # Controleer of het onderdeel in de lijst van te pakken onderdelen zit
+            # Als het onderdeel in de lijst zit, pak het onderdeel en plaats
             if part in parts_to_pick:
+                # TODO 2: Druk het onderdeel af dat wordt opgepakt in de logger
                 self.get_logger().info(f'Handeling: {part}')
 
-                #self.get_logger().info("Move to published fransfer frame")
-                ## goto pre-grasp
-                self.move_to_object(part, 0.15)
-                ## goto grasp
-                self.move_to_object(part)
-                time.sleep(1.0)
-                ## gripper enable
-                self.vacuum_gripper.pull()
-                time.sleep(1.0)
-                #self.gripper_release() 
-                ## goto post-grasp
-                self.move_to_object(part, 0.15)
+                # TODO 3: Berken de positie van het onderdeel met behulp van TF
+
+                # TODO 4: Beweeg naar de 'transfer' positie
+
+                # TODO 3: Beweeg naar het onderdeel
+
+                if 1:
+                    # Verbeterde versie
+                    #self.get_logger().info("Move to published fransfer frame")
+                    ## goto pre-grasp
+                    self.move_to_object(part, 0.15)
+                    ## goto grasp
+                    self.move_to_object(part)
+                    time.sleep(1.0)
+                    ## gripper enable
+                    self.vacuum_gripper.pull()
+                    time.sleep(1.0)
+                    #self.gripper_release() 
+                    ## goto post-grasp
+                    self.move_to_object(part, 0.15)
+                else:
+
+                    # TODO 3: Bereken ...
+                    to_frame_rel = 'base_link'
+                    from_frame_rel = part
+                    t = self.tf_buffer.lookup_transform(
+                        to_frame_rel,
+                        from_frame_rel,
+                        rclpy.time.Time())
+                    #node.get_logger().info(t)
+                    translation = [0.0, 0.0, 0.0]
+                    rotation = [0.0, 0.0, 0.0, 0.0]
+
+                    translation[0] = t.transform.translation.x
+                    translation[1] = t.transform.translation.y
+                    translation[2] = t.transform.translation.z + 0.15
+                    rotation[0] = t.transform.rotation.w
+                    rotation[1] = t.transform.rotation.x
+                    rotation[2] = t.transform.rotation.y
+                    rotation[3] = t.transform.rotation.z
+
+                    # TODO 3:
+                    self.move_to_pose(translation, rotation)
+
+                    # TODO 3:
+                    translation[2] = t.transform.translation.z - 0.15
+                    self.move_to_pose(translation, rotation)
+
+                    time.sleep(1.0)
+                    ## gripper enable
+                    # TODO 4:
+                    self.vacuum_gripper.pull()
+
+                    # TODO 3:
+                    translation[2] = t.transform.translation.z + 0.15
+                    self.move_to_pose(translation, rotation)
             
                 if 0:
+                    # TODO 2: Beweeg naar de 'home' positie
                     self.move_to_state('home')
                     # Move to joint configuration
                     self.get_logger().info("Move to home")
 
-
+                # TODO 2: Beweeg naar de 'drop' positie
                 self.move_to_state('drop')
                 # Move to joint configuration
                 self.get_logger().info("Move to drop")
 
                 ## gripper release
+                # TODO 5: Laat het onderdeel los
                 self.vacuum_gripper.release()
 
+                # TODO 2: Beweeg terug naar de 'home' positie
                 self.move_to_state('home')
                 # Move to joint configuration
                 self.get_logger().info("Move to home")
 
+            # TODO 2: Beweeg naar de 'resting' positie
             self.move_to_state('resting')
             # Move to joint configuration
             self.get_logger().info("Move to resting")
-
-
 
     def __del__(self):
         # Safe cleanup of executor and thread

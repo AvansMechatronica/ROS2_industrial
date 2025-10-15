@@ -20,7 +20,7 @@ from my_moveit_python import MovegroupHelper
 from rclpy.executors import MultiThreadedExecutor
 import time
 import tf_transformations
-# Todo 2: Defineer hier de benodigde imports voor de gripper
+# TODO 2: Defineer hier de benodigde imports voor de gripper
 from std_msgs.msg import Bool
 
 
@@ -28,20 +28,20 @@ class VacuumGripper(Node):
     def __init__(self):
         super().__init__('vacuum_gripper')
 
-        # Todo 2: Plaats hier de topic naam van de gripper
+        # TODO 2: Plaats hier de topic naam van de gripper
         self.enable_topic_name =  '/vacuum_gripper/control/enable'
 
-        # Todo 2: Maak hier de publisher voor de gripper aan
+        # TODO 2: Maak hier de publisher voor de gripper aan
         self.enable_topic_publisher = self.create_publisher(Bool, self.enable_topic_name, 10)
    
     def pull(self):
-        # Todo 2: Activeer de gripper door een topic te publiceren
+        # TODO 2: Activeer de gripper door een topic te publiceren
         msg = Bool()
         msg.data = True
         self.enable_topic_publisher.publish(msg)
 
     def release(self):
-        # Todo 2: Deactiveer de gripper door een topic te publiceren
+        # TODO 2: Deactiveer de gripper door een topic te publiceren
         msg = Bool()
         msg.data = False
         self.enable_topic_publisher.publish(msg)
@@ -146,34 +146,34 @@ class PickAndDrop(Node):
 
     def execute_app(self):
 
-        # Todo 1: Ga naar de home positie
+        # TODO 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
         #self.get_logger().info("Move to published fransfer frame")
         ## goto pre-grasp
-        # Todo 1: Ga naar de pre-grasp positie boven het object
+        # TODO 1: Ga naar de pre-grasp positie boven het object
         self.move_to_object(0.03)
         ## goto grasp
-        # Todo 1: Ga naar de grasp positie op het object
+        # TODO 1: Ga naar de grasp positie op het object
         self.move_to_object(0.0)
-        # Todo: Wacht 1 seconde
+        # TODO: Wacht 1 seconde
         time.sleep(1.0)
         ## Activeer gripper
         self.vacuum_gripper.pull()
         time.sleep(1.0)
 
         ## goto post-grasp
-        # Todo 1: Ga naar de pre-grasp positie boven het object
+        # TODO 1: Ga naar de pre-grasp positie boven het object
         self.move_to_object(0.1)
         
-        #Todo 1: Ga naar de home positie
+        #TODO 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
-        # Todo 1: Ga naar de drop positie
+        # TODO 1: Ga naar de drop positie
         self.move_to_state('drop')
         # Move to joint configuration
         self.get_logger().info("Move to drop")
@@ -181,12 +181,12 @@ class PickAndDrop(Node):
         ## deactiveer gripper
         self.vacuum_gripper.release()
 
-        # Todo 1: Ga naar de home positie
+        # TODO 1: Ga naar de home positie
         self.move_to_state('home')
         # Move to joint configuration
         self.get_logger().info("Move to home")
 
-        # Todo 1: Ga naar de resting positie
+        # TODO 1: Ga naar de resting positie
         self.move_to_state('resting')
         # Move to joint configuration
         self.get_logger().info("Move to resting")
