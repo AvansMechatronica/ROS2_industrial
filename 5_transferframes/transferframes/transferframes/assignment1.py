@@ -147,7 +147,7 @@ class PickAndDrop(Node):
 
                 # TODO 3: Beweeg naar het onderdeel
 
-                if 1:
+                if 0:
                     # Verbeterde versie
                     #self.get_logger().info("Move to published fransfer frame")
                     ## goto pre-grasp
@@ -163,7 +163,7 @@ class PickAndDrop(Node):
                     self.move_to_object(part, 0.15)
                 else:
 
-                    # TODO 3: Bereken ...
+                    # TODO 3: Berken de positie van het onderdeel met behulp van TF
                     to_frame_rel = 'base_link'
                     from_frame_rel = part
                     t = self.tf_buffer.lookup_transform(
@@ -182,19 +182,20 @@ class PickAndDrop(Node):
                     rotation[2] = t.transform.rotation.y
                     rotation[3] = t.transform.rotation.z
 
-                    # TODO 3:
+                    # TODO 3: Beweeg naar het onderdeel (pre-graps positie)
                     self.move_to_pose(translation, rotation)
 
-                    # TODO 3:
+                    # TODO 3: Beweeg naar het onderdeel (graps positie)
                     translation[2] = t.transform.translation.z - 0.15
                     self.move_to_pose(translation, rotation)
 
+                    # Wacht even
                     time.sleep(1.0)
                     ## gripper enable
-                    # TODO 4:
+                    # TODO 4: Pak het onderdeel vast
                     self.vacuum_gripper.pull()
 
-                    # TODO 3:
+                    # TODO 3: Beweeg weg van het onderdeel (post-graps positie)
                     translation[2] = t.transform.translation.z + 0.15
                     self.move_to_pose(translation, rotation)
             
