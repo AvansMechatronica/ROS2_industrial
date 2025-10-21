@@ -147,11 +147,11 @@ class PickAndDrop(Node):
 
                 # TODO 3: Beweeg naar het onderdeel
 
-                if 0:
+                if 1:
                     # Verbeterde versie
                     #self.get_logger().info("Move to published fransfer frame")
                     ## goto pre-grasp
-                    self.move_to_object(part, 0.15)
+                    self.move_to_object(part, 0.2)
                     ## goto grasp
                     self.move_to_object(part)
                     time.sleep(1.0)
@@ -160,7 +160,8 @@ class PickAndDrop(Node):
                     time.sleep(1.0)
                     #self.gripper_release() 
                     ## goto post-grasp
-                    self.move_to_object(part, 0.15)
+                    self.move_to_object(part, 0.2)
+                    self.get_logger().info(f'Moved to and picked up {part}')
                 else:
 
                     # TODO 3: Berken de positie van het onderdeel met behulp van TF

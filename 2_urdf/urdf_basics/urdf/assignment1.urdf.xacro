@@ -111,8 +111,8 @@
     <child link="vacuum_gripper2_base_link" />
   </joint>
 
-  <!-- Add your solution to assignment 1 here -->
 
+  <!-- TODO plaats hier de oplossing voor assignmanet 1-->
 
 
 

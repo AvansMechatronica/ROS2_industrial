@@ -3,6 +3,7 @@ from rclpy.node import Node
 from ros_gz_interfaces.msg import LogicalCameraImage
 from geometry_msgs.msg import TransformStamped, Vector3
 from tf2_ros import StaticTransformBroadcaster
+from tf2_ros import TransformBroadcaster
 from math import pi
 from scipy.spatial.transform import Rotation
 
@@ -28,6 +29,7 @@ class Camera(Node):
         self.camera_objects = None
 
         self.tf_broadcaster = StaticTransformBroadcaster(self)
+        #self.tf_broadcaster = TransformBroadcaster(self)
 
     def listener_callback(self, msg):
         # Process the array of PartPoses
