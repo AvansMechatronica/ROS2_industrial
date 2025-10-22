@@ -19,6 +19,7 @@
   <depend>ros-controllers</depend>
   <depend>controller-manager</depend>
   <depend>controller-manager-msgs</depend>
+  <depend>tf-transformations</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

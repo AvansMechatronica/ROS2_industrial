@@ -119,10 +119,9 @@ class manipulatorController(Node):
 
         pass
 
-def main():
-    # Initialize the ROS 2 Python client library (must be called before anything ROS-related)
-    rclpy.init()
-
+# --------------------------------------------------------------------------
+# Do not modify the main function unless necessary.
+# -------------------------------------------------------------------------
 def main(args=None):
     rclpy.init(args=args)
 

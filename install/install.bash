@@ -7,6 +7,7 @@ sudo apt install ros-$ROS_DISTRO-geometric-shapes
 sudo apt install ros-$ROS_DISTRO-srdfdom -y
 sudo apt update
 sudo apt install ros-$ROS_DISTRO-eigen-stl-containers
+sudo apt -y install ros-$ROS_DISTRO-tf-transformations
 sudo apt install python3-pip -y
 
 # Environment Setup

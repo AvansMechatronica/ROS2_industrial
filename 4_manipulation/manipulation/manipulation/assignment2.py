@@ -196,10 +196,10 @@ class manipulatorController(Node):
         #self.camera.destroy_node()
         pass
 
+# --------------------------------------------------------------------------
+# Do not modify the main function unless necessary.
+# -------------------------------------------------------------------------
 # Define the main entry point
-def main(args=None):
-    rclpy.init(args=args)
-
 def main(args=None):
     rclpy.init(args=args)
 
