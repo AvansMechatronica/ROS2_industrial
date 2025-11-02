@@ -152,8 +152,8 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
 }
 
 #if defined(WIFI)
-  String wifiSSID = SSID;
-  String wifiPass = SSID_PASSWORD;
+  String wifiWIFI_SSID = WIFI_SSID;
+  String wifiPass = WIFI_PASSWORD;
 #endif
 
 void setup() {
@@ -176,13 +176,13 @@ void setup() {
   Serial.begin(115200);
 
 #if defined(WIFI)
-//#define SSID "Wifi_ssid"
-//#define SSID_PASSWORD "Wifi_Password"
+//#define WIFI_SSID "Wifi_ssid"
+//#define WIFI_PASSWORD "Wifi_Password"
 
 
 
   WiFi.setHostname("JoystickController");
-  set_microros_wifi_transports(wifiSSID, wifiPass, AGENT_IP_ADDRESS, (size_t)PORT);
+  set_microros_wifi_transports(wifiWIFI_SSID, wifiPass, AGENT_IP_ADDRESS, (size_t)PORT);
 #else
   Serial.begin(115200);
   set_microros_serial_transports(Serial);
