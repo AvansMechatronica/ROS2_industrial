@@ -10,7 +10,6 @@
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
-
   <depend>moveit</depend>
   <depend>joint-state-publisher-gui</depend>
   <depend>combined-robot-hw</depend>
@@ -19,7 +18,10 @@
   <depend>ros-controllers</depend>
   <depend>controller-manager</depend>
   <depend>controller-manager-msgs</depend>
-  <depend>tf-transformations</depend>
+  <depend>tf_transformations</depend>
+  <depend>gz_ros2_control</depend>
+  <depend>geometric_shapes</depend>
+  <depend>srdfdom</depend>
 
   <export>
     <build_type>ament_cmake</build_type>
