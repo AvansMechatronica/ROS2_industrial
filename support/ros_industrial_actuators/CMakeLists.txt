@@ -53,7 +53,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GZ-GUI_CXX_FLAGS}")
 
-qt5_add_resources(resources_rcc Turtlebot4Hmi.qrc)
 
 include_directories(SYSTEM
   ${GZ-COMMON_INCLUDE_DIRS}
