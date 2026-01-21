@@ -18,6 +18,9 @@
   <depend>ros-controllers</depend>
   <depend>controller-manager</depend>
   <depend>controller-manager-msgs</depend>
+  <depend>joint_trajectory_controller</depend>
+  <depend>joint_state_broadcaster</depend>
+  <depend>ros2_controllers</depend>
   <depend>tf_transformations</depend>
   <depend>gz_ros2_control</depend>
   <depend>ros_gz_sim</depend>
