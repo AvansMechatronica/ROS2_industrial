@@ -3,9 +3,16 @@ sudo apt update
 # Install pip
 sudo apt install python3-pip -y
 
+
 # Environment Setup
 source /opt/ros/$ROS_DISTRO/setup.bash
 CURRENT_DIR=$(pwd)
+
+# Replace user paths from 'gerard' to current user
+"$(dirname "$0")"/make_user_version.bash gerard
+
+# Replace user paths from 'student' to current user
+"$(dirname "$0")"/make_user_version.bash student
 
 # Install specific versions of numpy and scipy
 pip install numpy==1.24.3 scipy==1.10.1
@@ -68,3 +75,5 @@ fi
 
 
 cd "$CURRENT_DIR"
+
+
