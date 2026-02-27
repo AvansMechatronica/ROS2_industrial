@@ -40,7 +40,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -73,7 +73,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link_base.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -122,7 +122,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -139,7 +139,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link1.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -188,7 +188,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -205,7 +205,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link2.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -254,7 +254,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -271,7 +271,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link3.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -320,7 +320,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -337,7 +337,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link4.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -386,7 +386,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -403,7 +403,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link5.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -452,7 +452,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/end_tool/collision/end_tool.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/end_tool/collision/end_tool.stl</uri>
           </mesh>
         </geometry>
         <surface>
@@ -469,7 +469,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/ros2_industrial_ws/install/ros_industrial_support/share/ros_industrial_support/meshes/vacuum_gripper/collision/vacuum_gripper.dae</uri>
+            <uri>file:///home/gerard/ros2_industrial_ws/install/ros_industrial_support/share/ros_industrial_support/meshes/vacuum_gripper/collision/vacuum_gripper.dae</uri>
           </mesh>
         </geometry>
         <surface>
@@ -486,7 +486,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link6.stl</uri>
+            <uri>file:///home/gerard/xarm_ws/install/xarm_description/share/xarm_description/meshes/xarm6/visual/link6.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -499,7 +499,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>file:///home/student/ros2_industrial_ws/install/ros_industrial_support/share/ros_industrial_support/meshes/vacuum_gripper/visual/vacuum_gripper.dae</uri>
+            <uri>file:///home/gerard/ros2_industrial_ws/install/ros_industrial_support/share/ros_industrial_support/meshes/vacuum_gripper/visual/vacuum_gripper.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -522,7 +522,7 @@
       </sensor>
     </link>
     <plugin name='gz_ros2_control::GazeboSimROS2ControlPlugin' filename='gz_ros2_control-system'>
-      <parameters>/home/student/xarm_ws/install/xarm_controller/share/xarm_controller/config/xarm6_controllers.yaml</parameters>
+      <parameters>/home/gerard/xarm_ws/install/xarm_controller/share/xarm_controller/config/xarm6_controllers.yaml</parameters>
     </plugin>
     <frame name='world_joint' attached_to='base_link'>
       <pose>0 0 0 0 0 0</pose>

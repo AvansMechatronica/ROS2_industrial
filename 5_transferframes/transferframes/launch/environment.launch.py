@@ -109,6 +109,7 @@ def launch_setup(context, *args, **kwargs):
             'dof': dof,
             'robot_type': robot_type,
             'prefix': prefix,
+            'ros2_control_params': ros2_control_params,
             'moveit_config_dump': moveit_config_dump,
             'show_rviz': 'true',
             'rviz_config': PathJoinSubstitution([FindPackageShare('transferframes'),'rviz', 'environment.rviz'])

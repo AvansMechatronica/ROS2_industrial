@@ -1,5 +1,5 @@
 {
-  "cmake.sourceDirectory": "/home/student/ros2_industrial_ws/src/ROS2_industrial/ros_industrial",
+  "cmake.sourceDirectory": "/home/gerard/ros2_industrial_ws/src/ROS2_industrial/ros_industrial",
   "files.associations": {
     "cctype": "cpp",
     "clocale": "cpp",
