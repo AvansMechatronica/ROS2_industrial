@@ -19,11 +19,8 @@ class Assignment2(Node):
     def __init__(self):
         super().__init__('assignment2_async')
         # Todo 1: Create a client for the service that converts metres to inches
-        self.convert_meters_to_inches_client = self.create_client(ConvertMetresToInches, 'metres_to_inches')
         
         # Todo 2: Wait for the service to be available
-        while not self.convert_meters_to_inches_client.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('service not available, waiting again...')
         
         # Create a request object of the type ConvertMetresToInches.Request
         self.request = ConvertMetresToInches.Request()
@@ -39,16 +36,12 @@ class Assignment2(Node):
         self.request.distance_metres = metres
         
         # Todo 3: Call the service to convert the height in metres to height in inches
-        response = self.convert_meters_to_inches_client.call_async(self.request)
 
         # Test if the response is successful
         if response.success:
             # Todo 4: Print the height of the box in inches
-            self.get_logger().info('I heard: "%s"' % response.Response)
-            #self.get_logger().info("The hight of the box is %4.2f metres or %4.2f inches" %(metres, response.distance_inches)) 
         else:
             # Todo 5: Print an error message if the request value is invalid
-            metres_to_inches_client.get_logger().info("Invalis request value")
 
     # Callback function that is called when a message is received on the box_height_info topic
     def box_height_callback(self, box_height):

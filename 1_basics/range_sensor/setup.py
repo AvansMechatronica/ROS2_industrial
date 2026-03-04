@@ -32,7 +32,6 @@ setup(
             'counter_with_delay_action_server = range_sensor.counter_with_delay_action_server:main',
             'counter_with_delay_action_client = range_sensor.counter_with_delay_action_client:main',
             'assignment1 = range_sensor.assignment1:main',
-            'assignment2 = range_sensor.assignment2:main',
         ],
     },
 )

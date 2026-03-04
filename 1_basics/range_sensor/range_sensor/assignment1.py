@@ -17,23 +17,23 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from sensor_msgs.msg import Range
 from range_sensors_interfaces.msg import SensorInformation
-#< Assignment 1.4, importeer hier de message type die je hebt aangemaakt voor de box hoogte>  
+#< Todo 4, importeer hier de message type die je hebt aangemaakt voor de box hoogte>  
 
 
 class BoxHeightCalculator(Node):
 
     def __init__(self):
         super().__init__('box_height_calculator')
-        #<Assignment 1.4, Creëer hier de publisher voor het publiceren van de box hoogte>
+        #<Todo 3, Creëer hier de publisher voor het publiceren van de box hoogte>
 
-        #< Assignment 1.1, creëer hier de subscriber op het topic /sensor_info >
+        #< Todo 1, creëer hier de subscriber op het topic /sensor_info >
 
 
     def sensor_info_callback(self, sensor_info):
         self.get_logger().info('I heard: "%s"' % sensor_info)
         box_distance = sensor_info.sensor_data.range
         
-        #<Assignment 1.2, bereken hier de hoogte van de box>
+        #<Todo 2, bereken hier de hoogte van de box>
         # Compute the height of the box.
         # Boxes that are detected to be shorter than 10cm are due to sensor noise.
         # Do not publish information about them.
