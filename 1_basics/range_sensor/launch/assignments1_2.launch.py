@@ -17,7 +17,7 @@ def generate_launch_description():
     sensor_info_publisher_node = Node(
         package='range_sensor',
         executable='sensor_info_publisher_simulation',
-        name='sensor_info_publisher_simulation',
+        name='sensor_info_publisher',
         output='screen',
         condition=IfCondition(sim),
     )
@@ -30,27 +30,19 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Define the metres_to_feet service server node
-    metres_to_feet_node = Node(
-        package='range_sensor',
-        executable='metres_to_inches_server',
-        name='metres_to_inches',
-        output='screen'
-    )
+    # Todo 1: Define the metres_to_inches service server node
 
-      # Define the BoxHeightInformation subscriber / convert to inches node (Assignment 2)
-    box_height_feet_node = Node(
-        package='range_sensor',
-        executable='assignment2',
-        name='box_height_inches',
-        output='screen'
-    )
+
+    # Todo 2: Define the BoxHeightInformation subscriber / convert to inches node (Assignment 2)
+
 
     # Combine all launch actions
     return LaunchDescription([
         sim_arg,
         sensor_info_publisher_node,
         box_height_metres_node,
-        metres_to_feet_node,
-        box_height_feet_node
+        # Todo 1: Add the metres_to_inches service server node to the launch description
+
+        # Todo 2: Add the BoxHeightInformation subscriber / convert to inches node to the launch description
+
     ])
