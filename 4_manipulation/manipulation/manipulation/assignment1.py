@@ -94,28 +94,12 @@ class manipulatorController(Node):
 
     def execute_app(self):
 
-        # Vul hier je code uit opdrach 3 in
-        # Sequence: move through a series of joint states and poses
-        joint_states = ['left', 'right', 'home']
+        # TODO 1: Move to a specific sequence of joint states
 
 
-        for joint_state in joint_states:
-            # Move to joint configuration
-            self.move_to_state(joint_state)
+        # TODO 2: Move to a specific pose
 
-        # Vul hier je code uit opdrach 4 in
-        # Move to a specific pose
 
-        translation = [0.4, -0.4, 0.25]
-
-        # RPY angles in radians
-        roll = 3.1415927
-        pitch = 0.0
-        yaw = 0.0
-        # Convert RPY to quaternion
-        rotation = tf_transformations.quaternion_from_euler(roll, pitch, yaw)
-
-        self.move_to_pose(translation, rotation)
 
         pass
 

@@ -112,7 +112,7 @@
     <child link="vacuum_gripper2_base_link" />
   </joint>
 
-  <!-- Add your solution to assignment 2 here -->
+  <!-- TODO: Add your solution to assignment 2 here -->
 
 
 </robot>

@@ -29,22 +29,16 @@ class VacuumGripper(Node):
         super().__init__('vacuum_gripper')
 
         # TODO 2: Plaats hier de topic naam van de gripper
-        self.enable_topic_name =  '/vacuum_gripper/control/enable'
 
         # TODO 2: Maak hier de publisher voor de gripper aan
-        self.enable_topic_publisher = self.create_publisher(Bool, self.enable_topic_name, 10)
    
     def pull(self):
         # TODO 2: Activeer de gripper door een topic te publiceren
-        msg = Bool()
-        msg.data = True
-        self.enable_topic_publisher.publish(msg)
+        pass
 
     def release(self):
         # TODO 2: Deactiveer de gripper door een topic te publiceren
-        msg = Bool()
-        msg.data = False
-        self.enable_topic_publisher.publish(msg)
+        pass
 
 
 
@@ -101,95 +95,44 @@ class manipulatorController(Node):
         self.get_logger().info(f"Moving to pose: {translation}, {rotation}")
         self.move_group.move_to_pose(translation, rotation)
 
-    def move_to_tf(self, from_frame: str, to_frame: str):
-        try:
-            t = self.tf_buffer.lookup_transform(
-                to_frame, from_frame, rclpy.time.Time()
-            )
-            translation = [
-                t.transform.translation.x,
-                t.transform.translation.y,
-                t.transform.translation.z,
-            ]
-            rotation = [
-                t.transform.rotation.w,
-                t.transform.rotation.x,
-                t.transform.rotation.y,
-                t.transform.rotation.z,
-            ]
-            self.get_logger().info(f"Moving to transform: {from_frame} → {to_frame}")
-            self.move_to_pose(translation, rotation)
-        except TransformException as ex:
-            self.get_logger().warn(f"Could not transform {to_frame} to {from_frame}: {ex}")
+    # Todo 3: Implementeer hier de move_to_object functie die een pose ontvangt en hier naartoe beweegt.
+    def move_to_object(self, translation, rotation, z_offset = 0.0):
+        pass
 
-    def move_to_object(self, z_offset = 0.0):
-        translation = [0.0, 0.0, 0.0]
-        #rotation= [0.0, 0.0, 0.0, 0.0]
-        # RPY angles in radians
-        
-        roll = 3.1415927
-        pitch = 0.0
-        yaw = 0.0
-        # Convert RPY to quaternion
-        rotation = tf_transformations.quaternion_from_euler(roll, pitch, yaw)
-
-        translation[0] = 0.4
-        translation[1] = -0.4
-        translation[2] = 0.18 + z_offset
-        rotation[0] = 1.0
-        rotation[1] = 0.0
-        rotation[2] = 0.0
-        rotation[3] = 0.0
-        self.move_to_pose(translation, rotation)
 
     # --- App sequence ----------------------------------------------------
 
     def execute_app(self):
 
         # TODO 1: Ga naar de home positie
-        self.move_to_state('home')
-        # Move to joint configuration
-        self.get_logger().info("Move to home")
-
-        #self.get_logger().info("Move to published fransfer frame")
-        ## goto pre-grasp
+    
         # TODO 1: Ga naar de pre-grasp positie boven het object
-        self.move_to_object(0.03)
-        ## goto grasp
+    
         # TODO 1: Ga naar de grasp positie op het object
-        self.move_to_object(0.0)
+    
         # TODO: Wacht 1 seconde
-        time.sleep(1.0)
+    
         ## Activeer gripper
         self.vacuum_gripper.pull()
         time.sleep(1.0)
 
         ## goto post-grasp
         # TODO 1: Ga naar de pre-grasp positie boven het object
-        self.move_to_object(0.1)
         
-        #TODO 1: Ga naar de home positie
-        self.move_to_state('home')
-        # Move to joint configuration
-        self.get_logger().info("Move to home")
+        # TODO 1: Ga naar de home positie
+    
 
         # TODO 1: Ga naar de drop positie
-        self.move_to_state('drop')
-        # Move to joint configuration
-        self.get_logger().info("Move to drop")
+
 
         ## deactiveer gripper
         self.vacuum_gripper.release()
 
         # TODO 1: Ga naar de home positie
-        self.move_to_state('home')
-        # Move to joint configuration
-        self.get_logger().info("Move to home")
+
 
         # TODO 1: Ga naar de resting positie
-        self.move_to_state('resting')
-        # Move to joint configuration
-        self.get_logger().info("Move to resting")
+
         
     def __del__(self):
         # Safe cleanup of executor and thread
