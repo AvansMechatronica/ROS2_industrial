@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="my_demo_robot">
+
+  <!-- Root frame for the complete scene. -->
+  <!-- All static environment objects are attached to this link. -->
+  <link name="world" />
+
+  <!-- Material used for the large base plate (table-like support). -->
+  <material name="LightGrey">
+      <color rgba="0.7 0.7 0.7 1.0" />
+  </material>
+
+  <!-- Reserved material for optional blue visual elements. -->
+  <material name="blue">
+      <color rgba="0 0 0.8 1" />
+  </material>
+
+  <!-- Material used for the smaller robot mounting plate. -->
+  <material name="red">
+      <color rgba="0.8 0 0 1" />
+  </material>
+
+  <!--
+    Base plate geometry.
+    - This is a fixed support platform under the robot.
+    - Box dimensions are in meters: x y z = 1.4 2.2 0.06.
+    - The link frame is located at the geometric center of the box.
+  -->
+  <link name="baseplate_link">
+    <!-- Visual appearance of the base plate. -->
+    <visual>
+      <origin xyz="0 0 0.0" />
+      <geometry>
+        <box size="1.4 2.2 0.06" />
+      </geometry>
+      <material name="LightGrey"/>
+    </visual>
+  </link>
+
+  <!--
+    Fixed transform from world to base plate.
+    Height interpretation:
+    - The baseplate thickness is 0.06 m, centered at baseplate_link.
+    - With z = 0.003, bottom = -0.027 m and top = +0.033 m in world frame.
+
+    RViz interpretation:
+    - If Fixed Frame = world, grid shows world z = 0.
+    - If Fixed Frame = base_link, grid follows base_link and may appear above the plate.
+    - For static ground visualization, set RViz Fixed Frame to world.
+  -->
+  <joint name="baseplate_joint" type="fixed">
+    <origin xyz="0 0 0.003" />
+    <parent link="world" />
+    <child link="baseplate_link" />
+  </joint>
+
+  <!-- Start demo code here-->
+</robot>

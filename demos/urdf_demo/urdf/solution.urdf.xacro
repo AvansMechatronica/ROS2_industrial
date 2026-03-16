@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="my_solution_robot">
+
+  <!-- Root frame for the complete scene. -->
+  <!-- All static environment objects are attached to this link. -->
+  <link name="world" />
+
+  <!-- Material used for the large base plate (table-like support). -->
+  <material name="LightGrey">
+      <color rgba="0.7 0.7 0.7 1.0" />
+  </material>
+
+  <!-- Reserved material for optional blue visual elements. -->
+  <material name="blue">
+      <color rgba="0 0 0.8 1" />
+  </material>
+
+  <!-- Material used for the smaller robot mounting plate. -->
+  <material name="red">
+      <color rgba="0.8 0 0 1" />
+  </material>
+
+  <!--
+    Base plate geometry.
+    - This is a fixed support platform under the robot.
+    - Box dimensions are in meters: x y z = 1.4 2.2 0.06.
+    - The link frame is located at the geometric center of the box.
+  -->
+  <link name="baseplate_link">
+    <!-- Visual appearance of the base plate. -->
+    <visual>
+      <origin xyz="0 0 0.0" />
+      <geometry>
+        <box size="1.4 2.2 0.06" />
+      </geometry>
+      <material name="LightGrey"/>
+    </visual>
+  </link>
+
+  <!--
+    Fixed transform from world to base plate.
+    Height interpretation:
+    - The baseplate thickness is 0.06 m, centered at baseplate_link.
+    - With z = 0.003, bottom = -0.027 m and top = +0.033 m in world frame.
+
+    RViz interpretation:
+    - If Fixed Frame = world, grid shows world z = 0.
+    - If Fixed Frame = base_link, grid follows base_link and may appear above the plate.
+    - For static ground visualization, set RViz Fixed Frame to world.
+  -->
+  <joint name="baseplate_joint" type="fixed">
+    <origin xyz="0 0 0.003" />
+    <parent link="world" />
+    <child link="baseplate_link" />
+  </joint>
+
+  <!--
+    Mounting plate on top of the base plate.
+    This smaller plate is where the robot base frame is introduced.
+  -->
+  <link name="mountingplate_link">
+    <!-- Visual appearance of the mounting plate. -->
+    <visual>
+      <origin xyz="0 0 0.0" />
+      <geometry>
+        <box size="0.6 0.6 0.024" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <!--
+    Fixed transform from base plate to mounting plate.
+    - x = -0.4 shifts mounting plate left in baseplate frame.
+    - z = 0.042 elevates mounting plate above baseplate center.
+  -->
+  <joint name="mountingplate_joint" type="fixed">
+    <origin xyz="-0.4 0.0 0.042" />
+    <parent link="baseplate_link" />
+    <child link="mountingplate_link" />
+  </joint>
+
+  <!-- Include Fanuc LR Mate 200iC robot macro definition. -->
+  <xacro:include filename="$(find fanuc_robots)/urdf/lrmate200ic.urdf.xacro"/>
+  <!-- Instantiate Fanuc robot with prefix 'robot_' to keep names unique. -->
+  <xacro:fanuc_lrmate200ic prefix="robot_"/>
+
+  <!--
+    Local reference frame for RViz fixed-frame convenience.
+    The robot is mounted relative to this frame.
+  -->
+  <link name="base_link" />
+
+  <!-- Fixed transform from mounting plate to local base_link. -->
+  <joint name="base_link_joint" type="fixed">
+    <parent link="mountingplate_link" />
+    <child link="base_link" />
+    <origin xyz="0.0 0.0 0.01" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+  <!--
+    Fixed transform from local base_link to robot base link.
+    This is the attachment point for the imported Fanuc robot model.
+  -->
+  <joint name="robot_base_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="robot_base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+  </joint>
+
+  <!-- Include vacuum gripper macro definition. -->
+  <xacro:include filename="$(find ros_industrial_support)/urdf/vacuum_gripper/vacuum_gripper.urdf.xacro"/>
+  <!-- Instantiate the vacuum gripper model with dedicated prefixes. -->
+  <xacro:vacuum_gripper_urdf prefix="vacuum_gripper_" joint_prefix="vacuum_gripper_joint"/>
+
+  <!--
+    Attach gripper base to robot tool link.
+    Both links share the same pose because no origin offset is specified.
+  -->
+  <joint name="gripper_to_robot" type="fixed">
+    <parent link="robot_tool_link" />
+    <child link="vacuum_gripper_base_link" />
+  </joint>
+
+</robot>
