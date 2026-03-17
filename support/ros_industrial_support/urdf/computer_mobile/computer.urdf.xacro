@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot name="computer_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:macro name="computer_urdf" params="computer_parent computer_prefix  *origin">
-  <xacro:property name="mesh_path" value="file://$(find ros_industrial_gazebo)"/>
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
 
   <joint name="${computer_prefix}joint" type="fixed">
     <xacro:insert_block name="origin" />

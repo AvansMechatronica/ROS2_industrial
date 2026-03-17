@@ -6,7 +6,7 @@
   <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='package://ros_industrial_support'">-->
   <!--<xacro:macro name="bin_urdf" params="prefix mesh_path:='$(find ros_industrial_support)'">-->
   <xacro:macro name="bin_urdf" params="prefix">
-  <xacro:property name="mesh_path" value="file://$(find ros_industrial_gazebo)"/>
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
 
     <!-- link list -->
     <link name="${prefix}base_link">

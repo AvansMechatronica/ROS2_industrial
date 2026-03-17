@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot name="assembly_station_urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="assembly_station_urdf" params="assembly_station_parent assembly_station_prefix  *origin">
-  <xacro:property name="mesh_path" value="file://$(find ros_industrial_gazebo)"/>
+  <xacro:property name="mesh_path" value="file://$(find ros_industrial_support)"/>
 
 
   <joint name="${assembly_station_prefix}joint" type="fixed">
