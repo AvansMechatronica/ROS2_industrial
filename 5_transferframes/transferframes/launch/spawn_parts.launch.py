@@ -5,7 +5,7 @@ import random
 import math
 
 def generate_launch_description():
-    pkg_path = get_package_share_directory('ros_industrial_gazebo')
+    pkg_path = get_package_share_directory('ros_industrial_support')
     return LaunchDescription([
         Node(
             package="ros_gz_sim",

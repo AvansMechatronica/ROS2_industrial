@@ -17,12 +17,12 @@
     <link name="${shipping_container_short_prefix}origin">
       <visual>
         <geometry>
-          <mesh filename="package://ros_industrial_gazebo/models/shipping_container_short_ariac/meshes/ShippingContainer_Textured.obj" scale="1.1 0.7 0.8"/>
+          <mesh filename="package://ros_industrial_support/models/shipping_container_short_ariac/meshes/ShippingContainer_Textured.obj" scale="1.1 0.7 0.8"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://ros_industrial_gazebo/models/shipping_container_short_ariac/meshes/ShippingContainer_Textured.obj" scale="1.1 0.7 0.8"/>
+          <mesh filename="package://ros_industrial_support/models/shipping_container_short_ariac/meshes/ShippingContainer_Textured.obj" scale="1.1 0.7 0.8"/>
         </geometry>
       </collision>
       <inertial>

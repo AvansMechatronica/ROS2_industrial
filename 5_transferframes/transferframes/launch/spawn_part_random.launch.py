@@ -16,7 +16,7 @@ y_pos = y_base + y_offset
 
 def generate_launch_description():
     parts = ["battery", "regulator", "pump", "sensor"]
-    pkg_path = get_package_share_directory('ros_industrial_gazebo')
+    pkg_path = get_package_share_directory('ros_industrial_support')
     part = parts[random.randint(0,3)]
     entity = part + "_" + str(random.randint(0, 1000))
     file = pkg_path +'/models/' + part + '/model.sdf'

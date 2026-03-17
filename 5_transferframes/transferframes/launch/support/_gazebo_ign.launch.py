@@ -14,7 +14,7 @@ import math
 from ament_index_python import get_package_share_directory
 from launch.launch_description_sources import load_python_launch_file_as_module
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -57,6 +57,30 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
  
+    transferframes_share_dir = get_package_share_directory('transferframes')
+    support_share_dir = get_package_share_directory('ros_industrial_support')
+    resource_paths = [
+        os.path.join(support_share_dir, 'models'),
+        os.path.join(transferframes_share_dir, 'models'),
+        os.path.join(transferframes_share_dir, 'worlds'),
+    ]
+    resource_path_value = os.pathsep.join(resource_paths)
+
+    gz_sim_resource_path = SetEnvironmentVariable(
+        name='GZ_SIM_RESOURCE_PATH',
+        value=os.pathsep.join([
+            resource_path_value,
+            os.environ.get('GZ_SIM_RESOURCE_PATH', ''),
+        ]),
+    )
+    ign_gazebo_resource_path = SetEnvironmentVariable(
+        name='IGN_GAZEBO_RESOURCE_PATH',
+        value=os.pathsep.join([
+            resource_path_value,
+            os.environ.get('IGN_GAZEBO_RESOURCE_PATH', ''),
+        ]),
+    )
+
     # ignition gazebo launch
     xarm_gazebo_world = PathJoinSubstitution([FindPackageShare('transferframes'), 'worlds', 'casus.world'])
     gazebo_launch = IncludeLaunchDescription(
@@ -68,7 +92,7 @@ def launch_setup(context, *args, **kwargs):
 
 
 
-    pkg_path = os.path.join(get_package_share_directory('transferframes'))
+    pkg_path = os.path.join(transferframes_share_dir)
     robot_on_pedestal_sdf_file = os.path.join(pkg_path, 'urdf', 'robot_on_pedestal.sdf')
 
     robot_on_pedestal_launch = Node(
@@ -141,7 +165,7 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    pkg_path = get_package_share_directory('ros_industrial_gazebo')
+    pkg_path = support_share_dir
     model_path = pkg_path + '/models/computer_mobile/model.sdf'
     
     # ignition gazebo spawn entity node
@@ -224,6 +248,8 @@ def launch_setup(context, *args, **kwargs):
                     on_start=gazebo_launch,
                 )
             ),
+            gz_sim_resource_path,
+            ign_gazebo_resource_path,
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,
@@ -290,6 +316,8 @@ def launch_setup(context, *args, **kwargs):
                     on_start=gazebo_launch,
                 )
             ),
+            gz_sim_resource_path,
+            ign_gazebo_resource_path,
             RegisterEventHandler(
                 event_handler=OnProcessStart(
                     target_action=robot_state_publisher_node,

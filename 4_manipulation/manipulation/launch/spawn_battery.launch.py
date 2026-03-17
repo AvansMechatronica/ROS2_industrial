@@ -6,7 +6,7 @@ import math
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    pkg_path = get_package_share_directory('ros_industrial_gazebo')
+    pkg_path = get_package_share_directory('ros_industrial_support')
     model_path = pkg_path + '/models/battery/model.sdf'
 
     entity_name = 'battery_' + str(random.randint(0, 1000))

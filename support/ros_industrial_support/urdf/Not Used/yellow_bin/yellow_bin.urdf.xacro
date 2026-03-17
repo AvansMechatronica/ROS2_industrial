@@ -17,12 +17,12 @@
     <link name="${yellow_bin_prefix}origin">
       <visual>
         <geometry>
-          <mesh filename="package://ros_industrial_gazebo/models/yellow_bin_ariac/meshes/yellow_bin.obj" scale="1 2 1"/>
+          <mesh filename="package://ros_industrial_support/models/yellow_bin_ariac/meshes/yellow_bin.obj" scale="1 2 1"/>
         </geometry>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://ros_industrial_gazebo/models/yellow_bin_ariac/meshes/yellow_bin.obj" scale="1 2 1"/>
+          <mesh filename="package://ros_industrial_support/models/yellow_bin_ariac/meshes/yellow_bin.obj" scale="1 2 1"/>
         </geometry>
       </collision>
       <inertial>

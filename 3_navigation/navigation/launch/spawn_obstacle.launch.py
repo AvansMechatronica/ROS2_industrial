@@ -9,7 +9,7 @@ def spawn_object(object_name, x, y , z, p, html_link=''):
     if len(html_link):
         file = html_link
     else:
-        pkg_path = get_package_share_directory('ros_industrial_gazebo')
+        pkg_path = get_package_share_directory('ros_industrial_support')
         file = pkg_path+'/models/' + object_name + '/model.sdf'
 
     entity = object_name + '_' + str(random.randint(0, 1000))
