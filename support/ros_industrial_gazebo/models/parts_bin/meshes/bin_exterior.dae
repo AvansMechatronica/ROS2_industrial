@@ -171,10 +171,10 @@
   </library_effects>
   <library_images>
     <image id="Metal_Rough_jpg_001" name="Metal_Rough_jpg_001">
-      <init_from>Metal_Rough.jpg.001.jpg</init_from>
+      <init_from>Metal_Rough.jpg</init_from>
     </image>
     <image id="Steel_Brushed_Stainless_jpg_001" name="Steel_Brushed_Stainless_jpg_001">
-      <init_from>Steel_Brushed_Stainless.jpg.001.jpg</init_from>
+      <init_from>Steel_Brushed_Stainless.jpg</init_from>
     </image>
   </library_images>
   <library_materials>
