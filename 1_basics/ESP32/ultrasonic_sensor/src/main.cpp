@@ -57,8 +57,9 @@ bool errorLedState = false;
 // - knippert de status-led oneindig
 // - stopt daarmee effectief alle normale programmastromen
 void error_loop(){
+  int count = 0;
   Serial.printf("Ultrasonic Sensor\nError\nSystem halted");
-  while(1){
+  while(count < 20){
     if(errorLedState){
         digitalWrite(STATUS_LED_PIN, HIGH);
         errorLedState = false;
@@ -68,7 +69,9 @@ void error_loop(){
         errorLedState = true;
     }
     delay(100);
+    count++;
   }
+  ESP.restart();
 }
 
 // Timer-callback die periodiek wordt aangeroepen door de executor.
@@ -116,8 +119,6 @@ void setup() {
   // Korte wachttijd om seriële verbinding en agent-opstart te stabiliseren.
   delay(2000);
 
-  // Start de HCSR04 driver met de gekozen trigger- en echo-pin.
-  HCSR04.begin(SR04_TRIG_PIN, SR04_ECHO_PIN);
 
   // Verkrijg standaard allocator voor alle rcl/rclc initialisaties.
   allocator = rcl_get_default_allocator();
@@ -163,6 +164,9 @@ void setup() {
   RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
   RCCHECK(rclc_executor_add_timer(&executor, &timer));
 
+  // Start de HCSR04 driver met de gekozen trigger- en echo-pin.
+  HCSR04.begin(SR04_TRIG_PIN, SR04_ECHO_PIN);
+  delay(100); // Korte vertraging om sensor te stabiliseren.
   // Led uit: setup afgerond, systeem draait normaal.
   digitalWrite(STATUS_LED_PIN, LOW);
 
